@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import {
   CircleDollarSign,
@@ -9,6 +8,7 @@ import {
 import { AiChatbot } from "@/components/AiChatbot";
 import { GoalTimeline } from "@/components/GoalTimeline";
 import React from "react";
+import { AiChatBubble } from "@/components/AiChatBubble";
 
 const features = [
   {
@@ -121,27 +121,14 @@ const FeaturesSection = () => (
 const TimelineAndChatbotSection = () => (
   <section className="bg-background py-16">
     <div className="max-w-5xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-      {/* Goal Timeline */}
-      <div>
+      {/* Goal Timeline ONLY */}
+      <div className="md:col-span-2">
         <h2 className="text-2xl font-bold mb-4 text-primary text-center md:text-left">
           Your Goal Progress
         </h2>
         <GoalTimeline goalSteps={goalSteps} />
       </div>
-      {/* AI Chatbot */}
-      <div>
-        <h2 className="text-2xl font-bold mb-4 text-primary text-center md:text-left">
-          Ask your AI Coach
-        </h2>
-        <div className="w-full max-w-lg mx-auto">
-          <AiChatbot
-            userId="user-001"
-            chatSessionId="session-abc"
-            userProfile={sampleUserProfile}
-            supabaseContext={sampleSupabaseContext}
-          />
-        </div>
-      </div>
+      {/* The chatbot is now launched by the bubble, not in-page. */}
     </div>
   </section>
 );
@@ -177,14 +164,14 @@ const CTASection = () => (
 );
 
 const Index = () => (
-  <main className="min-h-screen bg-background">
+  <main className="min-h-screen bg-background relative">
     {/* Hero Section */}
     <HeroSection />
 
     {/* Features Section */}
     <FeaturesSection />
 
-    {/* Timeline & Chatbot Section (NEW) */}
+    {/* Timeline & Chatbot Section */}
     <TimelineAndChatbotSection />
 
     {/* Testimonials Section */}
@@ -192,8 +179,15 @@ const Index = () => (
 
     {/* Call to Action Section */}
     <CTASection />
+
+    {/* AI Chat Bubble */}
+    <AiChatBubble
+      userId="user-001"
+      chatSessionId="session-abc"
+      userProfile={sampleUserProfile}
+      supabaseContext={sampleSupabaseContext}
+    />
   </main>
 );
 
 export default Index;
-
