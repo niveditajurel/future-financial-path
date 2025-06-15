@@ -3,59 +3,59 @@
 @tailwind components;
 @tailwind utilities;
 
-/* --- Modern Black, White & Green Theme --- */
+/* --- Modern Vibrant Flexible Color Theme --- */
 @layer base {
   :root {
-    --background: 232 16% 5%;       /* #090A0B */
-    --foreground: 0 0% 100%;        /* #FFFFFF (white) */
+    --background: 210 60% 99%;        /* soft white */
+    --foreground: 223 33% 16%;        /* new dark blue */
 
-    --primary: 150 100% 41%;        /* #00D26A - strong "neo-mint" green */
-    --primary-foreground: 232 16% 8%; /* deep off-black */
+    --primary: 265 84% 45%;           /* lush violet - energetic */
+    --primary-foreground: 0 0% 100%;  /* white */
 
-    --secondary: 240 6% 7%;         /* #111113 - off-black/grey */
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 176 89% 87%;         /* mint sky blue - playful */
+    --secondary-foreground: 223 33% 16%;
 
-    --accent: 0 0% 96%;             /* #F5F5F5 (very light accent) */
-    --accent-foreground: 150 100% 41%;
+    --accent: 41 100% 62%;            /* gold/yellow highlight - luxury */
+    --accent-foreground: 33 39% 16%;
 
-    --cta: 170 77% 42%;             /* #14B8A6 - accent teal (optional pops) */
+    --cta: 19 100% 57%;               /* punchy orange - energetic */
     --cta-foreground: 0 0% 100%;
 
-    --success: 150 100% 41%;        /* #00D26A */
-    --success-foreground: 0 0% 100%;
+    --success: 146 71% 56%;           /* fresh green */
+    --success-foreground: 148 20% 16%;
 
-    --muted: 226 10% 13%;           /* #222325 mid-dark card BG */
-    --muted-foreground: 0 0% 85%;
+    --muted: 224 20% 85%;             /* subtle gray bg */
+    --muted-foreground: 227 15% 38%;
 
-    --border: 220 10% 9%;           /* #16181A */
-    --highlight: 132 94% 65%;       /* #50FA7B (neon green highlight) */
+    --border: 224 19% 73%;            /* soft gray border */
+    --highlight: 59 98% 80%;          /* highlight yellow */
 
-    --radius: 0.8rem;
+    --radius: 0.6rem;
   }
   .dark {
-    --background: 232 16% 5%;
-    --foreground: 0 0% 100%;
+    --background: 242 41% 12%;         /* deep blue/void - calming/luxurious */
+    --foreground: 210 60% 99%;         /* soft white */
 
-    --primary: 150 100% 41%;
-    --primary-foreground: 232 16% 8%;
+    --primary: 265 72% 54%;            /* more saturated violet */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 240 6% 7%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 183 69% 36%;          /* lively teal/blue */
+    --secondary-foreground: 210 60% 99%;
 
-    --accent: 0 0% 16%;
-    --accent-foreground: 150 100% 41%;
+    --accent: 41 100% 60%;             /* rich golden highlight */
+    --accent-foreground: 210 60% 99%;
 
-    --cta: 170 77% 42%;
+    --cta: 19 100% 54%;                /* punchy orange */
     --cta-foreground: 0 0% 100%;
 
-    --success: 150 100% 41%;
-    --success-foreground: 0 0% 100%;
+    --success: 146 68% 55%;            /* green */
+    --success-foreground: 210 60% 99%;
 
-    --muted: 226 10% 17%;
-    --muted-foreground: 0 0% 85%;
+    --muted: 232 19% 23%;              /* deep muted blue */
+    --muted-foreground: 224 20% 82%;
 
-    --border: 220 10% 9%;
-    --highlight: 132 94% 65%;
+    --border: 232 19% 23%;             /* deep muted blue */
+    --highlight: 54 99% 45%;           /* accent yellow */
   }
 }
 
@@ -67,4 +67,3 @@
     @apply bg-background text-foreground;
   }
 }
-
