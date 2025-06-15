@@ -6,6 +6,9 @@ import {
   Shield,
   Star,
 } from "lucide-react";
+import { AiChatbot } from "@/components/AiChatbot";
+import { GoalTimeline } from "@/components/GoalTimeline";
+import React from "react";
 
 const features = [
   {
@@ -47,6 +50,36 @@ const testimonials = [
   },
 ];
 
+// --- MOCK DATA for GoalTimeline ---
+const goalSteps = [
+  {
+    label: "Start Emergency Fund",
+    tip: "Begin with $500 for unplanned expenses.",
+    date: "2024-07-01",
+    progress: 30,
+  },
+  {
+    label: "Reach $2,000",
+    tip: "Automate $200 per month from your paycheck.",
+    date: "2024-12-01",
+    progress: 60,
+  },
+  {
+    label: "Buy a House",
+    tip: "Research loan options at least 6 months beforehand.",
+    date: "2026-08-15",
+    progress: 90,
+  },
+];
+
+// --- MOCK PROPS for AiChatbot ---
+const sampleUserProfile = {
+  name: "Jane Doe",
+  email: "jane@example.com",
+  // Any additional user fields
+};
+const sampleSupabaseContext = { lastLogin: "2025-06-14" };
+
 const HeroSection = () => (
   <section className="py-16 px-4 text-center bg-gradient-to-b from-white to-blue-50">
     <h1 className="text-4xl md:text-5xl font-bold mb-4 text-primary">
@@ -80,6 +113,34 @@ const FeaturesSection = () => (
             </div>
           </div>
         ))}
+      </div>
+    </div>
+  </section>
+);
+
+const TimelineAndChatbotSection = () => (
+  <section className="bg-background py-16">
+    <div className="max-w-5xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+      {/* Goal Timeline */}
+      <div>
+        <h2 className="text-2xl font-bold mb-4 text-primary text-center md:text-left">
+          Your Goal Progress
+        </h2>
+        <GoalTimeline goalSteps={goalSteps} />
+      </div>
+      {/* AI Chatbot */}
+      <div>
+        <h2 className="text-2xl font-bold mb-4 text-primary text-center md:text-left">
+          Ask your AI Coach
+        </h2>
+        <div className="w-full max-w-lg mx-auto">
+          <AiChatbot
+            userId="user-001"
+            chatSessionId="session-abc"
+            userProfile={sampleUserProfile}
+            supabaseContext={sampleSupabaseContext}
+          />
+        </div>
       </div>
     </div>
   </section>
@@ -123,6 +184,9 @@ const Index = () => (
     {/* Features Section */}
     <FeaturesSection />
 
+    {/* Timeline & Chatbot Section (NEW) */}
+    <TimelineAndChatbotSection />
+
     {/* Testimonials Section */}
     <TestimonialsSection />
 
@@ -132,3 +196,4 @@ const Index = () => (
 );
 
 export default Index;
+
