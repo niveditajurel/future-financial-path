@@ -1,121 +1,120 @@
 
 import { Button } from "@/components/ui/button";
+import { DollarSign, Lightbulb, ShieldCheck, Sparkles } from "lucide-react";
 
-// Hero Section Component
+const features = [
+  {
+    icon: DollarSign,
+    title: "Accessible Expertise",
+    description:
+      "Get expert-level advice, 24/7, without high fees or jargon—designed for people just starting their wealth journey.",
+  },
+  {
+    icon: Lightbulb,
+    title: "Personalized Guidance",
+    description:
+      "Smart AI tailors coaching and step-by-step money plans to your unique goals, lifestyle, and experience.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Trust & Privacy First",
+    description:
+      "Your data stays secure, private, and never influences your plan—your success is our only goal.",
+  },
+  {
+    icon: Sparkles,
+    title: "Grow with Confidence",
+    description:
+      "Learn money skills as you go, build positive habits, and celebrate every financial win with encouragement from your AI coach.",
+  },
+];
+
+const testimonials = [
+  {
+    quote:
+      "I was always intimidated by money, but this app made it easy. Now I actually feel confident about my finances and have a clear plan for my future.",
+    author: "Jamie T., First-time Investor",
+  },
+  {
+    quote:
+      "Finally, advice that makes sense and doesn't break the bank. The AI coach is patient, practical, and always available.",
+    author: "Alex R., Young Professional",
+  },
+];
+
 const HeroSection = () => (
-  <section className="max-w-3xl mx-auto py-12 text-center">
-    <h1 className="text-4xl md:text-5xl font-bold mb-4 text-primary animate-fade-in">
+  <section className="py-16 px-4 text-center bg-gradient-to-b from-white to-blue-50 animate-fade-in">
+    <h1 className="text-4xl md:text-5xl font-bold mb-4 text-primary">
       Unlock Your Financial Future with Smart, Personalized Advice
     </h1>
-    <p className="text-xl md:text-2xl text-muted-foreground mb-6 animate-fade-in">
+    <p className="text-xl md:text-2xl text-muted-foreground mb-8">
       Your AI Coach for Money Confidence—No Experience Needed
     </p>
-    <Button className="px-8 py-4 text-lg mt-2 animate-scale-in">Start Your Wealth Journey Today</Button>
+    <Button className="px-8 py-4 text-lg shadow-lg animate-scale-in">Start Your Wealth Journey Today</Button>
   </section>
 );
 
-const Section = ({
-  title,
-  children,
-  className = "",
-}: {
-  title: string;
-  children: React.ReactNode;
-  className?: string;
-}) => (
-  <section className={`max-w-2xl mx-auto py-8 px-4 ${className}`}>
-    <h2 className="text-2xl font-semibold mb-2 text-primary">{title}</h2>
-    <div className="text-base text-foreground">{children}</div>
+const FeaturesSection = () => (
+  <section className="py-16 bg-background">
+    <div className="max-w-5xl mx-auto px-4">
+      <h2 className="text-3xl font-bold text-center mb-8 text-primary">Why You'll Love Our App</h2>
+      <div className="grid gap-8 md:grid-cols-2">
+        {features.map((feature) => (
+          <div
+            key={feature.title}
+            className="flex items-start rounded-lg bg-white shadow p-6 space-x-4 hover:shadow-lg transition-shadow"
+          >
+            <div className="flex-shrink-0">
+              <feature.icon className="h-10 w-10 text-primary" />
+            </div>
+            <div>
+              <h3 className="font-semibold text-xl mb-1 text-primary">{feature.title}</h3>
+              <p className="text-base text-muted-foreground">{feature.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
   </section>
 );
 
-const HowItWorksStep = ({
-  number,
-  title,
-  description,
-}: {
-  number: number;
-  title: string;
-  description: string;
-}) => (
-  <div className="flex items-start space-x-4 py-2">
-    <div className="h-10 w-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-lg shrink-0">
-      {number}
+const TestimonialSection = () => (
+  <section className="py-16 bg-blue-50">
+    <div className="max-w-3xl mx-auto px-4 text-center">
+      <h2 className="text-2xl font-bold mb-8 text-primary">What Our Users Say</h2>
+      <div className="grid gap-8 md:grid-cols-2">
+        {testimonials.map((t, idx) => (
+          <div key={idx} className="bg-white border rounded-lg shadow p-6 flex flex-col h-full justify-between">
+            <blockquote className="text-lg italic mb-4 text-muted-foreground">&quot;{t.quote}&quot;</blockquote>
+            <span className="text-primary font-medium">{t.author}</span>
+          </div>
+        ))}
+      </div>
     </div>
-    <div>
-      <div className="font-medium">{title}</div>
-      <div className="text-muted-foreground">{description}</div>
-    </div>
-  </div>
-);
-
-const BenefitsList = () => (
-  <ul className="grid gap-3">
-    <li>
-      <span className="font-medium text-primary">Made for Beginners:</span> No jargon, no judgment, just simple steps.
-    </li>
-    <li>
-      <span className="font-medium text-primary">Always On Your Side:</span> Your data stays private, your goals drive the plan.
-    </li>
-    <li>
-      <span className="font-medium text-primary">Affordable &amp; Accessible:</span> Get expert guidance—no more high fees or intimidating processes.
-    </li>
-    <li>
-      <span className="font-medium text-primary">Empower Your Success:</span> Learn as you grow, build strong habits, and celebrate big wins.
-    </li>
-  </ul>
+  </section>
 );
 
 const CTASection = () => (
-  <section className="text-center py-12">
-    <h2 className="text-3xl font-bold mb-4 text-primary">Take the guesswork out of money.</h2>
-    <p className="text-lg text-muted-foreground mb-6">
+  <section className="py-20 px-4 text-center bg-gradient-to-tr from-primary to-blue-400 animate-fade-in">
+    <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white drop-shadow">
+      Take the Guesswork Out of Money
+    </h2>
+    <p className="text-lg md:text-xl mb-8 text-white/90">
       Join thousands of people starting their path to financial freedom.
     </p>
-    <Button className="px-8 py-4 text-lg animate-scale-in">Get Started Now</Button>
+    <Button className="px-8 py-4 text-lg bg-white text-primary font-bold border border-primary shadow-md hover:bg-blue-50 animate-scale-in">
+      Get Started Now
+    </Button>
   </section>
 );
 
-const Index = () => {
-  return (
-    <main className="min-h-screen bg-background animate-fade-in">
-      <HeroSection />
-
-      <Section title="The Problem">
-        Financial advice often feels confusing, intimidating, and way too expensive. Most guides speak in jargon or require minimum balances—leaving beginners overwhelmed and unsure where to start.
-      </Section>
-
-      <Section title="The Solution">
-        Meet your new AI financial coach—an easy-to-use app designed to empower you from day one. Get clear, personalized strategies for saving, spending, and building wealth, all tailored to your unique goals and lifestyle. It’s like having a friendly money expert in your pocket, 24/7.
-      </Section>
-
-      <Section title="How It Works" className="pb-0">
-        <div className="space-y-2">
-          <HowItWorksStep
-            number={1}
-            title="Answer a Few Questions"
-            description="Tell us about your goals—whether it’s building savings, getting out of debt, or investing for your first major milestone."
-          />
-          <HowItWorksStep
-            number={2}
-            title="Get Your Personalized Plan"
-            description="Instantly receive easy-to-follow action steps and budgets, designed just for you."
-          />
-          <HowItWorksStep
-            number={3}
-            title="Ongoing Guidance"
-            description="Chat with your AI coach anytime to ask questions, adjust your plan, or get support when things change."
-          />
-        </div>
-      </Section>
-
-      <Section title="Why Choose Us?" className="pb-0">
-        <BenefitsList />
-      </Section>
-
-      <CTASection />
-    </main>
-  );
-};
+const Index = () => (
+  <main className="min-h-screen bg-background">
+    <HeroSection />
+    <FeaturesSection />
+    <TestimonialSection />
+    <CTASection />
+  </main>
+);
 
 export default Index;
