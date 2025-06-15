@@ -1,10 +1,10 @@
-
 import React from "react";
 import {
   BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip as RechartsTooltip, PieChart, Pie, Cell, Legend,
 } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { CircleArrowUp, CircleArrowDown, CircleArrowRight } from "lucide-react";
+import { CircleArrowUp, CircleArrowDown, CircleArrowRight, ArrowLeft } from "lucide-react";
+import { Link } from "react-router-dom";
 
 // --- Mock Data ---
 const data = {
@@ -38,6 +38,12 @@ function formatCurrency(amount: number) {
 export default function Dashboard() {
   return (
     <div className="min-h-screen bg-gradient-to-tr from-blue-50 to-white py-10 px-4 md:px-10">
+      {/* Back to Home button */}
+      <div className="max-w-5xl mx-auto flex justify-start mb-8">
+        <Link to="/" className="inline-flex items-center gap-2 text-sm bg-white border border-primary rounded-md px-4 py-2 shadow hover:bg-blue-100 transition animate-fade-in">
+          <ArrowLeft size={18} /> Back to Home
+        </Link>
+      </div>
       {/* Greeting */}
       <div className="max-w-3xl mx-auto mb-8">
         <div className="bg-primary text-primary-foreground rounded-lg p-6 flex items-center gap-4 shadow animate-fade-in">
@@ -48,7 +54,6 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
-
       {/* Summary Cards */}
       <div className="grid gap-6 mb-10 md:grid-cols-3 max-w-5xl mx-auto">
         <Card className="shadow hover:scale-105 hover:shadow-lg hover:bg-blue-50 transition-all">
@@ -86,7 +91,6 @@ export default function Dashboard() {
           </CardContent>
         </Card>
       </div>
-
       {/* Charts */}
       <div className="grid gap-8 md:grid-cols-2 max-w-5xl mx-auto">
         {/* Bar Chart: Monthly Spending Trends */}
@@ -109,7 +113,6 @@ export default function Dashboard() {
             </ResponsiveContainer>
           </CardContent>
         </Card>
-
         {/* Pie Chart: Investment Distribution */}
         <Card className="p-2">
           <CardHeader>

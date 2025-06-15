@@ -4,12 +4,14 @@ import {
   FileText,
   Shield,
   Star,
+  LayoutDashboard,
 } from "lucide-react";
 import { AiChatbot } from "@/components/AiChatbot";
 import { GoalTimeline } from "@/components/GoalTimeline";
 import React from "react";
 import { AiChatBubble } from "@/components/AiChatBubble";
 import { FadeIn, PopIn, PulseGlow, Flicker } from "@/components/ui/animations";
+import { Link } from "react-router-dom";
 
 const features = [
   {
@@ -131,12 +133,15 @@ const HeroSection = () => (
           </p>
         </FadeIn>
         <FadeIn delay={220}>
-          <button className="relative px-10 py-4 font-bold text-lg rounded-lg bg-primary hover:bg-accent text-primary-foreground shadow-xl active:scale-98 transition transform animate-pop-in ring-2 ring-accent/20 ring-offset-2 ring-offset-background focus:outline-none focus:ring-4 focus:ring-cta/50 duration-150">
-            Get Started—It's Free
-            <span className="absolute top-0 right-0 z-[-1]">
-              <PulseGlow size={42} color="rgba(33,199,104,0.23)" />
-            </span>
-          </button>
+          {/* Updated button: navigate to /dashboard */}
+          <Link to="/dashboard" tabIndex={-1}>
+            <button className="relative px-10 py-4 font-bold text-lg rounded-lg bg-primary hover:bg-accent text-primary-foreground shadow-xl active:scale-98 transition transform animate-pop-in ring-2 ring-accent/20 ring-offset-2 ring-offset-background focus:outline-none focus:ring-4 focus:ring-cta/50 duration-150">
+              Get Started—It's Free
+              <span className="absolute top-0 right-0 z-[-1]">
+                <PulseGlow size={42} color="rgba(33,199,104,0.23)" />
+              </span>
+            </button>
+          </Link>
         </FadeIn>
         <FadeIn delay={340}>
           <div className="flex flex-wrap gap-3 justify-center mt-7">
@@ -150,6 +155,15 @@ const HeroSection = () => (
               No Experience Needed
             </span>
           </div>
+        </FadeIn>
+        {/* Add a Go to Dashboard button for extra clarity */}
+        <FadeIn delay={400}>
+          <Link to="/dashboard" className="mt-10 inline-block">
+            <Button variant="outline" size="lg" className="gap-2">
+              <LayoutDashboard className="w-5 h-5" />
+              Go to Dashboard
+            </Button>
+          </Link>
         </FadeIn>
       </div>
     </FadeIn>
@@ -233,9 +247,12 @@ const CTASection = () => (
       <p className="text-lg md:text-xl mb-8 text-white/90 animate-fade-in">
         Join thousands of people starting their path to financial freedom.
       </p>
-      <Button className="px-8 py-4 text-lg bg-white text-primary font-bold border border-primary shadow-md hover:bg-blue-50 animate-scale-in hover:scale-105 transition-transform">
-        Get Started Now
-      </Button>
+      {/* Updated button: Link to dashboard */}
+      <Link to="/dashboard">
+        <Button className="px-8 py-4 text-lg bg-white text-primary font-bold border border-primary shadow-md hover:bg-blue-50 animate-scale-in hover:scale-105 transition-transform">
+          Get Started Now
+        </Button>
+      </Link>
     </div>
   </section>
 );
