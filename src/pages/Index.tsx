@@ -95,11 +95,29 @@ const HeroSection = () => (
           <h1 className="text-5xl md:text-6xl leading-tight font-extrabold mb-5 tracking-tight drop-shadow max-w-xl bg-clip-text text-transparent bg-gradient-to-r from-primary via-white to-accent inline-block">
             <span className="inline-block">
               Unlock&nbsp;
-              <Flicker>your future</Flicker>&nbsp;
-              with
+              <span style={{
+                color: "hsl(var(--primary))",
+                textShadow: "0 0 12px hsl(var(--primary)), 0 0 25px #21c768, 0 0 5px #fff, 1px 1px 0 #000",
+                fontWeight: 900,
+                position: "relative",
+                zIndex: 2,
+              }}>
+                <Flicker>your future</Flicker>
+              </span>
+              &nbsp;with
               <span className="ml-2">
                 <PulseGlow>
-                  <span className="inline-block rounded px-2 py-1 font-bold text-primary bg-cta/20 shadow-lg">Smart Money Advice</span>
+                  <span
+                    className="inline-block rounded px-2 py-1 font-bold"
+                    style={{
+                      color: "hsl(var(--primary))",
+                      background: "white",
+                      boxShadow: "0 2px 18px 0 rgba(33,199,104,0.18)",
+                      border: "2px solid hsl(var(--primary))",
+                    }}
+                  >
+                    Smart Money Advice
+                  </span>
                 </PulseGlow>
               </span>
             </span>
