@@ -49,14 +49,14 @@ export default {
 				border: 'hsl(var(--border))',
 				highlight: 'hsl(var(--highlight))',
 
-				// Custom chart and UI colors for branding
+				// Updated project-branded UI and chart colors
 				chart: {
-					violet: '#775FFD',
-					teal: '#42E7D7',
-					orange: '#FF914D',
-					gold: '#FFD567',
-					navy: '#171C2A',
-					mint: '#B9FFEC',
+					green: '#21C768',     // Green for key chart values or accents
+					dark: '#191C1C',      // Card/section dark backgrounds
+					white: '#FFF',        // True white
+					black: '#000',        // True black
+					blue: '#3F90FC',      // Optional accent blue for illustration
+					gray: '#D7DFE2',      // Muted UI support
 				}
 			},
 			borderRadius: {

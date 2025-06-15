@@ -3,59 +3,59 @@
 @tailwind components;
 @tailwind utilities;
 
-/* --- Modern Vibrant Flexible Color Theme --- */
+/* --- Black, White, Green Theme for This Project --- */
 @layer base {
   :root {
-    --background: 210 60% 99%;        /* soft white */
-    --foreground: 223 33% 16%;        /* new dark blue */
+    --background: 0 0% 0%;                 /* pure black */
+    --foreground: 0 0% 100%;               /* pure white */
 
-    --primary: 265 84% 45%;           /* lush violet - energetic */
-    --primary-foreground: 0 0% 100%;  /* white */
+    --primary: 141 70% 46%;                /* vibrant green */
+    --primary-foreground: 0 0% 100%;       /* always white on green */
 
-    --secondary: 176 89% 87%;         /* mint sky blue - playful */
-    --secondary-foreground: 223 33% 16%;
+    --secondary: 0 0% 13%;                 /* almost black for sections */
+    --secondary-foreground: 141 70% 46%;   /* green on dark */
 
-    --accent: 41 100% 62%;            /* gold/yellow highlight - luxury */
-    --accent-foreground: 33 39% 16%;
+    --accent: 166 60% 55%;                 /* fresh minty green accent */
+    --accent-foreground: 0 0% 100%;
 
-    --cta: 19 100% 57%;               /* punchy orange - energetic */
+    --cta: 166 72% 43%;                    /* deep green for CTAs/buttons */
     --cta-foreground: 0 0% 100%;
 
-    --success: 146 71% 56%;           /* fresh green */
-    --success-foreground: 148 20% 16%;
+    --success: 141 80% 42%;                /* softer green for positive icons */
+    --success-foreground: 0 0% 100%;
 
-    --muted: 224 20% 85%;             /* subtle gray bg */
-    --muted-foreground: 227 15% 38%;
+    --muted: 0 0% 17%;                     /* off-black muted bg */
+    --muted-foreground: 145 15% 58%;       /* subtle medium green text */
 
-    --border: 224 19% 73%;            /* soft gray border */
-    --highlight: 59 98% 80%;          /* highlight yellow */
+    --border: 141 29% 32%;                 /* dark green border */
+    --highlight: 141 97% 77%;              /* pale green highlight */
 
     --radius: 0.6rem;
   }
   .dark {
-    --background: 242 41% 12%;         /* deep blue/void - calming/luxurious */
-    --foreground: 210 60% 99%;         /* soft white */
+    --background: 0 0% 0%;                /* black */
+    --foreground: 0 0% 100%;              /* white */
 
-    --primary: 265 72% 54%;            /* more saturated violet */
+    --primary: 141 70% 46%;               /* vibrant green stays for brand consistency */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 183 69% 36%;          /* lively teal/blue */
-    --secondary-foreground: 210 60% 99%;
+    --secondary: 0 0% 10%;                /* ultra dark for card/section */
+    --secondary-foreground: 166 60% 55%;  /* mint accent on deep bg */
 
-    --accent: 41 100% 60%;             /* rich golden highlight */
-    --accent-foreground: 210 60% 99%;
+    --accent: 166 60% 55%;                /* minty accent */
+    --accent-foreground: 0 0% 100%;
 
-    --cta: 19 100% 54%;                /* punchy orange */
-    --cta-foreground: 0 0% 100%;
+    --cta: 141 72% 48%;                   /* slightly lighter green in dark */
+    --cta-foreground: 0 0% 0%;
 
-    --success: 146 68% 55%;            /* green */
-    --success-foreground: 210 60% 99%;
+    --success: 141 55% 44%;
+    --success-foreground: 0 0% 100%;
 
-    --muted: 232 19% 23%;              /* deep muted blue */
-    --muted-foreground: 224 20% 82%;
+    --muted: 0 0% 17%;                    /* off-black muted */
+    --muted-foreground: 163 9% 54%;       /* gray-green text */
 
-    --border: 232 19% 23%;             /* deep muted blue */
-    --highlight: 54 99% 45%;           /* accent yellow */
+    --border: 141 29% 22%;                /* deep green border */
+    --highlight: 141 97% 37%;             /* accent highlight */
   }
 }
 
