@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import {
   CircleDollarSign,
@@ -10,6 +9,7 @@ import { AiChatbot } from "@/components/AiChatbot";
 import { GoalTimeline } from "@/components/GoalTimeline";
 import React from "react";
 import { AiChatBubble } from "@/components/AiChatBubble";
+import { FadeIn, PopIn, PulseGlow, Flicker } from "@/components/ui/animations";
 
 const features = [
   {
@@ -82,26 +82,57 @@ const sampleUserProfile = {
 const sampleSupabaseContext = { lastLogin: "2025-06-14" };
 
 const HeroSection = () => (
-  <section className="py-16 px-4 text-center bg-gradient-to-b from-white to-blue-50">
-    <div className="max-w-4xl mx-auto">
-      <h1 className="text-4xl md:text-5xl font-extrabold mb-4 text-primary animate-fade-in transition-all duration-700">
-        Unlock Your Financial Future with <span className="bg-gradient-to-r from-primary to-cta bg-clip-text text-transparent">Smart, Personalized Advice</span>
-      </h1>
-      <p className="text-xl md:text-2xl text-muted-foreground mb-8 animate-fade-in" style={{animationDelay: "100ms"}}>
-        Your AI Coach for Money Confidence—No Experience Needed
-      </p>
-      <Button className="px-8 py-4 text-lg shadow-lg animate-scale-in hover:scale-105 transition-transform duration-300">
-        Start Your Wealth Journey Today
-      </Button>
-      <div className="mt-8 flex justify-center gap-4">
-        <span className="rounded-full bg-accent/60 px-4 py-2 text-sm font-semibold text-accent-foreground shadow pulse">
-          New! Built for Gen Z & Millennials
-        </span>
-        <span className="rounded-full bg-success/70 px-4 py-2 text-sm font-semibold text-success-foreground shadow hover-scale">
-          Try in dark mode!
-        </span>
-      </div>
+  <section className="relative py-20 md:py-32 px-4 bg-gradient-to-b from-background to-transparent overflow-hidden text-center">
+    {/* Animated floating glowy rings */}
+    <div className="absolute left-1/2 top-0 md:top-0 -translate-x-1/2 z-0 pointer-events-none w-full flex justify-center">
+      <div className="w-96 h-96 md:w-[34rem] md:h-[34rem] rounded-full opacity-60 blur-3xl" style={{
+        background: "radial-gradient(circle at 50% 55%, rgba(33,199,104,0.22) 0%, transparent 90%)",
+      }} />
     </div>
+    <FadeIn>
+      <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center gap-1">
+        <PopIn>
+          <h1 className="text-5xl md:text-6xl leading-tight font-extrabold mb-5 tracking-tight drop-shadow max-w-xl bg-clip-text text-transparent bg-gradient-to-r from-primary via-white to-accent inline-block">
+            <span className="inline-block">
+              Unlock&nbsp;
+              <Flicker>your future</Flicker>&nbsp;
+              with
+              <span className="ml-2">
+                <PulseGlow>
+                  <span className="inline-block rounded px-2 py-1 font-bold text-primary bg-cta/20 shadow-lg">Smart Money Advice</span>
+                </PulseGlow>
+              </span>
+            </span>
+          </h1>
+        </PopIn>
+        <FadeIn delay={120}>
+          <p className="text-xl md:text-2xl text-muted-foreground font-medium mb-6 md:mb-8 max-w-lg animate-fade-in" style={{animationDelay: "120ms"}}>
+            Your AI coach for building wealth, confidence, and financial peace of mind—one step at a time.
+          </p>
+        </FadeIn>
+        <FadeIn delay={220}>
+          <button className="relative px-10 py-4 font-bold text-lg rounded-lg bg-primary hover:bg-accent text-primary-foreground shadow-xl active:scale-98 transition transform animate-pop-in ring-2 ring-accent/20 ring-offset-2 ring-offset-background focus:outline-none focus:ring-4 focus:ring-cta/50 duration-150">
+            Get Started—It's Free
+            <span className="absolute top-0 right-0 z-[-1]">
+              <PulseGlow size={42} color="rgba(33,199,104,0.23)" />
+            </span>
+          </button>
+        </FadeIn>
+        <FadeIn delay={340}>
+          <div className="flex flex-wrap gap-3 justify-center mt-7">
+            <span className="rounded-full bg-muted/80 px-5 py-2 text-sm font-semibold text-accent-foreground shadow hover-scale">
+              For Gen Z &amp; Millennials
+            </span>
+            <span className="rounded-full bg-success/80 px-5 py-2 text-sm font-semibold text-success-foreground shadow hover-scale">
+              Try in Dark Mode!
+            </span>
+            <span className="rounded-full border border-highlight px-5 py-2 text-sm font-semibold text-highlight shadow hover-scale">
+              No Experience Needed
+            </span>
+          </div>
+        </FadeIn>
+      </div>
+    </FadeIn>
   </section>
 );
 
