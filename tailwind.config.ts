@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -19,48 +20,44 @@ export default {
 		},
 		extend: {
 			colors: {
-				border: 'hsl(var(--border))',
-				input: 'hsl(var(--input))',
-				ring: 'hsl(var(--ring))',
+				// Semantic tokens mapped to your palette
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
+
 				primary: {
-					DEFAULT: 'hsl(var(--primary))',
-					foreground: 'hsl(var(--primary-foreground))'
-				},
-				secondary: {
-					DEFAULT: 'hsl(var(--secondary))',
-					foreground: 'hsl(var(--secondary-foreground))'
-				},
-				destructive: {
-					DEFAULT: 'hsl(var(--destructive))',
-					foreground: 'hsl(var(--destructive-foreground))'
-				},
-				muted: {
-					DEFAULT: 'hsl(var(--muted))',
-					foreground: 'hsl(var(--muted-foreground))'
+					DEFAULT: 'hsl(var(--primary))', // dark-void
+					foreground: 'hsl(var(--primary-foreground))', // marigold
 				},
 				accent: {
-					DEFAULT: 'hsl(var(--accent))',
-					foreground: 'hsl(var(--accent-foreground))'
+					DEFAULT: 'hsl(var(--accent))', // liquid-lova
+					foreground: 'hsl(var(--accent-foreground))', // dark-void or marigold
 				},
-				popover: {
-					DEFAULT: 'hsl(var(--popover))',
-					foreground: 'hsl(var(--popover-foreground))'
+				cta: {
+					DEFAULT: 'hsl(var(--cta))', // gloun-lova
+					foreground: 'hsl(var(--cta-foreground))', // marigold
+				},
+				secondary: {
+					DEFAULT: 'hsl(var(--secondary))', // slate-grey
+					foreground: 'hsl(var(--secondary-foreground))' // marigold
+				},
+				muted: {
+					DEFAULT: 'hsl(var(--muted))', // dusty-grey
+					foreground: 'hsl(var(--muted-foreground))', // dusty-grey or slate-grey
 				},
 				card: {
-					DEFAULT: 'hsl(var(--card))',
-					foreground: 'hsl(var(--card-foreground))'
+					DEFAULT: 'hsl(var(--card))', // dark-void
+					foreground: 'hsl(var(--card-foreground))', // marigold or slate-grey
 				},
-				sidebar: {
-					DEFAULT: 'hsl(var(--sidebar-background))',
-					foreground: 'hsl(var(--sidebar-foreground))',
-					primary: 'hsl(var(--sidebar-primary))',
-					'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-					accent: 'hsl(var(--sidebar-accent))',
-					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-					border: 'hsl(var(--sidebar-border))',
-					ring: 'hsl(var(--sidebar-ring))'
+				border: 'hsl(var(--border))', // dusty-grey
+				highlight: 'hsl(var(--highlight))', // marigold
+				// Chart colors
+				chart: {
+					void: '#16151A',
+					lova: '#F67011',
+					gloun: '#873800',
+					slate: '#262626',
+					dusty: '#878787',
+					marigold: '#FFE4D0',
 				}
 			},
 			borderRadius: {
@@ -94,3 +91,4 @@ export default {
 	},
 	plugins: [require("tailwindcss-animate")],
 } satisfies Config;
+
