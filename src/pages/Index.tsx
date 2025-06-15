@@ -95,13 +95,15 @@ const HeroSection = () => (
           <h1 className="text-5xl md:text-6xl leading-tight font-extrabold mb-5 tracking-tight drop-shadow max-w-xl bg-clip-text text-transparent bg-gradient-to-r from-primary via-white to-accent inline-block">
             <span className="inline-block">
               Unlock&nbsp;
-              <span style={{
-                color: "hsl(var(--primary))",
-                textShadow: "0 0 12px hsl(var(--primary)), 0 0 25px #21c768, 0 0 5px #fff, 1px 1px 0 #000",
-                fontWeight: 900,
-                position: "relative",
-                zIndex: 2,
-              }}>
+              <span
+                style={{
+                  color: "hsl(var(--primary))",
+                  textShadow: "0 0 4px hsl(var(--primary)), 0 0 8px #21c768, 0 0 2px #fff",
+                  fontWeight: 900,
+                  position: "relative",
+                  zIndex: 2,
+                }}
+              >
                 <Flicker>your future</Flicker>
               </span>
               &nbsp;with
