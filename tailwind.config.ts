@@ -20,44 +20,42 @@ export default {
 		},
 		extend: {
 			colors: {
-				// Semantic tokens mapped to your palette
+				// Semantic tokens mapped to new palette
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
 
 				primary: {
-					DEFAULT: 'hsl(var(--primary))', // dark-void
-					foreground: 'hsl(var(--primary-foreground))', // marigold
-				},
-				accent: {
-					DEFAULT: 'hsl(var(--accent))', // liquid-lova
-					foreground: 'hsl(var(--accent-foreground))', // dark-void or marigold
-				},
-				cta: {
-					DEFAULT: 'hsl(var(--cta))', // gloun-lova
-					foreground: 'hsl(var(--cta-foreground))', // marigold
+					DEFAULT: 'hsl(var(--primary))', // deep-navy
+					foreground: 'hsl(var(--primary-foreground))', // soft-white
 				},
 				secondary: {
-					DEFAULT: 'hsl(var(--secondary))', // slate-grey
-					foreground: 'hsl(var(--secondary-foreground))' // marigold
+					DEFAULT: 'hsl(var(--secondary))', // gentle-lavender
+					foreground: 'hsl(var(--secondary-foreground))', // deep-navy
 				},
-				muted: {
-					DEFAULT: 'hsl(var(--muted))', // dusty-grey
-					foreground: 'hsl(var(--muted-foreground))', // dusty-grey or slate-grey
+				accent: {
+					DEFAULT: 'hsl(var(--accent))', // vivid-violet
+					foreground: 'hsl(var(--accent-foreground))', // soft-white
 				},
-				card: {
-					DEFAULT: 'hsl(var(--card))', // dark-void
-					foreground: 'hsl(var(--card-foreground))', // marigold or slate-grey
+				cta: {
+					DEFAULT: 'hsl(var(--cta))', // coral
+					foreground: 'hsl(var(--cta-foreground))', // soft-white
 				},
-				border: 'hsl(var(--border))', // dusty-grey
-				highlight: 'hsl(var(--highlight))', // marigold
-				// Chart colors
+				success: {
+					DEFAULT: 'hsl(var(--success))', // mint-green
+					foreground: 'hsl(var(--success-foreground))', // deep-navy
+				},
+				border: 'hsl(var(--border))', // warm-grey
+				highlight: 'hsl(var(--highlight))', // accent-yellow
+
+				// Chart colors for visualizations
 				chart: {
-					void: '#16151A',
-					lova: '#F67011',
-					gloun: '#873800',
-					slate: '#262626',
-					dusty: '#878787',
-					marigold: '#FFE4D0',
+					navy: '#172347',
+					violet: '#7F5CFF',
+					coral: '#FF7A5A',
+					mint: '#7CF7C0',
+					lavender: '#D8D3F8',
+					grey: '#E5E7EB',
+					yellow: '#FFD567'
 				}
 			},
 			borderRadius: {
@@ -67,20 +65,12 @@ export default {
 			},
 			keyframes: {
 				'accordion-down': {
-					from: {
-						height: '0'
-					},
-					to: {
-						height: 'var(--radix-accordion-content-height)'
-					}
+					from: { height: '0' },
+					to: { height: 'var(--radix-accordion-content-height)' }
 				},
 				'accordion-up': {
-					from: {
-						height: 'var(--radix-accordion-content-height)'
-					},
-					to: {
-						height: '0'
-					}
+					from: { height: 'var(--radix-accordion-content-height)' },
+					to: { height: '0' }
 				}
 			},
 			animation: {
@@ -91,4 +81,3 @@ export default {
 	},
 	plugins: [require("tailwindcss-animate")],
 } satisfies Config;
-

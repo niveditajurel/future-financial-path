@@ -3,53 +3,54 @@
 @tailwind components;
 @tailwind utilities;
 
-/* --- Design System Palette --- */
+/* --- New Color Theme Palette --- */
 @layer base {
   :root {
-    /* Color tokens mapped to palette */
-    --background: 30 100% 97.5%; /* marigold as a light background */
-    --foreground: 240 8% 15%; /* slate-grey */
+    /* Palette */
+    --background: 222 100% 99%;         /* soft-white */
+    --foreground: 231 65% 15%;          /* deep navy */
 
-    --primary: 258 10% 8%;     /* dark-void - #16151A */
-    --primary-foreground: 29 100% 90%; /* marigold - #FFE4D0 */
+    --primary: 231 65% 15%;             /* deep-navy #172347 */
+    --primary-foreground: 222 100% 99%; /* soft white */
 
-    --accent: 27 97% 52%;      /* liquid-lova - #F67011 */
-    --accent-foreground: 258 10% 8%; /* dark-void for contrast */
+    --secondary: 246 63% 92%;           /* gentle-lavender #D8D3F8 */
+    --secondary-foreground: 231 65% 15%;/* deep navy */
 
-    --cta: 28 97% 27%;         /* gloun-lova - #873800 */
-    --cta-foreground: 29 100% 90%; /* marigold - #FFE4D0 */
+    --accent: 260 89% 63%;              /* vivid-violet #7F5CFF */
+    --accent-foreground: 222 100% 99%;  /* white for contrast */
 
-    --secondary: 0 0% 15%;     /* slate-grey - #262626 */
-    --secondary-foreground: 29 100% 90%; /* marigold */
+    --cta: 13 100% 69%;                 /* energetic-coral #FF7A5A */
+    --cta-foreground: 222 100% 99%;     /* white */
 
-    --muted: 0 0% 53%;         /* dusty-grey - #878787 */
-    --muted-foreground: 0 0% 53%; /* dusty-grey, used for subtle bg/labels */
+    --success: 154 92% 73%;             /* mint-green #7CF7C0 */
+    --success-foreground: 231 65% 15%;  /* navy */
 
-    --card: 258 10% 8%;        /* dark-void - #16151A */
-    --card-foreground: 29 100% 90%; /* marigold */
-
-    --border: 0 0% 53%;        /* dusty-grey #878787 */
-    --highlight: 29 100% 90%;  /* marigold */
+    --border: 45 17% 85%;               /* warm-grey #E5E7EB */
+    --highlight: 48 97% 70%;            /* accent-yellow #FFD567 */
 
     --radius: 0.5rem;
   }
   .dark {
-    --background: 258 10% 8%; /* dark-void */
-    --foreground: 29 100% 90%; /* marigold */
-    --primary: 258 10% 8%;     /* dark-void */
-    --primary-foreground: 29 100% 90%; /* marigold */
-    --accent: 27 97% 52%;      /* liquid-lova */
-    --accent-foreground: 29 100% 90%; /* marigold */
-    --cta: 28 97% 27%;         /* gloun-lova */
-    --cta-foreground: 29 100% 90%; /* marigold */
-    --secondary: 0 0% 15%;     /* slate-grey */
-    --secondary-foreground: 29 100% 90%; /* marigold */
-    --muted: 0 0% 53%;         /* dusty-grey */
-    --muted-foreground: 29 40% 70%; /* lighter marigold for muted */
-    --card: 258 10% 8%;        /* dark-void */
-    --card-foreground: 29 100% 90%; /* marigold */
-    --border: 0 0% 53%;        /* dusty-grey */
-    --highlight: 27 100% 92%;  /* marigold, a bit lighter */
+    --background: 231 65% 15%;         /* deep navy */
+    --foreground: 222 100% 99%;        /* white */
+
+    --primary: 231 65% 15%;            /* navy */
+    --primary-foreground: 222 100% 99%;/* white */
+
+    --secondary: 246 43% 22%;          /* muted-purple #262653 (dark) */
+    --secondary-foreground: 222 100% 99%; /* white */
+
+    --accent: 260 89% 63%;             /* violet */
+    --accent-foreground: 222 100% 99%; /* white */
+
+    --cta: 13 100% 69%;                /* coral */
+    --cta-foreground: 222 100% 99%;    /* white */
+
+    --success: 154 92% 73%;            /* mint-green */
+    --success-foreground: 231 65% 15%; /* navy */
+
+    --border: 231 15% 35%;             /* deepened border in dark */
+    --highlight: 48 97% 70%;           /* accent yellow */
   }
 }
 
