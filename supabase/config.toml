@@ -1,1 +1,5 @@
+
 project_id = "mwcxiswfwubiljuoctyy"
+
+[functions.financial-summary]
+verify_jwt = true
