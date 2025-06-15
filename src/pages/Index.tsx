@@ -148,9 +148,6 @@ const HeroSection = () => (
             <span className="rounded-full bg-muted/80 px-5 py-2 text-sm font-semibold text-accent-foreground shadow hover-scale">
               For Gen Z &amp; Millennials
             </span>
-            <span className="rounded-full bg-success/80 px-5 py-2 text-sm font-semibold text-success-foreground shadow hover-scale">
-              Try in Dark Mode!
-            </span>
             <span className="rounded-full border border-highlight px-5 py-2 text-sm font-semibold text-highlight shadow hover-scale">
               No Experience Needed
             </span>
