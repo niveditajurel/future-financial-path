@@ -3,54 +3,59 @@
 @tailwind components;
 @tailwind utilities;
 
-/* --- New Color Theme Palette --- */
+/* --- Modern Vibrant Flexible Color Theme --- */
 @layer base {
   :root {
-    /* Palette */
-    --background: 222 100% 99%;         /* soft-white */
-    --foreground: 231 65% 15%;          /* deep navy */
+    --background: 210 60% 99%;        /* soft white */
+    --foreground: 223 33% 16%;        /* new dark blue */
 
-    --primary: 231 65% 15%;             /* deep-navy #172347 */
-    --primary-foreground: 222 100% 99%; /* soft white */
+    --primary: 265 84% 45%;           /* lush violet - energetic */
+    --primary-foreground: 0 0% 100%;  /* white */
 
-    --secondary: 246 63% 92%;           /* gentle-lavender #D8D3F8 */
-    --secondary-foreground: 231 65% 15%;/* deep navy */
+    --secondary: 176 89% 87%;         /* mint sky blue - playful */
+    --secondary-foreground: 223 33% 16%;
 
-    --accent: 260 89% 63%;              /* vivid-violet #7F5CFF */
-    --accent-foreground: 222 100% 99%;  /* white for contrast */
+    --accent: 41 100% 62%;            /* gold/yellow highlight - luxury */
+    --accent-foreground: 33 39% 16%;
 
-    --cta: 13 100% 69%;                 /* energetic-coral #FF7A5A */
-    --cta-foreground: 222 100% 99%;     /* white */
+    --cta: 19 100% 57%;               /* punchy orange - energetic */
+    --cta-foreground: 0 0% 100%;
 
-    --success: 154 92% 73%;             /* mint-green #7CF7C0 */
-    --success-foreground: 231 65% 15%;  /* navy */
+    --success: 146 71% 56%;           /* fresh green */
+    --success-foreground: 148 20% 16%;
 
-    --border: 45 17% 85%;               /* warm-grey #E5E7EB */
-    --highlight: 48 97% 70%;            /* accent-yellow #FFD567 */
+    --muted: 224 20% 85%;             /* subtle gray bg */
+    --muted-foreground: 227 15% 38%;
 
-    --radius: 0.5rem;
+    --border: 224 19% 73%;            /* soft gray border */
+    --highlight: 59 98% 80%;          /* highlight yellow */
+
+    --radius: 0.6rem;
   }
   .dark {
-    --background: 231 65% 15%;         /* deep navy */
-    --foreground: 222 100% 99%;        /* white */
+    --background: 242 41% 12%;         /* deep blue/void - calming/luxurious */
+    --foreground: 210 60% 99%;         /* soft white */
 
-    --primary: 231 65% 15%;            /* navy */
-    --primary-foreground: 222 100% 99%;/* white */
+    --primary: 265 72% 54%;            /* more saturated violet */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 246 43% 22%;          /* muted-purple #262653 (dark) */
-    --secondary-foreground: 222 100% 99%; /* white */
+    --secondary: 183 69% 36%;          /* lively teal/blue */
+    --secondary-foreground: 210 60% 99%;
 
-    --accent: 260 89% 63%;             /* violet */
-    --accent-foreground: 222 100% 99%; /* white */
+    --accent: 41 100% 60%;             /* rich golden highlight */
+    --accent-foreground: 210 60% 99%;
 
-    --cta: 13 100% 69%;                /* coral */
-    --cta-foreground: 222 100% 99%;    /* white */
+    --cta: 19 100% 54%;                /* punchy orange */
+    --cta-foreground: 0 0% 100%;
 
-    --success: 154 92% 73%;            /* mint-green */
-    --success-foreground: 231 65% 15%; /* navy */
+    --success: 146 68% 55%;            /* green */
+    --success-foreground: 210 60% 99%;
 
-    --border: 231 15% 35%;             /* deepened border in dark */
-    --highlight: 48 97% 70%;           /* accent yellow */
+    --muted: 232 19% 23%;              /* deep muted blue */
+    --muted-foreground: 224 20% 82%;
+
+    --border: 232 19% 23%;             /* deep muted blue */
+    --highlight: 54 99% 45%;           /* accent yellow */
   }
 }
 

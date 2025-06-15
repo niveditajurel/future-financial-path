@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -20,42 +19,44 @@ export default {
 		},
 		extend: {
 			colors: {
-				// Semantic tokens mapped to new palette
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
 
 				primary: {
-					DEFAULT: 'hsl(var(--primary))', // deep-navy
-					foreground: 'hsl(var(--primary-foreground))', // soft-white
+					DEFAULT: 'hsl(var(--primary))',
+					foreground: 'hsl(var(--primary-foreground))',
 				},
 				secondary: {
-					DEFAULT: 'hsl(var(--secondary))', // gentle-lavender
-					foreground: 'hsl(var(--secondary-foreground))', // deep-navy
+					DEFAULT: 'hsl(var(--secondary))',
+					foreground: 'hsl(var(--secondary-foreground))',
 				},
 				accent: {
-					DEFAULT: 'hsl(var(--accent))', // vivid-violet
-					foreground: 'hsl(var(--accent-foreground))', // soft-white
+					DEFAULT: 'hsl(var(--accent))',
+					foreground: 'hsl(var(--accent-foreground))',
 				},
 				cta: {
-					DEFAULT: 'hsl(var(--cta))', // coral
-					foreground: 'hsl(var(--cta-foreground))', // soft-white
+					DEFAULT: 'hsl(var(--cta))',
+					foreground: 'hsl(var(--cta-foreground))',
 				},
 				success: {
-					DEFAULT: 'hsl(var(--success))', // mint-green
-					foreground: 'hsl(var(--success-foreground))', // deep-navy
+					DEFAULT: 'hsl(var(--success))',
+					foreground: 'hsl(var(--success-foreground))',
 				},
-				border: 'hsl(var(--border))', // warm-grey
-				highlight: 'hsl(var(--highlight))', // accent-yellow
+				muted: {
+					DEFAULT: 'hsl(var(--muted))',
+					foreground: 'hsl(var(--muted-foreground))',
+				},
+				border: 'hsl(var(--border))',
+				highlight: 'hsl(var(--highlight))',
 
-				// Chart colors for visualizations
+				// Custom chart and UI colors for branding
 				chart: {
-					navy: '#172347',
-					violet: '#7F5CFF',
-					coral: '#FF7A5A',
-					mint: '#7CF7C0',
-					lavender: '#D8D3F8',
-					grey: '#E5E7EB',
-					yellow: '#FFD567'
+					violet: '#775FFD',
+					teal: '#42E7D7',
+					orange: '#FF914D',
+					gold: '#FFD567',
+					navy: '#171C2A',
+					mint: '#B9FFEC',
 				}
 			},
 			borderRadius: {
