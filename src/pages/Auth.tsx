@@ -1,10 +1,10 @@
+
 import React, { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { toast } from "@/components/ui/use-toast";
-import { Logo } from "@/components/Logo";
 
 const Auth = () => {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -54,17 +54,10 @@ const Auth = () => {
 
   return (
     <div className="flex min-h-screen items-center justify-center px-4 bg-gradient-to-br from-background via-accent/10 to-background">
-      <div className="absolute top-4 left-4 sm:left-8">
-        <Logo size={56} />
-      </div>
       <form
         onSubmit={handleAuth}
-        className="relative z-10 w-full max-w-sm bg-card rounded-lg shadow-md p-8 space-y-6 border"
+        className="w-full max-w-sm bg-card rounded-lg shadow-md p-8 space-y-6 border"
       >
-        {/* Optionally duplicate logo here for symmetry on mobile */}
-        <div className="block sm:hidden mx-auto mb-4 flex justify-center">
-          <Logo size={48} />
-        </div>
         <h1 className="text-2xl font-bold mb-2 text-center text-primary">{isSignUp ? "Sign Up" : "Sign In"}</h1>
         <Input
           type="email"
