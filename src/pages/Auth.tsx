@@ -4,7 +4,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { toast } from "@/components/ui/use-toast";
+import { toast } from "@/hooks/use-toast";
+import Logo from "@/components/Logo";
 
 const Auth = () => {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -58,6 +59,8 @@ const Auth = () => {
         onSubmit={handleAuth}
         className="w-full max-w-sm bg-card rounded-lg shadow-md p-8 space-y-6 border"
       >
+        {/* Logo component at top */}
+        <Logo />
         <h1 className="text-2xl font-bold mb-2 text-center text-primary">{isSignUp ? "Sign Up" : "Sign In"}</h1>
         <Input
           type="email"
