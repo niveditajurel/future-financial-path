@@ -106,7 +106,8 @@ const HeroSection = () => (
 );
 
 const FeaturesSection = () => (
-  <section className="py-16 bg-background">
+  // Changed bg-background to bg-muted for a slightly darker look
+  <section className="py-16 bg-muted">
     <div className="max-w-6xl mx-auto px-2 sm:px-4 lg:px-8">
       <h2 className="text-3xl font-bold text-center mb-10 text-primary animate-fade-in">
         Why You'll Love Our App
