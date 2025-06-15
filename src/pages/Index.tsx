@@ -82,22 +82,25 @@ const sampleUserProfile = {
 const sampleSupabaseContext = { lastLogin: "2025-06-14" };
 
 const HeroSection = () => (
-  <section className="py-16 px-4 text-center bg-gradient-to-b from-white to-blue-50">
+  <section className="py-16 px-4 text-center bg-gradient-to-b from-[#222142] via-[#2a285e] to-blue-700 dark:from-[#141325] dark:via-[#221d3e] dark:to-[#4623a8]">
     <div className="max-w-4xl mx-auto">
-      <h1 className="text-4xl md:text-5xl font-extrabold mb-4 text-primary animate-fade-in transition-all duration-700">
-        Unlock Your Financial Future with <span className="bg-gradient-to-r from-primary to-cta bg-clip-text text-transparent">Smart, Personalized Advice</span>
+      <h1 className="text-4xl md:text-5xl font-extrabold mb-4 text-white animate-fade-in transition-all duration-700">
+        Unlock Your Financial Future with{" "}
+        <span className="bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent drop-shadow-lg">
+          Smart, Personalized Advice
+        </span>
       </h1>
-      <p className="text-xl md:text-2xl text-muted-foreground mb-8 animate-fade-in" style={{animationDelay: "100ms"}}>
+      <p className="text-xl md:text-2xl text-muted-foreground-light mb-8 animate-fade-in" style={{ animationDelay: "100ms", color: "rgba(255,255,255,0.82)" }}>
         Your AI Coach for Money Confidence—No Experience Needed
       </p>
-      <Button className="px-8 py-4 text-lg shadow-lg animate-scale-in hover:scale-105 transition-transform duration-300">
+      <Button className="px-8 py-4 text-lg shadow-lg animate-scale-in hover:scale-105 transition-transform duration-300 bg-white text-background font-semibold hover:bg-accent hover:text-accent-foreground">
         Start Your Wealth Journey Today
       </Button>
       <div className="mt-8 flex justify-center gap-4">
-        <span className="rounded-full bg-accent/60 px-4 py-2 text-sm font-semibold text-accent-foreground shadow pulse">
+        <span className="rounded-full bg-accent/80 px-4 py-2 text-sm font-semibold text-background shadow pulse">
           New! Built for Gen Z & Millennials
         </span>
-        <span className="rounded-full bg-success/70 px-4 py-2 text-sm font-semibold text-success-foreground shadow hover-scale">
+        <span className="rounded-full bg-success/80 px-4 py-2 text-sm font-semibold text-background shadow hover-scale">
           Try in dark mode!
         </span>
       </div>
