@@ -19,50 +19,50 @@ export default {
 		},
 		extend: {
 			colors: {
-				background: 'hsl(var(--background))',
-				foreground: 'hsl(var(--foreground))',
+				background: '#090A0B', // blackBG
+				foreground: '#FFFFFF', // whiteFG
 
 				primary: {
-					DEFAULT: 'hsl(var(--primary))',
-					foreground: 'hsl(var(--primary-foreground))',
+					DEFAULT: '#00D26A', // strong green
+					foreground: '#090A0B'
 				},
 				secondary: {
-					DEFAULT: 'hsl(var(--secondary))',
-					foreground: 'hsl(var(--secondary-foreground))',
+					DEFAULT: '#111113', // deep off-black/grey
+					foreground: '#FFFFFF',
 				},
 				accent: {
-					DEFAULT: 'hsl(var(--accent))',
-					foreground: 'hsl(var(--accent-foreground))',
+					DEFAULT: '#F5F5F5', // light accent (white)
+					foreground: '#00D26A',
 				},
 				cta: {
-					DEFAULT: 'hsl(var(--cta))',
-					foreground: 'hsl(var(--cta-foreground))',
+					DEFAULT: '#14B8A6', // accent teal (optional for pop)
+					foreground: '#FFFFFF',
 				},
 				success: {
-					DEFAULT: 'hsl(var(--success))',
-					foreground: 'hsl(var(--success-foreground))',
+					DEFAULT: '#00D26A',
+					foreground: '#FFFFFF',
 				},
 				muted: {
-					DEFAULT: 'hsl(var(--muted))',
-					foreground: 'hsl(var(--muted-foreground))',
+					DEFAULT: '#222325', // mid-dark gray for cards/sections
+					foreground: '#CCCCCC',
 				},
-				border: 'hsl(var(--border))',
-				highlight: 'hsl(var(--highlight))',
+				border: '#16181A',
+				highlight: '#50FA7B',
 
 				// Custom chart and UI colors for branding
 				chart: {
-					violet: '#775FFD',
-					teal: '#42E7D7',
-					orange: '#FF914D',
-					gold: '#FFD567',
-					navy: '#171C2A',
-					mint: '#B9FFEC',
+					violet: '#7c3aed',
+					teal: '#14b8a6',
+					orange: '#f59e42',
+					gold: '#FDE68A',
+					navy: '#18181B',
+					mint: '#00D26A',
 				}
 			},
 			borderRadius: {
-				lg: 'var(--radius)',
-				md: 'calc(var(--radius) - 2px)',
-				sm: 'calc(var(--radius) - 4px)'
+				lg: '0.8rem',
+				md: '0.55rem',
+				sm: '0.3rem'
 			},
 			keyframes: {
 				'accordion-down': {
@@ -72,11 +72,29 @@ export default {
 				'accordion-up': {
 					from: { height: 'var(--radix-accordion-content-height)' },
 					to: { height: '0' }
-				}
+				},
+				wiggle: {
+					'0%, 100%': { transform: 'rotate(-2deg)' },
+					'50%': { transform: 'rotate(2deg)' },
+				},
+				flicker: {
+					'0%, 100%': { opacity: '0.99' },
+					'10%, 40%, 60%, 80%': { opacity: '0.4' },
+					'20%, 50%, 70%, 90%': { opacity: '1' },
+					'30%, 55%, 75%': { opacity: '0.7' },
+				},
+				heroGlow: {
+          '0%': { filter: 'brightness(1) blur(12px)' },
+          '50%': { filter: 'brightness(1.2) blur(18px)' },
+          '100%': { filter: 'brightness(1) blur(12px)' }
+        }
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				wiggle: "wiggle 0.5s ease-in-out infinite",
+				flicker: "flicker 1.5s infinite alternate",
+				heroGlow: "heroGlow 3s ease-in-out infinite",
 			}
 		}
 	},
