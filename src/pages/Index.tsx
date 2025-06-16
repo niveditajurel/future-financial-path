@@ -1,69 +1,96 @@
+
 import { Button } from "@/components/ui/button";
-import { CircleDollarSign, FileText, Shield, Star, LayoutDashboard } from "lucide-react";
+import {
+  CircleDollarSign,
+  FileText,
+  Shield,
+  Star,
+  LayoutDashboard,
+} from "lucide-react";
 import { AiChatbot } from "@/components/AiChatbot";
 import { GoalTimeline } from "@/components/GoalTimeline";
 import React from "react";
 import { AiChatBubble } from "@/components/AiChatBubble";
 import { FadeIn, PopIn, PulseGlow, Flicker } from "@/components/ui/animations";
 import { Link } from "react-router-dom";
-const features = [{
-  icon: CircleDollarSign,
-  title: "Accessible Expertise",
-  description: "Get expert-level advice, 24/7, without high fees or jargon—designed for people just starting their wealth journey."
-}, {
-  icon: FileText,
-  title: "Personalized Guidance",
-  description: "Smart AI tailors coaching and step-by-step money plans to your unique goals, lifestyle, and experience."
-}, {
-  icon: Shield,
-  title: "Trust & Privacy First",
-  description: "Your data stays secure, private, and never influences your plan—your success is our only goal."
-}, {
-  icon: Star,
-  title: "Grow with Confidence",
-  description: "Learn money skills as you go, build positive habits, and celebrate every financial win with encouragement from your AI coach."
-}];
-const testimonials = [{
-  quote: "I was always intimidated by money, but this app made it easy. Now I actually feel confident about my finances and have a clear plan for my future.",
-  author: "Jamie T., First-time Investor"
-}, {
-  quote: "Finally, advice that makes sense and doesn't break the bank. The AI coach is patient, practical, and always available.",
-  author: "Alex R., Young Professional"
-}];
+
+const features = [
+  {
+    icon: CircleDollarSign,
+    title: "Accessible Expertise",
+    description:
+      "Get expert-level advice, 24/7, without high fees or jargon—designed for people just starting their wealth journey.",
+  },
+  {
+    icon: FileText,
+    title: "Personalized Guidance",
+    description:
+      "Smart AI tailors coaching and step-by-step money plans to your unique goals, lifestyle, and experience.",
+  },
+  {
+    icon: Shield,
+    title: "Trust & Privacy First",
+    description:
+      "Your data stays secure, private, and never influences your plan—your success is our only goal.",
+  },
+  {
+    icon: Star,
+    title: "Grow with Confidence",
+    description:
+      "Learn money skills as you go, build positive habits, and celebrate every financial win with encouragement from your AI coach.",
+  },
+];
+
+const testimonials = [
+  {
+    quote:
+      "I was always intimidated by money, but this app made it easy. Now I actually feel confident about my finances and have a clear plan for my future.",
+    author: "Jamie T., First-time Investor",
+  },
+  {
+    quote:
+      "Finally, advice that makes sense and doesn't break the bank. The AI coach is patient, practical, and always available.",
+    author: "Alex R., Young Professional",
+  },
+];
 
 // --- MOCK DATA for GoalTimeline ---
-const goalSteps = [{
-  label: "Start Emergency Fund",
-  tip: "Begin with $500 for unplanned expenses.",
-  date: "2024-07-01",
-  progress: 30
-}, {
-  label: "Reach $2,000",
-  tip: "Automate $200 per month from your paycheck.",
-  date: "2024-12-01",
-  progress: 60
-}, {
-  label: "Buy a House",
-  tip: "Research loan options at least 6 months beforehand.",
-  date: "2026-08-15",
-  progress: 90
-}];
+const goalSteps = [
+  {
+    label: "Start Emergency Fund",
+    tip: "Begin with $500 for unplanned expenses.",
+    date: "2024-07-01",
+    progress: 30,
+  },
+  {
+    label: "Reach $2,000",
+    tip: "Automate $200 per month from your paycheck.",
+    date: "2024-12-01",
+    progress: 60,
+  },
+  {
+    label: "Buy a House",
+    tip: "Research loan options at least 6 months beforehand.",
+    date: "2026-08-15",
+    progress: 90,
+  },
+];
 
 // --- MOCK PROPS for AiChatbot ---
 const sampleUserProfile = {
   name: "Jane Doe",
-  email: "jane@example.com"
+  email: "jane@example.com",
   // Any additional user fields
 };
-const sampleSupabaseContext = {
-  lastLogin: "2025-06-14"
-};
-const HeroSection = () => <section className="relative py-20 md:py-32 px-4 bg-gradient-to-b from-background to-transparent overflow-hidden text-center">
+const sampleSupabaseContext = { lastLogin: "2025-06-14" };
+
+const HeroSection = () => (
+  <section className="relative py-20 md:py-32 px-4 bg-gradient-to-b from-background to-transparent overflow-hidden text-center">
     {/* Animated floating glowy rings */}
     <div className="absolute left-1/2 top-0 md:top-0 -translate-x-1/2 z-0 pointer-events-none w-full flex justify-center">
       <div className="w-96 h-96 md:w-[34rem] md:h-[34rem] rounded-full opacity-60 blur-3xl" style={{
-      background: "radial-gradient(circle at 50% 55%, rgba(33,199,104,0.22) 0%, transparent 90%)"
-    }} />
+        background: "radial-gradient(circle at 50% 55%, rgba(33,199,104,0.22) 0%, transparent 90%)",
+      }} />
     </div>
     <FadeIn>
       <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center gap-1">
@@ -71,33 +98,39 @@ const HeroSection = () => <section className="relative py-20 md:py-32 px-4 bg-gr
           <h1 className="text-5xl md:text-6xl leading-tight font-extrabold mb-5 tracking-tight drop-shadow max-w-xl bg-clip-text text-transparent bg-gradient-to-r from-primary via-white to-accent inline-block">
             <span className="inline-block">
               Unlock&nbsp;
-              <span style={{
-              color: "hsl(var(--primary))",
-              textShadow: "0 0 4px hsl(var(--primary)), 0 0 8px #21c768, 0 0 2px #fff",
-              fontWeight: 900,
-              position: "relative",
-              zIndex: 2
-            }}>
-                <Flicker>your future</Flicker>
+              <span
+                style={{
+                  color: "hsl(var(--primary))",
+                  textShadow: "0 0 4px hsl(var(--primary)), 0 0 8px #21c768, 0 0 2px #fff",
+                  fontWeight: 900,
+                  position: "relative",
+                  zIndex: 2,
+                }}
+              >
+                <Flicker>Your Wealth Potential,</Flicker>
               </span>
-              &nbsp;with
               <span className="ml-2">
                 <PulseGlow>
-                  <span className="inline-block rounded px-2 py-1 font-bold" style={{
-                  color: "hsl(var(--primary))",
-                  background: "white",
-                  boxShadow: "0 2px 18px 0 rgba(33,199,104,0.18)",
-                  border: "2px solid hsl(var(--primary))"
-                }}>Affordably</span>
+                  <span
+                    className="inline-block rounded px-2 py-1 font-bold"
+                    style={{
+                      color: "hsl(var(--primary))",
+                      background: "white",
+                      boxShadow: "0 2px 18px 0 rgba(33,199,104,0.18)",
+                      border: "2px solid hsl(var(--primary))",
+                    }}
+                  >
+                    Smart Money Advice
+                  </span>
                 </PulseGlow>
               </span>
             </span>
           </h1>
         </PopIn>
         <FadeIn delay={120}>
-          <p className="text-xl md:text-2xl text-muted-foreground font-medium mb-6 md:mb-8 max-w-lg animate-fade-in" style={{
-          animationDelay: "120ms"
-        }}>Your Personal AI Financial Advisor for building wealth, confidence, and financial peace of mind—one step at a time.</p>
+          <p className="text-xl md:text-2xl text-muted-foreground font-medium mb-6 md:mb-8 max-w-lg animate-fade-in" style={{animationDelay: "120ms"}}>
+            Your AI coach for building wealth, confidence, and financial peace of mind—one step at a time.
+          </p>
         </FadeIn>
         <FadeIn delay={220}>
           {/* Button now links to /auth */}
@@ -131,56 +164,74 @@ const HeroSection = () => <section className="relative py-20 md:py-32 px-4 bg-gr
         </FadeIn>
       </div>
     </FadeIn>
-  </section>;
-const FeaturesSection = () => <section className="py-16 bg-background">
+  </section>
+);
+
+const FeaturesSection = () => (
+  <section className="py-16 bg-background">
     <div className="max-w-6xl mx-auto px-2 sm:px-4 lg:px-8">
       <h2 className="text-3xl font-bold text-center mb-10 text-primary animate-fade-in">
         Why You'll Love Our App
       </h2>
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-        {features.map((feature, i) => <div key={feature.title} className="flex flex-col items-center rounded-xl bg-white dark:bg-muted shadow hover:shadow-lg p-6 space-y-3 hover-scale animate-scale-in" style={{
-        animationDelay: `${i * 80}ms`
-      }}>
+        {features.map((feature, i) => (
+          <div
+            key={feature.title}
+            className="flex flex-col items-center rounded-xl bg-white dark:bg-muted shadow hover:shadow-lg p-6 space-y-3 hover-scale animate-scale-in"
+            style={{ animationDelay: `${i * 80}ms` }}
+          >
             <div className="flex-shrink-0 drop-shadow-lg animate-bounce">
               <feature.icon className="h-12 w-12 text-primary transition-transform group-hover:scale-110" />
             </div>
             <h3 className="font-semibold text-xl mb-1 text-primary">{feature.title}</h3>
             <p className="text-base text-muted-foreground text-center">{feature.description}</p>
-          </div>)}
+          </div>
+        ))}
       </div>
     </div>
-  </section>;
-const TimelineAndChatbotSection = () => <section className="bg-background py-16">
+  </section>
+);
+
+const TimelineAndChatbotSection = () => (
+  <section className="bg-background py-16">
     <div className="max-w-5xl mx-auto px-2 sm:px-4 grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
       <div className="md:col-span-2 w-full">
         <h2 className="text-2xl font-bold mb-4 text-primary text-center md:text-left animate-fade-in">
           Your Goal Progress
         </h2>
         {/* Animate timeline appearance */}
-        <div className="animate-fade-in" style={{
-        animationDelay: "120ms"
-      }}>
+        <div className="animate-fade-in" style={{animationDelay:"120ms"}}>
           <GoalTimeline goalSteps={goalSteps} />
         </div>
       </div>
     </div>
-  </section>;
-const TestimonialsSection = () => <section className="py-16 bg-blue-50 dark:bg-muted">
+  </section>
+);
+
+const TestimonialsSection = () => (
+  <section className="py-16 bg-blue-50 dark:bg-muted">
     <div className="max-w-3xl mx-auto px-2 sm:px-4 text-center">
       <h2 className="text-2xl font-bold mb-8 text-primary animate-fade-in">
         What Our Users Say
       </h2>
       <div className="grid gap-8 md:grid-cols-2">
-        {testimonials.map((t, idx) => <div key={idx} className="bg-white dark:bg-background border rounded-lg shadow p-6 flex flex-col h-full justify-between hover:scale-105 hover:shadow-lg transition-transform animate-scale-in" style={{
-        animationDelay: `${idx * 90 + 70}ms`
-      }}>
+        {testimonials.map((t, idx) => (
+          <div
+            key={idx}
+            className="bg-white dark:bg-background border rounded-lg shadow p-6 flex flex-col h-full justify-between hover:scale-105 hover:shadow-lg transition-transform animate-scale-in"
+            style={{ animationDelay: `${idx * 90 + 70}ms` }}
+          >
             <blockquote className="text-lg italic mb-4 text-muted-foreground">&quot;{t.quote}&quot;</blockquote>
             <span className="text-primary font-medium">{t.author}</span>
-          </div>)}
+          </div>
+        ))}
       </div>
     </div>
-  </section>;
-const CTASection = () => <section className="py-20 px-4 text-center bg-gradient-to-tr from-primary to-blue-400 relative overflow-hidden">
+  </section>
+);
+
+const CTASection = () => (
+  <section className="py-20 px-4 text-center bg-gradient-to-tr from-primary to-blue-400 relative overflow-hidden">
     {/* Animated circles */}
     <div className="pointer-events-none absolute -top-12 left-1/2 -translate-x-1/2 w-full flex justify-center z-0">
       <div className="w-32 h-32 rounded-full bg-accent/40 blur-2xl animate-pulse scale-75" />
@@ -200,8 +251,11 @@ const CTASection = () => <section className="py-20 px-4 text-center bg-gradient-
         </Button>
       </Link>
     </div>
-  </section>;
-const Index = () => <main className="min-h-screen bg-background relative">
+  </section>
+);
+
+const Index = () => (
+  <main className="min-h-screen bg-background relative">
     {/* Hero Section */}
     <HeroSection />
 
@@ -218,6 +272,13 @@ const Index = () => <main className="min-h-screen bg-background relative">
     <CTASection />
 
     {/* AI Chat Bubble */}
-    <AiChatBubble userId="user-001" chatSessionId="session-abc" userProfile={sampleUserProfile} supabaseContext={sampleSupabaseContext} />
-  </main>;
+    <AiChatBubble
+      userId="user-001"
+      chatSessionId="session-abc"
+      userProfile={sampleUserProfile}
+      supabaseContext={sampleSupabaseContext}
+    />
+  </main>
+);
+
 export default Index;
