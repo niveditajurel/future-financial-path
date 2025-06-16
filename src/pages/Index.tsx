@@ -1,10 +1,11 @@
 import { Button } from "@/components/ui/button";
-import { CircleDollarSign, FileText, Shield, Star, LayoutDashboard } from "lucide-react";
+import { CircleDollarSign, FileText, Shield, Star, LayoutDashboard, Users, Award, Zap } from "lucide-react";
 import { AiChatbot } from "@/components/AiChatbot";
 import { GoalTimeline } from "@/components/GoalTimeline";
 import React from "react";
 import { AiChatBubble } from "@/components/AiChatBubble";
 import { FadeIn, PopIn, PulseGlow, Flicker } from "@/components/ui/animations";
+import { FinancialGrowthAnimation } from "@/components/FinancialGrowthAnimation";
 import { Link } from "react-router-dom";
 const features = [{
   icon: CircleDollarSign,
@@ -58,70 +59,115 @@ const sampleUserProfile = {
 const sampleSupabaseContext = {
   lastLogin: "2025-06-14"
 };
-const HeroSection = () => <section className="relative py-20 md:py-32 px-4 bg-gradient-to-b from-background to-transparent overflow-hidden text-center">
-    {/* Animated floating glowy rings */}
+
+const HeroSection = () => <section className="relative py-20 md:py-32 px-4 bg-gradient-to-b from-background to-transparent overflow-hidden">
+    {/* Enhanced animated floating glowy rings */}
     <div className="absolute left-1/2 top-0 md:top-0 -translate-x-1/2 z-0 pointer-events-none w-full flex justify-center">
-      <div className="w-96 h-96 md:w-[34rem] md:h-[34rem] rounded-full opacity-60 blur-3xl" style={{
-      background: "radial-gradient(circle at 50% 55%, rgba(33,199,104,0.22) 0%, transparent 90%)"
+      <div className="w-96 h-96 md:w-[40rem] md:h-[40rem] rounded-full opacity-70 blur-3xl animate-pulse" style={{
+      background: "radial-gradient(circle at 50% 55%, rgba(33,199,104,0.25) 0%, rgba(166,215,179,0.15) 40%, transparent 90%)"
     }} />
     </div>
-    <FadeIn>
-      <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center gap-1">
-        <PopIn>
-          <h1 className="text-5xl md:text-6xl leading-tight font-extrabold mb-5 tracking-tight drop-shadow max-w-xl bg-clip-text text-transparent bg-gradient-to-r from-primary via-white to-accent inline-block">
-            <span className="inline-block">
-              Unlock Your Wealth Potential,&nbsp;
+    
+    <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      {/* Left Column - Main Content */}
+      <div className="relative z-10 flex flex-col items-start text-left">
+        <FadeIn>
+          <PopIn>
+            <h1 className="text-5xl md:text-6xl xl:text-7xl leading-tight font-extrabold mb-6 tracking-tight">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-white to-accent">
+                Unlock Your Wealth Potential,&nbsp;
+              </span>
               <span className="ml-2">
                 <PulseGlow>
-                  <span className="inline-block rounded px-2 py-1 font-bold" style={{
+                  <span className="inline-block rounded-lg px-3 py-2 font-bold text-lg md:text-xl" style={{
                   color: "hsl(var(--primary))",
                   background: "white",
-                  boxShadow: "0 2px 18px 0 rgba(33,199,104,0.18)",
+                  boxShadow: "0 4px 24px 0 rgba(33,199,104,0.2)",
                   border: "2px solid hsl(var(--primary))"
                 }}>Affordably</span>
                 </PulseGlow>
               </span>
-            </span>
-          </h1>
-        </PopIn>
-        <FadeIn delay={120}>
-          <p className="text-xl md:text-2xl text-muted-foreground font-medium mb-6 md:mb-8 max-w-lg animate-fade-in" style={{
-          animationDelay: "120ms"
-        }}>Your Personal AI Financial Advisor for building wealth, confidence, and financial peace of mind—one step at a time.</p>
-        </FadeIn>
-        <FadeIn delay={220}>
-          {/* Button now links to /auth */}
-          <Link to="/auth" tabIndex={-1}>
-            <button className="relative px-10 py-4 font-bold text-lg rounded-lg bg-primary hover:bg-accent text-primary-foreground shadow-xl active:scale-98 transition transform animate-pop-in ring-2 ring-accent/20 ring-offset-2 ring-offset-background focus:outline-none focus:ring-4 focus:ring-cta/50 duration-150">
-              Get Started—It's Free
-              <span className="absolute top-0 right-0 z-[-1]">
-                <PulseGlow size={42} color="rgba(33,199,104,0.23)" />
+            </h1>
+          </PopIn>
+          
+          <FadeIn delay={120}>
+            <p className="text-xl md:text-2xl text-muted-foreground font-medium mb-8 max-w-2xl">
+              Your Personal AI Financial Coach builds wealth, confidence, and financial peace of mind—one smart decision at a time.
+            </p>
+          </FadeIn>
+          
+          {/* Enhanced Social Proof */}
+          <FadeIn delay={180}>
+            <div className="flex items-center gap-6 mb-8">
+              <div className="flex items-center gap-2">
+                <Users className="w-5 h-5 text-primary" />
+                <span className="text-sm font-semibold text-accent">12,000+ Users</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Award className="w-5 h-5 text-primary" />
+                <span className="text-sm font-semibold text-accent">4.9★ Rating</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Zap className="w-5 h-5 text-primary" />
+                <span className="text-sm font-semibold text-accent">Free Forever</span>
+              </div>
+            </div>
+          </FadeIn>
+          
+          {/* Enhanced CTA Buttons */}
+          <FadeIn delay={220}>
+            <div className="flex flex-col sm:flex-row gap-4 mb-8">
+              <Link to="/auth" className="group">
+                <button className="relative px-8 py-4 font-bold text-lg rounded-xl bg-primary hover:bg-accent text-primary-foreground shadow-2xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 ring-2 ring-accent/30 ring-offset-2 ring-offset-background focus:outline-none focus:ring-4 focus:ring-primary/50">
+                  Start Building Wealth - Free
+                  <span className="absolute -top-2 -right-2 bg-success text-white text-xs px-2 py-1 rounded-full animate-bounce">
+                    FREE
+                  </span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 rounded-xl" />
+                </button>
+              </Link>
+              
+              <Link to="/dashboard">
+                <Button variant="outline" size="lg" className="px-8 py-4 text-lg border-2 border-primary/30 hover:border-primary hover:bg-primary/10 transition-all duration-300 gap-3">
+                  <LayoutDashboard className="w-6 h-6" />
+                  View Dashboard Demo
+                </Button>
+              </Link>
+            </div>
+          </FadeIn>
+          
+          {/* Trust Indicators */}
+          <FadeIn delay={280}>
+            <div className="flex flex-wrap gap-3 justify-start">
+              <span className="rounded-full bg-muted/80 px-4 py-2 text-sm font-semibold text-accent-foreground shadow-sm border border-primary/20">
+                🎯 For Gen Z & Millennials
               </span>
-            </button>
-          </Link>
-        </FadeIn>
-        <FadeIn delay={340}>
-          <div className="flex flex-wrap gap-3 justify-center mt-7">
-            <span className="rounded-full bg-muted/80 px-5 py-2 text-sm font-semibold text-accent-foreground shadow hover-scale">
-              For Gen Z &amp; Millennials
-            </span>
-            <span className="rounded-full border border-highlight px-5 py-2 text-sm font-semibold text-highlight shadow hover-scale">
-              No Experience Needed
-            </span>
-          </div>
-        </FadeIn>
-        {/* Updated Go to Dashboard button stays, for users already registered */}
-        <FadeIn delay={400}>
-          <Link to="/dashboard" className="mt-10 inline-block">
-            <Button variant="outline" size="lg" className="gap-2">
-              <LayoutDashboard className="w-5 h-5" />
-              Go to Dashboard
-            </Button>
-          </Link>
+              <span className="rounded-full border border-highlight px-4 py-2 text-sm font-semibold text-highlight shadow-sm">
+                ✨ No Experience Needed
+              </span>
+              <span className="rounded-full bg-success/20 px-4 py-2 text-sm font-semibold text-success shadow-sm">
+                🔒 Bank-Level Security
+              </span>
+            </div>
+          </FadeIn>
         </FadeIn>
       </div>
-    </FadeIn>
+      
+      {/* Right Column - Financial Growth Animation */}
+      <div className="relative z-10">
+        <FadeIn delay={300}>
+          <div className="bg-gradient-to-br from-muted/50 to-secondary/30 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-primary/20">
+            <FinancialGrowthAnimation />
+            <div className="text-center mt-6">
+              <h3 className="text-xl font-bold text-primary mb-2">Your Financial Growth Journey</h3>
+              <p className="text-muted-foreground">Watch your wealth grow with AI-powered guidance</p>
+            </div>
+          </div>
+        </FadeIn>
+      </div>
+    </div>
   </section>;
+
 const FeaturesSection = () => <section className="py-16 bg-background">
     <div className="max-w-6xl mx-auto px-2 sm:px-4 lg:px-8">
       <h2 className="text-3xl font-bold text-center mb-10 text-primary animate-fade-in">
@@ -140,6 +186,7 @@ const FeaturesSection = () => <section className="py-16 bg-background">
       </div>
     </div>
   </section>;
+
 const TimelineAndChatbotSection = () => <section className="bg-background py-16">
     <div className="max-w-5xl mx-auto px-2 sm:px-4 grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
       <div className="md:col-span-2 w-full">
@@ -155,6 +202,7 @@ const TimelineAndChatbotSection = () => <section className="bg-background py-16"
       </div>
     </div>
   </section>;
+
 const TestimonialsSection = () => <section className="py-16 bg-blue-50 dark:bg-muted">
     <div className="max-w-3xl mx-auto px-2 sm:px-4 text-center">
       <h2 className="text-2xl font-bold mb-8 text-primary animate-fade-in">
@@ -170,27 +218,33 @@ const TestimonialsSection = () => <section className="py-16 bg-blue-50 dark:bg-m
       </div>
     </div>
   </section>;
+
 const CTASection = () => <section className="py-20 px-4 text-center bg-gradient-to-tr from-primary to-blue-400 relative overflow-hidden">
-    {/* Animated circles */}
+    {/* Enhanced animated circles */}
     <div className="pointer-events-none absolute -top-12 left-1/2 -translate-x-1/2 w-full flex justify-center z-0">
       <div className="w-32 h-32 rounded-full bg-accent/40 blur-2xl animate-pulse scale-75" />
       <div className="w-24 h-24 rounded-full bg-cta/30 blur-xl animate-pulse ml-[-40px] scale-150" />
     </div>
-    <div className="relative z-10">
-      <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white drop-shadow animate-fade-in">
-        Take the Guesswork Out of Money
+    <div className="relative z-10 max-w-4xl mx-auto">
+      <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white drop-shadow">
+        Join 12,000+ People Building Their Financial Future
       </h2>
-      <p className="text-lg md:text-xl mb-8 text-white/90 animate-fade-in">
-        Join thousands of people starting their path to financial freedom.
+      <p className="text-lg md:text-xl mb-8 text-white/90 max-w-2xl mx-auto">
+        Don't let another year pass without taking control of your finances. Start your wealth-building journey today—completely free.
       </p>
-      {/* CTA button now links to /auth */}
-      <Link to="/auth">
-        <Button className="px-8 py-4 text-lg bg-white text-primary font-bold border border-primary shadow-md hover:bg-blue-50 animate-scale-in hover:scale-105 transition-transform">
-          Get Started Now
-        </Button>
-      </Link>
+      
+      {/* Enhanced final CTA */}
+      <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <Link to="/auth">
+          <Button className="px-10 py-6 text-xl bg-white text-primary font-bold border-2 border-white shadow-2xl hover:bg-blue-50 hover:shadow-3xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1">
+            Get Your Free AI Financial Coach
+          </Button>
+        </Link>
+        <p className="text-white/80 text-sm">✓ No credit card required ✓ Setup in 2 minutes</p>
+      </div>
     </div>
   </section>;
+
 const Index = () => <main className="min-h-screen bg-background relative">
     {/* Hero Section */}
     <HeroSection />
@@ -207,7 +261,13 @@ const Index = () => <main className="min-h-screen bg-background relative">
     {/* Call to Action Section */}
     <CTASection />
 
-    {/* AI Chat Bubble */}
-    <AiChatBubble userId="user-001" chatSessionId="session-abc" userProfile={sampleUserProfile} supabaseContext={sampleSupabaseContext} />
+    {/* Enhanced AI Chat Bubble with more prominent styling */}
+    <AiChatBubble 
+      userId="user-001" 
+      chatSessionId="session-abc" 
+      userProfile={sampleUserProfile} 
+      supabaseContext={sampleSupabaseContext} 
+    />
   </main>;
+
 export default Index;

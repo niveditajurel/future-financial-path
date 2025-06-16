@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -104,6 +105,15 @@
   }
 }
 
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
 .flicker-text {
   color: var(--primary);
   text-shadow:
@@ -112,6 +122,7 @@
     0 0 3px #fff;
   animation: flicker 1.5s infinite alternate;
 }
+
 @keyframes flicker {
   from {
     opacity: 0.87;
@@ -125,6 +136,11 @@
     opacity: 0.83;
     filter: brightness(0.7);
   }
+}
+
+/* Utility classes */
+.animate-float {
+  animation: float 3s ease-in-out infinite;
 }
 
 /* Responsive: Ensure padding/spacing for hero images if added in future */

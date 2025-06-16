@@ -58,5 +58,20 @@ export const Flicker: React.FC<{ children: React.ReactNode }> = ({ children }) =
   <span className="flicker-text">{children}</span>
 );
 
+// Floating animation for icons
+export const FloatAnimation: React.FC<{ delay?: number; children: React.ReactNode }> = ({
+  delay = 0,
+  children,
+}) => (
+  <div
+    style={{
+      animation: `float 3s ease-in-out infinite`,
+      animationDelay: `${delay}ms`,
+    }}
+  >
+    {children}
+  </div>
+);
+
 // Custom keyframes/animations
 // Add this CSS to the project's global stylesheet (index.css)
