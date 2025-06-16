@@ -70,7 +70,7 @@ const HeroSection = () => <section className="relative py-20 md:py-32 px-4 bg-gr
         <PopIn>
           <h1 className="text-5xl md:text-6xl leading-tight font-extrabold mb-5 tracking-tight drop-shadow max-w-xl bg-clip-text text-transparent bg-gradient-to-r from-primary via-white to-accent inline-block">
             <span className="inline-block">
-              Unlock&nbsp;
+              Unlock Your Wealth Potential,&nbsp;
               <span style={{
               color: "hsl(var(--primary))",
               textShadow: "0 0 4px hsl(var(--primary)), 0 0 8px #21c768, 0 0 2px #fff",
@@ -80,7 +80,6 @@ const HeroSection = () => <section className="relative py-20 md:py-32 px-4 bg-gr
             }}>
                 <Flicker>your future</Flicker>
               </span>
-              &nbsp;with
               <span className="ml-2">
                 <PulseGlow>
                   <span className="inline-block rounded px-2 py-1 font-bold" style={{
