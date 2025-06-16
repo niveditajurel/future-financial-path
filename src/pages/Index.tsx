@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import {
   CircleDollarSign,
@@ -106,9 +107,8 @@ const HeroSection = () => (
                   zIndex: 2,
                 }}
               >
-                <Flicker>your future</Flicker>
+                <Flicker>Your Wealth Potential,</Flicker>
               </span>
-              &nbsp;with
               <span className="ml-2">
                 <PulseGlow>
                   <span
