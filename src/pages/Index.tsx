@@ -59,7 +59,6 @@ const sampleUserProfile = {
 const sampleSupabaseContext = {
   lastLogin: "2025-06-14"
 };
-
 const HeroSection = () => <section className="relative py-20 md:py-32 px-4 bg-gradient-to-b from-background to-transparent overflow-hidden">
     {/* Enhanced animated floating glowy rings */}
     <div className="absolute left-1/2 top-0 md:top-0 -translate-x-1/2 z-0 pointer-events-none w-full flex justify-center">
@@ -98,20 +97,7 @@ const HeroSection = () => <section className="relative py-20 md:py-32 px-4 bg-gr
           
           {/* Enhanced Social Proof */}
           <FadeIn delay={180}>
-            <div className="flex items-center gap-6 mb-8">
-              <div className="flex items-center gap-2">
-                <Users className="w-5 h-5 text-primary" />
-                <span className="text-sm font-semibold text-accent">12,000+ Users</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Award className="w-5 h-5 text-primary" />
-                <span className="text-sm font-semibold text-accent">4.9★ Rating</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Zap className="w-5 h-5 text-primary" />
-                <span className="text-sm font-semibold text-accent">Free Forever</span>
-              </div>
-            </div>
+            
           </FadeIn>
           
           {/* Enhanced CTA Buttons */}
@@ -120,15 +106,13 @@ const HeroSection = () => <section className="relative py-20 md:py-32 px-4 bg-gr
               <Link to="/auth" className="group">
                 <button className="relative px-8 py-4 font-bold text-lg rounded-xl bg-primary hover:bg-accent text-primary-foreground shadow-2xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 ring-2 ring-accent/30 ring-offset-2 ring-offset-background focus:outline-none focus:ring-4 focus:ring-primary/50">
                   Start Building Wealth - Free
-                  <span className="absolute -top-2 -right-2 bg-success text-white text-xs px-2 py-1 rounded-full animate-bounce">
-                    FREE
-                  </span>
+                  
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 rounded-xl" />
                 </button>
               </Link>
               
               <Link to="/dashboard">
-                <Button variant="outline" size="lg" className="px-8 py-4 text-lg border-2 border-primary/30 hover:border-primary hover:bg-primary/10 transition-all duration-300 gap-3">
+                <Button variant="outline" size="lg" className="px-8 py-4 border-2 border-primary/30 hover:border-primary hover:bg-primary/10 transition-all duration-300 gap-3 text-lg rounded-none">
                   <LayoutDashboard className="w-6 h-6" />
                   View Dashboard Demo
                 </Button>
@@ -138,17 +122,7 @@ const HeroSection = () => <section className="relative py-20 md:py-32 px-4 bg-gr
           
           {/* Trust Indicators */}
           <FadeIn delay={280}>
-            <div className="flex flex-wrap gap-3 justify-start">
-              <span className="rounded-full bg-muted/80 px-4 py-2 text-sm font-semibold text-accent-foreground shadow-sm border border-primary/20">
-                🎯 For Gen Z & Millennials
-              </span>
-              <span className="rounded-full border border-highlight px-4 py-2 text-sm font-semibold text-highlight shadow-sm">
-                ✨ No Experience Needed
-              </span>
-              <span className="rounded-full bg-success/20 px-4 py-2 text-sm font-semibold text-success shadow-sm">
-                🔒 Bank-Level Security
-              </span>
-            </div>
+            
           </FadeIn>
         </FadeIn>
       </div>
@@ -167,7 +141,6 @@ const HeroSection = () => <section className="relative py-20 md:py-32 px-4 bg-gr
       </div>
     </div>
   </section>;
-
 const FeaturesSection = () => <section className="py-16 bg-background">
     <div className="max-w-6xl mx-auto px-2 sm:px-4 lg:px-8">
       <h2 className="text-3xl font-bold text-center mb-10 text-primary animate-fade-in">
@@ -186,7 +159,6 @@ const FeaturesSection = () => <section className="py-16 bg-background">
       </div>
     </div>
   </section>;
-
 const TimelineAndChatbotSection = () => <section className="bg-background py-16">
     <div className="max-w-5xl mx-auto px-2 sm:px-4 grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
       <div className="md:col-span-2 w-full">
@@ -202,7 +174,6 @@ const TimelineAndChatbotSection = () => <section className="bg-background py-16"
       </div>
     </div>
   </section>;
-
 const TestimonialsSection = () => <section className="py-16 bg-blue-50 dark:bg-muted">
     <div className="max-w-3xl mx-auto px-2 sm:px-4 text-center">
       <h2 className="text-2xl font-bold mb-8 text-primary animate-fade-in">
@@ -218,7 +189,6 @@ const TestimonialsSection = () => <section className="py-16 bg-blue-50 dark:bg-m
       </div>
     </div>
   </section>;
-
 const CTASection = () => <section className="py-20 px-4 text-center bg-gradient-to-tr from-primary to-blue-400 relative overflow-hidden">
     {/* Enhanced animated circles */}
     <div className="pointer-events-none absolute -top-12 left-1/2 -translate-x-1/2 w-full flex justify-center z-0">
@@ -244,7 +214,6 @@ const CTASection = () => <section className="py-20 px-4 text-center bg-gradient-
       </div>
     </div>
   </section>;
-
 const Index = () => <main className="min-h-screen bg-background relative">
     {/* Hero Section */}
     <HeroSection />
@@ -262,12 +231,6 @@ const Index = () => <main className="min-h-screen bg-background relative">
     <CTASection />
 
     {/* Enhanced AI Chat Bubble with more prominent styling */}
-    <AiChatBubble 
-      userId="user-001" 
-      chatSessionId="session-abc" 
-      userProfile={sampleUserProfile} 
-      supabaseContext={sampleSupabaseContext} 
-    />
+    <AiChatBubble userId="user-001" chatSessionId="session-abc" userProfile={sampleUserProfile} supabaseContext={sampleSupabaseContext} />
   </main>;
-
 export default Index;
