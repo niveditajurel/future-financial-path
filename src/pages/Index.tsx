@@ -59,7 +59,7 @@ const sampleUserProfile = {
 const sampleSupabaseContext = {
   lastLogin: "2025-06-14"
 };
-const HeroSection = () => <section className="relative py-20 md:py-32 px-4 bg-gradient-to-b from-background to-transparent overflow-hidden">
+const HeroSection = () => <section className="relative py-20 px-4 bg-gradient-to-b from-background to-transparent overflow-hidden my-0 md:py-[108px]">
     {/* Enhanced animated floating glowy rings */}
     <div className="absolute left-1/2 top-0 md:top-0 -translate-x-1/2 z-0 pointer-events-none w-full flex justify-center">
       <div className="w-96 h-96 md:w-[40rem] md:h-[40rem] rounded-full opacity-70 blur-3xl animate-pulse" style={{
@@ -103,16 +103,16 @@ const HeroSection = () => <section className="relative py-20 md:py-32 px-4 bg-gr
           {/* Enhanced CTA Buttons */}
           <FadeIn delay={220}>
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
-              <Link to="/auth" className="group">
-                <button className="relative px-8 py-4 font-bold text-lg rounded-xl bg-primary hover:bg-accent text-primary-foreground shadow-2xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 ring-2 ring-accent/30 ring-offset-2 ring-offset-background focus:outline-none focus:ring-4 focus:ring-primary/50">
+              <Link to="/auth" className="group px-0 py-[22px]">
+                <button className="relative px-8 font-bold text-lg rounded-xl bg-primary hover:bg-accent text-primary-foreground shadow-2xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 ring-2 ring-accent/30 ring-offset-2 ring-offset-background focus:outline-none focus:ring-4 focus:ring-primary/50 py-[12px]">
                   Start Building Wealth - Free
                   
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 rounded-xl" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 rounded-xl my-[10px] py-[20px] mx-[35px]" />
                 </button>
               </Link>
               
               <Link to="/dashboard">
-                <Button variant="outline" size="lg" className="px-8 py-4 border-2 border-primary/30 hover:border-primary hover:bg-primary/10 transition-all duration-300 gap-3 text-lg rounded-none">
+                <Button variant="outline" size="lg" className="border-2 border-primary/30 hover:border-primary hover:bg-primary/10 transition-all duration-300 gap-3 rounded-none mx-[4px] px-[10px] my-[13px] py-[29px] text-lg">
                   <LayoutDashboard className="w-6 h-6" />
                   View Dashboard Demo
                 </Button>
