@@ -96,7 +96,6 @@ const HeroSection = () => (
         <PopIn>
           <h1 className="text-5xl md:text-6xl leading-tight font-extrabold mb-5 tracking-tight drop-shadow max-w-xl bg-clip-text text-transparent bg-gradient-to-r from-primary via-white to-accent inline-block">
             <span className="inline-block">
-              Unlock&nbsp;
               <span
                 style={{
                   color: "hsl(var(--primary))",
@@ -106,9 +105,8 @@ const HeroSection = () => (
                   zIndex: 2,
                 }}
               >
-                <Flicker>your future</Flicker>
+                <Flicker>Unlock Your Wealth Potential</Flicker>
               </span>
-              &nbsp;with
               <span className="ml-2">
                 <PulseGlow>
                   <span
