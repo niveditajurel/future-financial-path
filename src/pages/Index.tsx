@@ -78,12 +78,12 @@ const HeroSection = () => <section className="relative py-20 px-4 bg-gradient-to
               </span>
               <span className="ml-2">
                 <PulseGlow>
-                  <span className="inline-block rounded-lg px-3 py-2 font-bold text-lg md:text-xl" style={{
+                  <span style={{
                   color: "hsl(var(--primary))",
                   background: "white",
                   boxShadow: "0 4px 24px 0 rgba(33,199,104,0.2)",
                   border: "2px solid hsl(var(--primary))"
-                }}>Affordably</span>
+                }} className="inline-block rounded-lg py-2 font-bold text-lg mx-0 px-[154px] text-left md:text-4xl">Affordably</span>
                 </PulseGlow>
               </span>
             </h1>
