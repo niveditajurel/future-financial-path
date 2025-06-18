@@ -59,7 +59,7 @@ const sampleUserProfile = {
 const sampleSupabaseContext = {
   lastLogin: "2025-06-14"
 };
-const HeroSection = () => <section className="relative py-20 px-4 bg-gradient-to-b from-background to-transparent overflow-hidden my-0 md:py-[108px]">
+const HeroSection = () => <section className="relative py-20 px-4 bg-gradient-to-b from-background to-transparent overflow-hidden md:py-[108px] my-[7px]">
     {/* Enhanced animated floating glowy rings */}
     <div className="absolute left-1/2 top-0 md:top-0 -translate-x-1/2 z-0 pointer-events-none w-full flex justify-center">
       <div className="w-96 h-96 md:w-[40rem] md:h-[40rem] rounded-full opacity-70 blur-3xl animate-pulse" style={{
@@ -112,7 +112,7 @@ const HeroSection = () => <section className="relative py-20 px-4 bg-gradient-to
               </Link>
               
               <Link to="/dashboard">
-                <Button variant="outline" size="lg" className="border-2 border-primary/30 hover:border-primary hover:bg-primary/10 transition-all duration-300 gap-3 rounded-none mx-[4px] px-[10px] my-[13px] py-[29px] text-lg">
+                <Button variant="outline" size="lg" className="border-2 border-primary/30 hover:border-primary hover:bg-primary/10 transition-all duration-300 gap-3 rounded-none mx-[4px] px-[10px] text-lg py-[26px] my-[22px]">
                   <LayoutDashboard className="w-6 h-6" />
                   View Dashboard Demo
                 </Button>
