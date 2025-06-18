@@ -83,7 +83,7 @@ const HeroSection = () => <section className="relative py-20 px-4 bg-gradient-to
                   background: "white",
                   boxShadow: "0 4px 24px 0 rgba(33,199,104,0.2)",
                   border: "2px solid hsl(var(--primary))"
-                }} className="inline-block rounded-lg py-2 font-bold text-lg mx-0 px-[154px] text-left md:text-4xl">Affordably</span>
+                }} className="inline-block rounded-lg py-2 font-bold text-lg mx-0 md:text-4xl px-[86px] text-left">Affordably</span>
                 </PulseGlow>
               </span>
             </h1>
