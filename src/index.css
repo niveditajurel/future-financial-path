@@ -68,6 +68,7 @@
   }
 }
 
+/* Enhanced smooth animations */
 @keyframes fade-in {
   0% {
     opacity: 0;
@@ -114,6 +115,106 @@
   }
 }
 
+/* New enhanced animations */
+@keyframes float-smooth {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-8px) rotate(1deg);
+  }
+  66% {
+    transform: translateY(-4px) rotate(-1deg);
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes pulse-gentle {
+  0%, 100% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes bounce-gentle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes grow-bar {
+  0% {
+    height: 0%;
+    transform: scaleY(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1) rotate(180deg);
+  }
+}
+
+@keyframes gradient-x {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes button-glow {
+  0%, 100% {
+    box-shadow: 0 8px 32px 4px rgba(33, 199, 104, 0.3), 0 4px 16px 2px rgba(33, 199, 104, 0.2);
+  }
+  50% {
+    box-shadow: 0 12px 40px 6px rgba(33, 199, 104, 0.4), 0 6px 20px 3px rgba(33, 199, 104, 0.3);
+  }
+}
+
+@keyframes counter {
+  0% {
+    transform: scale(0.9);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 .flicker-text {
   color: var(--primary);
   text-shadow:
@@ -143,4 +244,45 @@
   animation: float 3s ease-in-out infinite;
 }
 
-/* Responsive: Ensure padding/spacing for hero images if added in future */
+.animate-float-smooth {
+  animation: float-smooth 4s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s ease-in-out infinite;
+}
+
+.animate-pulse-gentle {
+  animation: pulse-gentle 2s ease-in-out infinite;
+}
+
+.animate-bounce-gentle {
+  animation: bounce-gentle 2s ease-in-out infinite;
+}
+
+.animate-grow-bar {
+  animation: grow-bar 2.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  transform-origin: bottom;
+}
+
+.animate-sparkle {
+  animation: sparkle 3s ease-in-out infinite;
+}
+
+.animate-gradient-x {
+  animation: gradient-x 3s ease infinite;
+  background-size: 200% 200%;
+}
+
+.animate-button-glow {
+  animation: button-glow 2s ease-in-out infinite;
+}
+
+.animate-counter {
+  animation: counter 2s ease-out;
+}
+
+/* Smooth transitions for all elements */
+* {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
