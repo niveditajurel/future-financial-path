@@ -35,6 +35,21 @@ function formatCurrency(amount: number) {
   return "$" + amount.toLocaleString();
 }
 
+// Demo data for non-authenticated users
+const DEMO_PROFILE: UserProfile = {
+  id: "demo",
+  full_name: "Demo User",
+  age: 28,
+  monthly_income: 5000,
+  monthly_expenses: 3500,
+  current_savings: 15000,
+  debt_amount: 8000,
+  financial_goals: ["Emergency Fund", "House Down Payment", "Retirement"],
+  risk_tolerance: "moderate",
+  investment_experience: "beginner",
+  emergency_fund_months: 4,
+};
+
 // AI Analysis function based on user data
 function generateAIAdvice(profile: UserProfile): string {
   if (!profile.monthly_income || !profile.monthly_expenses) {
@@ -77,6 +92,7 @@ function generateAIAdvice(profile: UserProfile): string {
 export default function Dashboard() {
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isDemo, setIsDemo] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -85,7 +101,10 @@ export default function Dashboard() {
         const { data: { user } } = await supabase.auth.getUser();
         
         if (!user) {
-          navigate("/auth");
+          // Show demo version instead of redirecting to auth
+          setUserProfile(DEMO_PROFILE);
+          setIsDemo(true);
+          setLoading(false);
           return;
         }
 
@@ -180,6 +199,28 @@ export default function Dashboard() {
           <ArrowLeft size={16} className="md:w-[18px] md:h-[18px]" /> Back to Home
         </Link>
       </div>
+      
+      {/* Demo Banner */}
+      {isDemo && (
+        <div className="max-w-4xl mx-auto mb-6 md:mb-8">
+          <div className="bg-accent/20 border border-accent/30 text-accent-foreground rounded-lg p-4 md:p-6 flex flex-col sm:flex-row items-start sm:items-center gap-3 md:gap-4 shadow animate-fade-in">
+            <AlertTriangle size={24} className="md:w-8 md:h-8 text-accent flex-shrink-0" />
+            <div>
+              <div className="font-semibold text-base md:text-lg mb-1">
+                📊 Dashboard Demo Mode
+              </div>
+              <div className="text-xs md:text-sm opacity-95 leading-relaxed">
+                This is a preview with sample data. Sign up to see your real financial dashboard with personalized AI advice!
+              </div>
+            </div>
+            <Link to="/auth" className="ml-auto">
+              <Button variant="outline" size="sm" className="border-accent text-accent hover:bg-accent/10">
+                Sign Up Now
+              </Button>
+            </Link>
+          </div>
+        </div>
+      )}
       
       {/* Personalized Greeting */}
       <div className="max-w-4xl mx-auto mb-6 md:mb-8">
@@ -325,11 +366,26 @@ export default function Dashboard() {
 
       {/* Update Profile Button */}
       <div className="max-w-7xl mx-auto mt-8 text-center">
-        <Link to="/onboarding">
-          <Button variant="outline" className="px-6 py-3">
-            Update Financial Profile
-          </Button>
-        </Link>
+        {isDemo ? (
+          <div className="space-y-4">
+            <Link to="/auth">
+              <Button className="px-6 py-3 mr-4">
+                Sign Up to Get Started
+              </Button>
+            </Link>
+            <Link to="/onboarding">
+              <Button variant="outline" className="px-6 py-3">
+                Try Financial Profile Setup
+              </Button>
+            </Link>
+          </div>
+        ) : (
+          <Link to="/onboarding">
+            <Button variant="outline" className="px-6 py-3">
+              Update Financial Profile
+            </Button>
+          </Link>
+        )}
       </div>
     </div>
   );
