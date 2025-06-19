@@ -7,6 +7,7 @@ import { AiChatBubble } from "@/components/AiChatBubble";
 import { FadeIn, PopIn, PulseGlow, Flicker } from "@/components/ui/animations";
 import { FinancialGrowthAnimation } from "@/components/FinancialGrowthAnimation";
 import { Link } from "react-router-dom";
+
 const features = [{
   icon: CircleDollarSign,
   title: "Accessible Expertise",
@@ -54,12 +55,22 @@ const sampleUserProfile = {
 const sampleSupabaseContext = {
   lastLogin: "2025-06-14"
 };
+
 const HeroSection = () => <section className="relative py-16 md:py-24 lg:py-32 px-4 bg-gradient-to-b from-background via-background/95 to-transparent overflow-hidden">
     {/* Sophisticated background layers */}
     <div className="absolute left-1/2 top-0 -translate-x-1/2 z-0 pointer-events-none w-full flex justify-center">
       <div className="w-[40rem] h-[40rem] rounded-full opacity-20 blur-3xl animate-gradient-shift" style={{
       background: "radial-gradient(circle at 50% 50%, rgba(33,199,104,0.2) 0%, rgba(166,215,179,0.1) 40%, rgba(33,199,104,0.05) 80%, transparent 100%)"
     }} />
+    </div>
+    
+    {/* Sign Up Button - Top Right */}
+    <div className="absolute top-6 right-6 z-20">
+      <Link to="/auth">
+        <Button variant="outline" className="px-4 py-2 text-sm border-primary/30 hover:border-primary hover:bg-primary/10 rounded-lg">
+          Sign Up
+        </Button>
+      </Link>
     </div>
     
     <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 lg:gap-20 items-center">
@@ -158,6 +169,7 @@ const HeroSection = () => <section className="relative py-16 md:py-24 lg:py-32 p
       </div>
     </div>
   </section>;
+
 const FeaturesSection = () => <section className="py-16 md:py-20 lg:py-24 bg-gradient-to-b from-background to-muted/30">
     <div className="max-w-6xl mx-auto px-4 text-center space-y-12 md:space-y-16 lg:space-y-20">
       <div className="space-y-4 md:space-y-6 animate-luxurious-fade-in">
@@ -188,6 +200,7 @@ const FeaturesSection = () => <section className="py-16 md:py-20 lg:py-24 bg-gra
       </div>
     </div>
   </section>;
+
 const TimelineAndChatbotSection = () => <section className="py-16 md:py-20 bg-background">
     <div className="max-w-5xl mx-auto px-4 text-center space-y-8 md:space-y-12">
       <div className="space-y-3 md:space-y-4">
@@ -204,6 +217,7 @@ const TimelineAndChatbotSection = () => <section className="py-16 md:py-20 bg-ba
       </div>
     </div>
   </section>;
+
 const TestimonialsSection = () => <section className="py-16 md:py-20 lg:py-24 bg-gradient-to-b from-muted/30 to-background">
     <div className="max-w-5xl mx-auto px-4 text-center space-y-12 md:space-y-16 lg:space-y-20">
       <div className="space-y-4 md:space-y-6 animate-luxurious-fade-in">
@@ -237,6 +251,7 @@ const TestimonialsSection = () => <section className="py-16 md:py-20 lg:py-24 bg
       </div>
     </div>
   </section>;
+
 const CTASection = () => <section className="py-20 md:py-24 lg:py-32 px-4 text-center bg-gradient-to-br from-primary via-primary/95 to-accent relative overflow-hidden">
     <div className="absolute inset-0 bg-gradient-to-r from-primary/30 via-transparent to-accent/30 animate-gradient-shift" />
     <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/10 to-transparent animate-sophisticated-float" />
@@ -277,6 +292,7 @@ const CTASection = () => <section className="py-20 md:py-24 lg:py-32 px-4 text-c
       </div>
     </div>
   </section>;
+
 const Index = () => <main className="min-h-screen bg-background">
     <HeroSection />
     <FeaturesSection />
@@ -285,4 +301,5 @@ const Index = () => <main className="min-h-screen bg-background">
     <CTASection />
     <AiChatBubble userId="user-001" chatSessionId="session-abc" userProfile={sampleUserProfile} supabaseContext={sampleSupabaseContext} />
   </main>;
+
 export default Index;

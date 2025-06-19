@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,9 +10,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
 import { supabase } from "@/integrations/supabase/client";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
-import { CircleDollarSign, User, Target, TrendingUp, Shield, ArrowRight } from "lucide-react";
+import { CircleDollarSign, User, Target, TrendingUp, Shield, ArrowRight, ArrowLeft } from "lucide-react";
 
 const formSchema = z.object({
   fullName: z.string().min(2, "Name must be at least 2 characters"),
@@ -385,6 +384,13 @@ export default function FinancialOnboarding() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background/95 to-muted/20 py-8 px-4">
+      {/* Back to Home button */}
+      <div className="max-w-2xl mx-auto flex justify-start mb-6">
+        <Link to="/" className="inline-flex items-center gap-2 text-sm bg-card border border-border rounded-md px-4 py-2 shadow hover:bg-accent transition-colors text-primary">
+          <ArrowLeft size={16} /> Back to Home
+        </Link>
+      </div>
+
       <div className="max-w-2xl mx-auto">
         {/* Progress indicator */}
         <div className="mb-8">
