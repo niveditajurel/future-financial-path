@@ -42,6 +42,57 @@ export type Database = {
         }
         Relationships: []
       }
+      user_financial_profiles: {
+        Row: {
+          age: number | null
+          created_at: string
+          current_savings: number | null
+          debt_amount: number | null
+          emergency_fund_months: number | null
+          financial_goals: string[] | null
+          full_name: string
+          id: string
+          investment_experience: string | null
+          monthly_expenses: number | null
+          monthly_income: number | null
+          risk_tolerance: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          age?: number | null
+          created_at?: string
+          current_savings?: number | null
+          debt_amount?: number | null
+          emergency_fund_months?: number | null
+          financial_goals?: string[] | null
+          full_name: string
+          id?: string
+          investment_experience?: string | null
+          monthly_expenses?: number | null
+          monthly_income?: number | null
+          risk_tolerance?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          age?: number | null
+          created_at?: string
+          current_savings?: number | null
+          debt_amount?: number | null
+          emergency_fund_months?: number | null
+          financial_goals?: string[] | null
+          full_name?: string
+          id?: string
+          investment_experience?: string | null
+          monthly_expenses?: number | null
+          monthly_income?: number | null
+          risk_tolerance?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

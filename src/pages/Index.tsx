@@ -117,7 +117,7 @@ const HeroSection = () => (
           className="flex flex-col sm:flex-row gap-4 md:gap-6 w-full animate-elegant-slide-up"
           style={{ animationDelay: '1.4s' }}
         >
-          <Link to="/auth" className="w-full sm:w-auto">
+          <Link to="/onboarding" className="w-full sm:w-auto">
             <Button className="w-full sm:w-auto px-6 md:px-10 py-6 md:py-8 text-lg md:text-xl font-bold bg-primary hover:bg-primary/90 text-white shadow-2xl hover:shadow-3xl btn-classy-hover rounded-xl md:rounded-2xl border border-primary/20 hover-card-lift">
               Start Building Wealth - Free
             </Button>
@@ -272,7 +272,7 @@ const CTASection = () => (
       </div>
       
       <div className="space-y-6 md:space-y-8 animate-elegant-slide-up" style={{ animationDelay: '0.6s' }}>
-        <Link to="/auth">
+        <Link to="/onboarding">
           <Button className="px-8 md:px-12 lg:px-16 py-6 md:py-8 text-lg md:text-xl lg:text-2xl bg-white text-primary font-bold shadow-2xl hover:shadow-3xl hover:bg-white/95 btn-classy-hover rounded-xl md:rounded-2xl border-2 border-white/20">
             Get Your Free AI Financial Coach
           </Button>
