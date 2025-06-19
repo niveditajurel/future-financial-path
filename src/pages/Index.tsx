@@ -7,7 +7,6 @@ import { AiChatBubble } from "@/components/AiChatBubble";
 import { FadeIn, PopIn, PulseGlow, Flicker } from "@/components/ui/animations";
 import { FinancialGrowthAnimation } from "@/components/FinancialGrowthAnimation";
 import { Link } from "react-router-dom";
-
 const features = [{
   icon: CircleDollarSign,
   title: "Accessible Expertise",
@@ -55,7 +54,6 @@ const sampleUserProfile = {
 const sampleSupabaseContext = {
   lastLogin: "2025-06-14"
 };
-
 const HeroSection = () => <section className="relative py-16 md:py-24 lg:py-32 px-4 bg-gradient-to-b from-background via-background/95 to-transparent overflow-hidden">
     {/* Sophisticated background layers */}
     <div className="absolute left-1/2 top-0 -translate-x-1/2 z-0 pointer-events-none w-full flex justify-center">
@@ -137,20 +135,7 @@ const HeroSection = () => <section className="relative py-16 md:py-24 lg:py-32 p
         </div>
         
         {/* Enhanced Trust Indicators */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 md:gap-10 text-muted-foreground animate-text-reveal" style={{
-        animationDelay: '1.6s'
-      }}>
-          <div className="flex items-center gap-2 md:gap-3 hover-card-lift">
-            <Shield className="w-4 h-4 md:w-5 md:h-5 text-primary animate-elegant-pulse" />
-            <span className="font-medium text-sm md:text-base">Bank-level Security</span>
-          </div>
-          <div className="flex items-center gap-2 md:gap-3 hover-card-lift">
-            <Star className="w-4 h-4 md:w-5 md:h-5 text-primary animate-elegant-pulse" style={{
-            animationDelay: '0.5s'
-          }} />
-            <span className="font-medium text-sm md:text-base">4.9/5 Rating</span>
-          </div>
-        </div>
+        
       </div>
       
       {/* Right Column - Enhanced animation container */}
@@ -169,7 +154,6 @@ const HeroSection = () => <section className="relative py-16 md:py-24 lg:py-32 p
       </div>
     </div>
   </section>;
-
 const FeaturesSection = () => <section className="py-16 md:py-20 lg:py-24 bg-gradient-to-b from-background to-muted/30">
     <div className="max-w-6xl mx-auto px-4 text-center space-y-12 md:space-y-16 lg:space-y-20">
       <div className="space-y-4 md:space-y-6 animate-luxurious-fade-in">
@@ -200,7 +184,6 @@ const FeaturesSection = () => <section className="py-16 md:py-20 lg:py-24 bg-gra
       </div>
     </div>
   </section>;
-
 const TimelineAndChatbotSection = () => <section className="py-16 md:py-20 bg-background">
     <div className="max-w-5xl mx-auto px-4 text-center space-y-8 md:space-y-12">
       <div className="space-y-3 md:space-y-4">
@@ -217,7 +200,6 @@ const TimelineAndChatbotSection = () => <section className="py-16 md:py-20 bg-ba
       </div>
     </div>
   </section>;
-
 const TestimonialsSection = () => <section className="py-16 md:py-20 lg:py-24 bg-gradient-to-b from-muted/30 to-background">
     <div className="max-w-5xl mx-auto px-4 text-center space-y-12 md:space-y-16 lg:space-y-20">
       <div className="space-y-4 md:space-y-6 animate-luxurious-fade-in">
@@ -251,7 +233,6 @@ const TestimonialsSection = () => <section className="py-16 md:py-20 lg:py-24 bg
       </div>
     </div>
   </section>;
-
 const CTASection = () => <section className="py-20 md:py-24 lg:py-32 px-4 text-center bg-gradient-to-br from-primary via-primary/95 to-accent relative overflow-hidden">
     <div className="absolute inset-0 bg-gradient-to-r from-primary/30 via-transparent to-accent/30 animate-gradient-shift" />
     <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/10 to-transparent animate-sophisticated-float" />
@@ -292,7 +273,6 @@ const CTASection = () => <section className="py-20 md:py-24 lg:py-32 px-4 text-c
       </div>
     </div>
   </section>;
-
 const Index = () => <main className="min-h-screen bg-background">
     <HeroSection />
     <FeaturesSection />
@@ -301,5 +281,4 @@ const Index = () => <main className="min-h-screen bg-background">
     <CTASection />
     <AiChatBubble userId="user-001" chatSessionId="session-abc" userProfile={sampleUserProfile} supabaseContext={sampleSupabaseContext} />
   </main>;
-
 export default Index;
