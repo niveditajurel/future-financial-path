@@ -44,15 +44,20 @@ export default function FinancialOnboarding() {
       const { data: { user } } = await supabase.auth.getUser();
       
       if (!user) {
+        // Store form data in localStorage temporarily
+        localStorage.setItem('pendingFinancialProfile', JSON.stringify(values));
+        
         toast({
-          title: "Authentication Error",
-          description: "Please log in to continue",
-          variant: "destructive",
+          title: "Sign up required",
+          description: "Please create an account to save your financial profile",
         });
+        
+        // Redirect to auth page
         navigate("/auth");
         return;
       }
 
+      // Save the financial profile to the database
       const { error } = await supabase
         .from("user_financial_profiles")
         .upsert({
@@ -70,6 +75,9 @@ export default function FinancialOnboarding() {
         });
 
       if (error) throw error;
+
+      // Clear any stored pending profile data
+      localStorage.removeItem('pendingFinancialProfile');
 
       toast({
         title: "Profile Created Successfully!",
