@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import {
   BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip as RechartsTooltip, PieChart, Pie, Cell, Legend,
@@ -8,6 +7,7 @@ import { CircleArrowUp, CircleArrowDown, CircleArrowRight, ArrowLeft, User, Aler
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
+import { AiFinancialAdvisor } from "@/components/AiFinancialAdvisor";
 
 // Type for user profile data
 type UserProfile = {
@@ -57,7 +57,7 @@ function generateAIAdvice(profile: UserProfile): string {
   }
 
   const netIncome = profile.monthly_income - profile.monthly_expenses;
-  const savingsRate = profile.monthly_income > 0 ? (netIncome / profile.monthly_income) * 100 : 0;
+  const savingsRate = profile.monthly_income ? (netIncome / profile.monthly_income) * 100 : 0;
   const debtToIncomeRatio = profile.debt_amount && profile.monthly_income ? (profile.debt_amount / (profile.monthly_income * 12)) * 100 : 0;
 
   let advice = `Hello ${profile.full_name}! `;
@@ -361,6 +361,13 @@ export default function Dashboard() {
               </div>
             </CardContent>
           </Card>
+        </div>
+      )}
+
+      {/* AI Financial Advisor Section */}
+      {!isDemo && (
+        <div className="max-w-7xl mx-auto mt-8">
+          <AiFinancialAdvisor userProfile={userProfile} />
         </div>
       )}
 
