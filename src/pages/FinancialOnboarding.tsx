@@ -81,12 +81,13 @@ export default function FinancialOnboarding() {
 
       toast({
         title: "Profile Created Successfully!",
-        description: "Your financial profile has been saved. Redirecting to dashboard...",
+        description: "Your financial profile has been saved. Redirecting to your personalized dashboard...",
       });
 
+      // Redirect to dashboard after successful profile creation
       setTimeout(() => {
         navigate("/dashboard");
-      }, 2000);
+      }, 1500);
 
     } catch (error) {
       console.error("Error saving profile:", error);
@@ -162,7 +163,7 @@ export default function FinancialOnboarding() {
                       </Button>
                     ) : (
                       <Button type="submit" disabled={isSubmitting} className="bg-primary hover:bg-primary/90">
-                        {isSubmitting ? "Creating Profile..." : "Complete Setup"}
+                        {isSubmitting ? "Creating Profile..." : "Complete Setup & Go to Dashboard"}
                         <Shield className="w-4 h-4 ml-2" />
                       </Button>
                     )}
