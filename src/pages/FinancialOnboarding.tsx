@@ -56,8 +56,10 @@ export default function FinancialOnboarding() {
         return;
       }
 
+      console.log('Submitting financial profile:', values);
+
       // Save the financial profile to the database
-      const { error } = await supabase
+      const { data, error } = await supabase
         .from("user_financial_profiles")
         .upsert({
           user_id: user.id,
@@ -73,7 +75,12 @@ export default function FinancialOnboarding() {
           emergency_fund_months: values.emergencyFundMonths,
         });
 
-      if (error) throw error;
+      if (error) {
+        console.error('Database error:', error);
+        throw error;
+      }
+
+      console.log('Profile saved successfully:', data);
 
       // Clear any stored pending profile data
       localStorage.removeItem('pendingFinancialProfile');
@@ -85,8 +92,9 @@ export default function FinancialOnboarding() {
 
       // Redirect to dashboard after successful profile creation
       setTimeout(() => {
+        console.log('Navigating to dashboard...');
         navigate("/dashboard");
-      }, 1500);
+      }, 1000);
 
     } catch (error) {
       console.error("Error saving profile:", error);

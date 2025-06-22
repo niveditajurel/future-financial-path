@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import {
   BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip as RechartsTooltip, PieChart, Pie, Cell, Legend,
@@ -98,15 +99,19 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
+        console.log('Fetching user profile...');
         const { data: { user } } = await supabase.auth.getUser();
         
         if (!user) {
+          console.log('No authenticated user, showing demo');
           // Show demo version instead of redirecting to auth
           setUserProfile(DEMO_PROFILE);
           setIsDemo(true);
           setLoading(false);
           return;
         }
+
+        console.log('Authenticated user found:', user.id);
 
         const { data, error } = await supabase
           .from("user_financial_profiles")
@@ -117,7 +122,10 @@ export default function Dashboard() {
         if (error && error.code !== 'PGRST116') {
           console.error("Error fetching profile:", error);
         } else if (data) {
+          console.log('User profile found:', data);
           setUserProfile(data);
+        } else {
+          console.log('No profile found for user');
         }
       } catch (error) {
         console.error("Error:", error);
@@ -279,7 +287,6 @@ export default function Dashboard() {
       
       {/* Charts with real data */}
       <div className="grid gap-6 md:gap-8 grid-cols-1 lg:grid-cols-2 max-w-7xl mx-auto">
-        {/* Bar Chart: Monthly Spending Trends */}
         <Card className="p-3 md:p-2 bg-card shadow border border-border">
           <CardHeader className="pb-3 md:pb-6">
             <CardTitle className="text-base md:text-lg">Your Monthly Spending Pattern</CardTitle>
@@ -301,7 +308,6 @@ export default function Dashboard() {
           </CardContent>
         </Card>
         
-        {/* Pie Chart: Asset Distribution */}
         <Card className="p-3 md:p-2 bg-card shadow border border-border">
           <CardHeader className="pb-3 md:pb-6">
             <CardTitle className="text-base md:text-lg">Your Asset Distribution</CardTitle>
@@ -364,8 +370,8 @@ export default function Dashboard() {
         </div>
       )}
 
-      {/* AI Financial Advisor Section */}
-      {!isDemo && (
+      {/* AI Financial Advisor Section - Show for authenticated users with profile */}
+      {!isDemo && userProfile && (
         <div className="max-w-7xl mx-auto mt-8">
           <AiFinancialAdvisor userProfile={userProfile} />
         </div>
