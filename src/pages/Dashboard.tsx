@@ -1,4 +1,5 @@
 
+
 import React, { useEffect, useState } from "react";
 import {
   BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip as RechartsTooltip, PieChart, Pie, Cell, Legend,
@@ -99,11 +100,11 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        console.log('Fetching user profile...');
+        console.log('Dashboard: Fetching user profile...');
         const { data: { user } } = await supabase.auth.getUser();
         
         if (!user) {
-          console.log('No authenticated user, showing demo');
+          console.log('Dashboard: No authenticated user, showing demo');
           // Show demo version instead of redirecting to auth
           setUserProfile(DEMO_PROFILE);
           setIsDemo(true);
@@ -111,24 +112,46 @@ export default function Dashboard() {
           return;
         }
 
-        console.log('Authenticated user found:', user.id);
+        console.log('Dashboard: Authenticated user found:', user.id);
 
-        const { data, error } = await supabase
-          .from("user_financial_profiles")
-          .select("*")
-          .eq("user_id", user.id)
-          .single();
+        // Try multiple times to get the profile in case there's a timing issue
+        let profileData = null;
+        let attempts = 0;
+        const maxAttempts = 3;
 
-        if (error && error.code !== 'PGRST116') {
-          console.error("Error fetching profile:", error);
-        } else if (data) {
-          console.log('User profile found:', data);
-          setUserProfile(data);
+        while (!profileData && attempts < maxAttempts) {
+          attempts++;
+          console.log(`Dashboard: Attempt ${attempts} to fetch profile for user:`, user.id);
+          
+          const { data, error } = await supabase
+            .from("user_financial_profiles")
+            .select("*")
+            .eq("user_id", user.id)
+            .single();
+
+          if (error && error.code !== 'PGRST116') {
+            console.error("Dashboard: Error fetching profile:", error);
+            break;
+          } else if (data) {
+            console.log('Dashboard: User profile found:', data);
+            profileData = data;
+            break;
+          } else {
+            console.log(`Dashboard: No profile found for user on attempt ${attempts}, retrying...`);
+            // Wait a bit before retrying
+            if (attempts < maxAttempts) {
+              await new Promise(resolve => setTimeout(resolve, 1000));
+            }
+          }
+        }
+
+        if (profileData) {
+          setUserProfile(profileData);
         } else {
-          console.log('No profile found for user');
+          console.log('Dashboard: No profile found after all attempts');
         }
       } catch (error) {
-        console.error("Error:", error);
+        console.error("Dashboard: Error:", error);
       } finally {
         setLoading(false);
       }
@@ -148,7 +171,7 @@ export default function Dashboard() {
     );
   }
 
-  if (!userProfile) {
+  if (!userProfile || (!isDemo && !userProfile.full_name)) {
     return (
       <div className="min-h-screen bg-gradient-to-tr from-background via-secondary to-background py-10 px-6">
         <div className="max-w-4xl mx-auto text-center space-y-8">
@@ -370,8 +393,8 @@ export default function Dashboard() {
         </div>
       )}
 
-      {/* AI Financial Advisor Section - Show for authenticated users with profile */}
-      {!isDemo && userProfile && (
+      {/* AI Financial Advisor Section - Show for authenticated users with complete profile */}
+      {!isDemo && userProfile && userProfile.full_name && (
         <div className="max-w-7xl mx-auto mt-8">
           <AiFinancialAdvisor userProfile={userProfile} />
         </div>

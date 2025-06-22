@@ -56,7 +56,7 @@ export default function FinancialOnboarding() {
         return;
       }
 
-      console.log('Submitting financial profile:', values);
+      console.log('Submitting financial profile for user:', user.id, values);
 
       // Save the financial profile to the database
       const { data, error } = await supabase
@@ -76,7 +76,7 @@ export default function FinancialOnboarding() {
         });
 
       if (error) {
-        console.error('Database error:', error);
+        console.error('Database error saving profile:', error);
         throw error;
       }
 
@@ -85,6 +85,20 @@ export default function FinancialOnboarding() {
       // Clear any stored pending profile data
       localStorage.removeItem('pendingFinancialProfile');
 
+      // Verify the profile was saved by fetching it back
+      const { data: savedProfile, error: fetchError } = await supabase
+        .from("user_financial_profiles")
+        .select("*")
+        .eq("user_id", user.id)
+        .single();
+
+      if (fetchError) {
+        console.error('Error verifying saved profile:', fetchError);
+        throw fetchError;
+      }
+
+      console.log('Profile verification successful:', savedProfile);
+
       toast({
         title: "Profile Created Successfully!",
         description: "Your financial profile has been saved. Redirecting to your personalized dashboard...",
@@ -92,9 +106,9 @@ export default function FinancialOnboarding() {
 
       // Redirect to dashboard after successful profile creation
       setTimeout(() => {
-        console.log('Navigating to dashboard...');
-        navigate("/dashboard");
-      }, 1000);
+        console.log('Navigating to dashboard after profile completion...');
+        navigate("/dashboard", { replace: true });
+      }, 1500);
 
     } catch (error) {
       console.error("Error saving profile:", error);
