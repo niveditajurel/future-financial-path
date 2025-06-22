@@ -45,7 +45,8 @@ export const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({ form }) => {
                   type="number" 
                   placeholder="Enter your age" 
                   {...field} 
-                  onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
+                  value={field.value || ""}
+                  onChange={(e) => field.onChange(e.target.value ? parseInt(e.target.value) : undefined)}
                 />
               </FormControl>
               <FormMessage />

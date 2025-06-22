@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -25,15 +24,15 @@ export default function FinancialOnboarding() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       fullName: "",
-      age: 25,
-      monthlyIncome: 0,
-      monthlyExpenses: 0,
-      currentSavings: 0,
-      debtAmount: 0,
+      age: undefined,
+      monthlyIncome: undefined,
+      monthlyExpenses: undefined,
+      currentSavings: undefined,
+      debtAmount: undefined,
       financialGoals: [],
-      riskTolerance: "moderate",
-      investmentExperience: "beginner",
-      emergencyFundMonths: 3,
+      riskTolerance: undefined,
+      investmentExperience: undefined,
+      emergencyFundMonths: undefined,
     },
   });
 

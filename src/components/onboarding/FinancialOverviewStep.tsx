@@ -31,7 +31,8 @@ export const FinancialOverviewStep: React.FC<FinancialOverviewStepProps> = ({ fo
                   type="number" 
                   placeholder="Enter your monthly income" 
                   {...field} 
-                  onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
+                  value={field.value || ""}
+                  onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : undefined)}
                 />
               </FormControl>
               <FormDescription>Your total monthly income after taxes</FormDescription>
@@ -51,7 +52,8 @@ export const FinancialOverviewStep: React.FC<FinancialOverviewStepProps> = ({ fo
                   type="number" 
                   placeholder="Enter your monthly expenses" 
                   {...field} 
-                  onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
+                  value={field.value || ""}
+                  onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : undefined)}
                 />
               </FormControl>
               <FormDescription>Your total monthly expenses including rent, bills, food, etc.</FormDescription>
@@ -71,7 +73,8 @@ export const FinancialOverviewStep: React.FC<FinancialOverviewStepProps> = ({ fo
                   type="number" 
                   placeholder="Enter your current savings" 
                   {...field} 
-                  onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
+                  value={field.value || ""}
+                  onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : undefined)}
                 />
               </FormControl>
               <FormDescription>Total amount in savings accounts</FormDescription>
@@ -91,7 +94,8 @@ export const FinancialOverviewStep: React.FC<FinancialOverviewStepProps> = ({ fo
                   type="number" 
                   placeholder="Enter your total debt" 
                   {...field} 
-                  onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
+                  value={field.value || ""}
+                  onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : undefined)}
                 />
               </FormControl>
               <FormDescription>Including credit cards, loans, etc.</FormDescription>

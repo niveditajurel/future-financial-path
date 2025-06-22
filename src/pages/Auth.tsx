@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Input } from "@/components/ui/input";
@@ -101,21 +100,16 @@ const Auth = () => {
             description: "We've sent you a confirmation link to complete your signup.",
           });
         } else if (data.user) {
-          // If user is immediately confirmed, save pending profile and redirect
+          // If user is immediately confirmed, save pending profile and redirect to dashboard
           await savePendingProfile(data.user.id);
           
-          // Check if user has a profile, if not redirect to onboarding
-          const { data: profileData } = await supabase
-            .from("user_financial_profiles")
-            .select("*")
-            .eq("user_id", data.user.id)
-            .single();
-            
-          if (!profileData) {
-            navigate("/onboarding");
-          } else {
-            navigate("/dashboard");
-          }
+          toast({
+            title: "Account created successfully!",
+            description: "Welcome to your financial journey!",
+          });
+          
+          // Always redirect to dashboard after successful signup
+          navigate("/dashboard");
         }
       } else {
         const { data, error } = await supabase.auth.signInWithPassword({
