@@ -49,6 +49,7 @@ export const AiFinancialAdvisor: React.FC<AiFinancialAdvisorProps> = ({ userProf
   const [customQuestion, setCustomQuestion] = useState("");
   const [loading, setLoading] = useState(false);
   const [customAdvice, setCustomAdvice] = useState("");
+  const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -57,7 +58,11 @@ export const AiFinancialAdvisor: React.FC<AiFinancialAdvisorProps> = ({ userProf
 
   const generatePersonalizedAdvice = async () => {
     setLoading(true);
+    setError(null);
+    
     try {
+      console.log('Calling financial-advisor function with profile:', userProfile);
+      
       const { data, error } = await supabase.functions.invoke('financial-advisor', {
         body: {
           userProfile,
@@ -65,10 +70,22 @@ export const AiFinancialAdvisor: React.FC<AiFinancialAdvisorProps> = ({ userProf
         }
       });
 
-      if (error) throw error;
+      if (error) {
+        console.error('Supabase function error:', error);
+        throw error;
+      }
+      
+      console.log('Received data from financial-advisor:', data);
       setAdvice(data);
+      
+      toast({
+        title: "Financial Analysis Complete",
+        description: "Your personalized financial advice has been generated.",
+      });
+      
     } catch (error) {
       console.error('Error generating advice:', error);
+      setError(error.message || 'Failed to generate financial advice');
       toast({
         title: "Error",
         description: "Failed to generate financial advice. Please try again.",
@@ -129,6 +146,29 @@ export const AiFinancialAdvisor: React.FC<AiFinancialAdvisorProps> = ({ userProf
           <div className="flex items-center justify-center py-8">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
             <span className="ml-3">Analyzing your financial profile and market conditions...</span>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  if (error && !advice) {
+    return (
+      <Card className="w-full">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Users className="w-6 h-6 text-primary" />
+            AI Financial Advisor
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="text-center py-8">
+            <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
+            <h3 className="text-lg font-semibold mb-2">Unable to Generate Financial Advice</h3>
+            <p className="text-muted-foreground mb-4">{error}</p>
+            <Button onClick={generatePersonalizedAdvice} disabled={loading}>
+              {loading ? "Retrying..." : "Try Again"}
+            </Button>
           </div>
         </CardContent>
       </Card>
