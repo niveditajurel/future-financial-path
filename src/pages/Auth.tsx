@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Input } from "@/components/ui/input";
@@ -32,6 +33,36 @@ const Auth = () => {
       }
     };
     checkUser();
+
+    // Handle OAuth callback and auth state changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+      console.log('Auth state change:', event, session?.user?.id);
+      
+      if (event === 'SIGNED_IN' && session?.user) {
+        // Save pending profile if exists
+        await savePendingProfile(session.user.id);
+        
+        // Check if user has completed their profile
+        const { data: profileData } = await supabase
+          .from("user_financial_profiles")
+          .select("*")
+          .eq("user_id", session.user.id)
+          .maybeSingle();
+          
+        toast({
+          title: "Welcome!",
+          description: "You've been successfully signed in.",
+        });
+        
+        if (!profileData) {
+          navigate("/onboarding");
+        } else {
+          navigate("/dashboard");
+        }
+      }
+    });
+
+    return () => subscription.unsubscribe();
   }, [navigate]);
 
   const savePendingProfile = async (userId: string) => {
@@ -128,7 +159,7 @@ const Auth = () => {
             .from("user_financial_profiles")
             .select("*")
             .eq("user_id", data.user.id)
-            .single();
+            .maybeSingle();
             
           toast({
             title: "Welcome back!",
@@ -160,61 +191,39 @@ const Auth = () => {
     setError(null);
     
     try {
+      console.log('Starting Google OAuth flow...');
+      
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/`
+          redirectTo: `${window.location.origin}/auth`,
+          queryParams: {
+            access_type: 'offline',
+            prompt: 'consent',
+          },
         }
       });
       
-      if (error) throw error;
+      if (error) {
+        console.error('Google OAuth error:', error);
+        throw error;
+      }
       
-      // The redirect will handle the rest
+      console.log('Google OAuth initiated successfully');
+      
+      // The redirect will handle the rest - don't set loading to false here
+      // as the page will redirect
     } catch (err: any) {
       console.error("Google auth error:", err);
       setError(err.message || "Google authentication error");
       toast({
         title: "Google Sign-in Error",
-        description: err.message || "Something went wrong with Google sign-in",
+        description: err.message || "Something went wrong with Google sign-in. Please try again or use email/password.",
         variant: "destructive",
       });
       setLoading(false);
     }
   };
-
-  // Handle OAuth callback
-  useEffect(() => {
-    const handleAuthCallback = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      
-      if (session?.user) {
-        // Save pending profile if exists
-        await savePendingProfile(session.user.id);
-        
-        // Check if user has completed their profile
-        const { data: profileData } = await supabase
-          .from("user_financial_profiles")
-          .select("*")
-          .eq("user_id", session.user.id)
-          .single();
-          
-        if (!profileData) {
-          navigate("/onboarding");
-        } else {
-          navigate("/dashboard");
-        }
-      }
-    };
-
-    // Check for auth state changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === 'SIGNED_IN' && session?.user) {
-        handleAuthCallback();
-      }
-    });
-
-    return () => subscription.unsubscribe();
-  }, [navigate]);
 
   return (
     <div className="flex min-h-screen items-center justify-center px-4 bg-gradient-to-br from-background via-accent/10 to-background">
