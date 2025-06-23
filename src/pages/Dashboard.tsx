@@ -1,5 +1,3 @@
-
-
 import React, { useEffect, useState } from "react";
 import {
   BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip as RechartsTooltip, PieChart, Pie, Cell, Legend,
@@ -10,6 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { AiFinancialAdvisor } from "@/components/AiFinancialAdvisor";
+import { UserMenu } from "@/components/UserMenu";
 
 // Type for user profile data
 type UserProfile = {
@@ -223,12 +222,14 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-gradient-to-tr from-background via-secondary to-background py-6 md:py-10 px-3 md:px-6 lg:px-10">
-      {/* Back to Home button */}
-      <div className="max-w-7xl mx-auto flex justify-start mb-6 md:mb-8">
+      {/* Header with Back button and User Menu */}
+      <div className="max-w-7xl mx-auto flex justify-between items-center mb-6 md:mb-8">
         <Link to="/" className="inline-flex items-center gap-2 text-xs md:text-sm bg-card border border-border rounded-md px-3 md:px-4 py-2 shadow 
           hover:bg-highlight transition animate-fade-in text-primary">
           <ArrowLeft size={16} className="md:w-[18px] md:h-[18px]" /> Back to Home
         </Link>
+        
+        <UserMenu userProfile={userProfile} isDemo={isDemo} />
       </div>
       
       {/* Demo Banner */}
