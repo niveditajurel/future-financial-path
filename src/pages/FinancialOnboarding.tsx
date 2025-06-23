@@ -40,10 +40,17 @@ export default function FinancialOnboarding() {
     setIsSubmitting(true);
     
     try {
-      const { data: { user } } = await supabase.auth.getUser();
+      console.log('Starting profile submission with values:', values);
+      
+      const { data: { user }, error: authError } = await supabase.auth.getUser();
+      
+      if (authError) {
+        console.error('Auth error:', authError);
+        throw new Error('Authentication error: ' + authError.message);
+      }
       
       if (!user) {
-        // Store form data in localStorage temporarily
+        console.log('No authenticated user found, storing data and redirecting to auth');
         localStorage.setItem('pendingFinancialProfile', JSON.stringify(values));
         
         toast({
@@ -51,70 +58,108 @@ export default function FinancialOnboarding() {
           description: "Please create an account to save your financial profile",
         });
         
-        // Redirect to auth page
         navigate("/auth");
         return;
       }
 
-      console.log('Submitting financial profile for user:', user.id, values);
+      console.log('Authenticated user found:', user.id);
+      console.log('Submitting financial profile data:', values);
 
-      // Save the financial profile to the database
-      const { data, error } = await supabase
+      // Convert arrays and ensure proper data types
+      const profileData = {
+        user_id: user.id,
+        full_name: values.fullName,
+        age: values.age ? Number(values.age) : null,
+        monthly_income: values.monthlyIncome ? Number(values.monthlyIncome) : null,
+        monthly_expenses: values.monthlyExpenses ? Number(values.monthlyExpenses) : null,
+        current_savings: values.currentSavings ? Number(values.currentSavings) : null,
+        debt_amount: values.debtAmount ? Number(values.debtAmount) : null,
+        financial_goals: values.financialGoals || [],
+        risk_tolerance: values.riskTolerance || null,
+        investment_experience: values.investmentExperience || null,
+        emergency_fund_months: values.emergencyFundMonths ? Number(values.emergencyFundMonths) : null,
+      };
+
+      console.log('Formatted profile data for database:', profileData);
+
+      // First try to update existing profile, then insert if it doesn't exist
+      const { data: existingProfile } = await supabase
         .from("user_financial_profiles")
-        .upsert({
-          user_id: user.id,
-          full_name: values.fullName,
-          age: values.age,
-          monthly_income: values.monthlyIncome,
-          monthly_expenses: values.monthlyExpenses,
-          current_savings: values.currentSavings,
-          debt_amount: values.debtAmount,
-          financial_goals: values.financialGoals,
-          risk_tolerance: values.riskTolerance,
-          investment_experience: values.investmentExperience,
-          emergency_fund_months: values.emergencyFundMonths,
-        });
+        .select("id")
+        .eq("user_id", user.id)
+        .single();
 
-      if (error) {
-        console.error('Database error saving profile:', error);
-        throw error;
+      let result;
+      
+      if (existingProfile) {
+        console.log('Updating existing profile...');
+        result = await supabase
+          .from("user_financial_profiles")
+          .update(profileData)
+          .eq("user_id", user.id)
+          .select("*")
+          .single();
+      } else {
+        console.log('Creating new profile...');
+        result = await supabase
+          .from("user_financial_profiles")
+          .insert(profileData)
+          .select("*")
+          .single();
       }
 
-      console.log('Profile saved successfully:', data);
+      const { data: savedProfile, error: saveError } = result;
+
+      if (saveError) {
+        console.error('Database error saving profile:', saveError);
+        throw new Error(`Failed to save profile: ${saveError.message}`);
+      }
+
+      if (!savedProfile) {
+        throw new Error('Profile was not saved properly - no data returned');
+      }
+
+      console.log('Profile saved successfully:', savedProfile);
 
       // Clear any stored pending profile data
       localStorage.removeItem('pendingFinancialProfile');
 
+      // Wait a moment to ensure the data is committed
+      await new Promise(resolve => setTimeout(resolve, 500));
+
       // Verify the profile was saved by fetching it back
-      const { data: savedProfile, error: fetchError } = await supabase
+      const { data: verificationProfile, error: verificationError } = await supabase
         .from("user_financial_profiles")
         .select("*")
         .eq("user_id", user.id)
         .single();
 
-      if (fetchError) {
-        console.error('Error verifying saved profile:', fetchError);
-        throw fetchError;
+      if (verificationError || !verificationProfile) {
+        console.error('Profile verification failed:', verificationError);
+        throw new Error('Profile was not saved properly - verification failed');
       }
 
-      console.log('Profile verification successful:', savedProfile);
+      console.log('Profile verification successful:', verificationProfile);
 
       toast({
-        title: "Profile Created Successfully!",
-        description: "Your financial profile has been saved. Redirecting to your personalized dashboard...",
+        title: "Profile Created Successfully! 🎉",
+        description: "Your financial profile has been saved. Redirecting to dashboard...",
       });
 
       // Redirect to dashboard after successful profile creation
       setTimeout(() => {
-        console.log('Navigating to dashboard after profile completion...');
+        console.log('Navigating to dashboard...');
         navigate("/dashboard", { replace: true });
-      }, 1500);
+      }, 1000);
 
     } catch (error) {
-      console.error("Error saving profile:", error);
+      console.error("Detailed error saving profile:", error);
+      
+      const errorMessage = error instanceof Error ? error.message : "Unknown error occurred";
+      
       toast({
-        title: "Error",
-        description: "Failed to save your profile. Please try again.",
+        title: "Failed to save your profile",
+        description: errorMessage,
         variant: "destructive",
       });
     } finally {

@@ -94,63 +94,85 @@ export default function Dashboard() {
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [isDemo, setIsDemo] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        console.log('Dashboard: Fetching user profile...');
-        const { data: { user } } = await supabase.auth.getUser();
+        console.log('Dashboard: Starting to fetch user profile...');
+        setLoading(true);
+        setError(null);
+        
+        const { data: { user }, error: authError } = await supabase.auth.getUser();
+        
+        if (authError) {
+          console.error('Dashboard: Auth error:', authError);
+          setError('Authentication error occurred');
+          setUserProfile(DEMO_PROFILE);
+          setIsDemo(true);
+          return;
+        }
         
         if (!user) {
           console.log('Dashboard: No authenticated user, showing demo');
-          // Show demo version instead of redirecting to auth
           setUserProfile(DEMO_PROFILE);
           setIsDemo(true);
-          setLoading(false);
           return;
         }
 
         console.log('Dashboard: Authenticated user found:', user.id);
 
-        // Try multiple times to get the profile in case there's a timing issue
+        // Try to fetch the profile with multiple attempts
         let profileData = null;
         let attempts = 0;
-        const maxAttempts = 3;
+        const maxAttempts = 5;
 
         while (!profileData && attempts < maxAttempts) {
           attempts++;
           console.log(`Dashboard: Attempt ${attempts} to fetch profile for user:`, user.id);
           
-          const { data, error } = await supabase
+          const { data, error: fetchError } = await supabase
             .from("user_financial_profiles")
             .select("*")
             .eq("user_id", user.id)
             .single();
 
-          if (error && error.code !== 'PGRST116') {
-            console.error("Dashboard: Error fetching profile:", error);
-            break;
+          if (fetchError) {
+            if (fetchError.code === 'PGRST116') {
+              console.log(`Dashboard: No profile found on attempt ${attempts}`);
+              if (attempts < maxAttempts) {
+                await new Promise(resolve => setTimeout(resolve, 1000 * attempts));
+                continue;
+              }
+            } else {
+              console.error("Dashboard: Database error fetching profile:", fetchError);
+              setError(`Database error: ${fetchError.message}`);
+              break;
+            }
           } else if (data) {
             console.log('Dashboard: User profile found:', data);
             profileData = data;
             break;
-          } else {
-            console.log(`Dashboard: No profile found for user on attempt ${attempts}, retrying...`);
-            // Wait a bit before retrying
-            if (attempts < maxAttempts) {
-              await new Promise(resolve => setTimeout(resolve, 1000));
-            }
           }
         }
 
         if (profileData) {
-          setUserProfile(profileData);
+          // Ensure the profile has required fields
+          if (!profileData.full_name) {
+            console.log('Dashboard: Profile exists but missing full_name, redirecting to onboarding');
+            setError('Profile incomplete - please complete your profile');
+          } else {
+            console.log('Dashboard: Setting complete profile');
+            setUserProfile(profileData);
+          }
         } else {
           console.log('Dashboard: No profile found after all attempts');
+          setError('No financial profile found - please complete your profile');
         }
       } catch (error) {
-        console.error("Dashboard: Error:", error);
+        console.error("Dashboard: Unexpected error:", error);
+        setError('An unexpected error occurred while loading your profile');
       } finally {
         setLoading(false);
       }
@@ -170,13 +192,18 @@ export default function Dashboard() {
     );
   }
 
-  if (!userProfile || (!isDemo && !userProfile.full_name)) {
+  if (error || !userProfile || (!isDemo && !userProfile.full_name)) {
     return (
       <div className="min-h-screen bg-gradient-to-tr from-background via-secondary to-background py-10 px-6">
         <div className="max-w-4xl mx-auto text-center space-y-8">
           <div className="bg-card rounded-2xl p-8 shadow-xl border border-primary/20">
             <User className="w-16 h-16 text-primary mx-auto mb-4" />
             <h1 className="text-3xl font-bold text-primary mb-4">Welcome to Your Financial Dashboard</h1>
+            {error && (
+              <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-4 mb-6">
+                <p className="text-destructive text-sm">{error}</p>
+              </div>
+            )}
             <p className="text-lg text-muted-foreground mb-8">
               To get started with personalized insights and AI-powered advice, please complete your financial profile.
             </p>
