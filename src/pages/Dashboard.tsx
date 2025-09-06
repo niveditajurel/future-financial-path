@@ -9,11 +9,13 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { AiFinancialAdvisor } from "@/components/AiFinancialAdvisor";
 import { UserMenu } from "@/components/UserMenu";
+import { AiChatBubble } from "@/components/AiChatBubble";
 
 // Type for user profile data
 type UserProfile = {
   id: string;
   full_name: string;
+  email?: string;
   age: number | null;
   monthly_income: number | null;
   monthly_expenses: number | null;
@@ -451,6 +453,23 @@ export default function Dashboard() {
           </Link>
         )}
       </div>
+
+      {/* AI Chat Bubble for authenticated users */}
+      {!isDemo && userProfile && (
+        <AiChatBubble 
+          userId={userProfile.id} 
+          chatSessionId={`session-${userProfile.id}-${Date.now()}`}
+          userProfile={{ 
+            name: userProfile.full_name, 
+            email: userProfile.email || '' 
+          }}
+          supabaseContext={{ 
+            monthlyIncome: userProfile.monthly_income,
+            savings: userProfile.current_savings,
+            goals: userProfile.financial_goals 
+          }}
+        />
+      )}
     </div>
   );
 }

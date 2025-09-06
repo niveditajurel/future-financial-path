@@ -3,6 +3,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
+import { supabase } from "@/integrations/supabase/client";
 
 type Message = {
   id: string;
@@ -83,24 +84,20 @@ export const AiChatbot: React.FC<AiChatbotProps> = ({
       { role: "user", content: input },
     ];
     try {
-      // API call to OpenAI (replace with your edge function for production!)
-      const res = await fetch("https://api.openai.com/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          Authorization: "Bearer sk-sk-placeholder", // <-- Replace with Edge Function or secure env, NEVER expose secret key!
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          model: "gpt-4o",
+      // Call our Supabase edge function for chat completion
+      const { data, error } = await supabase.functions.invoke('chat-completion', {
+        body: {
           messages: fullContext,
-          max_tokens: 128,
-          stream: false,
-        }),
+          userProfile,
+          supabaseContext
+        }
       });
-      const data = await res.json();
-      const answer: string =
-        data?.choices?.[0]?.message?.content ||
-        "Sorry, there was an error getting a response.";
+
+      if (error) {
+        throw new Error(error.message || 'Failed to get response from AI');
+      }
+
+      const answer: string = data?.message || "Sorry, there was an error getting a response.";
 
       // Typing animation per character
       let displayed = "";

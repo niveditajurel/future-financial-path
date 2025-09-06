@@ -6,3 +6,6 @@ verify_jwt = true
 
 [functions.financial-advisor]
 verify_jwt = true
+
+[functions.chat-completion]
+verify_jwt = false
