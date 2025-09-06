@@ -106,20 +106,21 @@ export default function Dashboard() {
         setLoading(true);
         setError(null);
         
-        const { data: { user }, error: authError } = await supabase.auth.getUser();
-        
-        if (authError) {
-          console.error('Dashboard: Auth error:', authError);
-          setError('Authentication error occurred');
-          setUserProfile(DEMO_PROFILE);
-          setIsDemo(true);
-          return;
+        let user = null;
+        try {
+          const { data: { user: authUser }, error: authError } = await supabase.auth.getUser();
+          if (!authError) {
+            user = authUser;
+          }
+        } catch (authError) {
+          console.log('Dashboard: Auth check failed, proceeding with demo mode');
         }
         
         if (!user) {
           console.log('Dashboard: No authenticated user, showing demo');
           setUserProfile(DEMO_PROFILE);
           setIsDemo(true);
+          setLoading(false);
           return;
         }
 

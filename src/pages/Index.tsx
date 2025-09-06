@@ -129,7 +129,7 @@ const HeroSection = () => <section className="relative py-16 md:py-24 lg:py-32 p
           <Link to="/dashboard" className="w-full sm:w-auto">
             <Button variant="outline" size="lg" className="w-full sm:w-auto px-6 md:px-8 py-6 md:py-8 text-lg md:text-xl border-2 border-primary/30 hover:border-primary hover:bg-primary/10 btn-classy-hover rounded-xl md:rounded-2xl backdrop-blur-sm hover-card-lift">
               <LayoutDashboard className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
-              View Dashboard Demo
+              Try Demo Dashboard
             </Button>
           </Link>
         </div>

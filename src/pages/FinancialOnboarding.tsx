@@ -42,11 +42,14 @@ export default function FinancialOnboarding() {
     try {
       console.log('Starting profile submission with values:', values);
       
-      const { data: { user }, error: authError } = await supabase.auth.getUser();
-      
-      if (authError) {
-        console.error('Auth error:', authError);
-        throw new Error('Authentication error: ' + authError.message);
+      let user = null;
+      try {
+        const { data: { user: authUser }, error: authError } = await supabase.auth.getUser();
+        if (!authError) {
+          user = authUser;
+        }
+      } catch (authError) {
+        console.log('Auth check failed:', authError);
       }
       
       if (!user) {
