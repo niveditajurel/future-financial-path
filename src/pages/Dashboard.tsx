@@ -27,11 +27,10 @@ type UserProfile = {
   emergency_fund_months: number | null;
 };
 
-// Use on-brand colors for charts: dark, green, mint, accent, yellow
 const INVESTMENT_COLORS = [
-  "#21C768", // Tailwind: chart.green / primary
-  "#22d3ee", // Tailwind: accent
-  "#fde047", // Tailwind: yellow accent
+  "#F67011",
+  "#FFE4D0",
+  "#873800",
 ];
 
 function formatCurrency(amount: number) {
@@ -353,10 +352,10 @@ export default function Dashboard() {
                 <YAxis className="text-xs fill-muted-foreground" />
                 <RechartsTooltip
                   formatter={v => formatCurrency(Number(v))}
-                  cursor={{ fill: "rgba(33, 199, 104, 0.13)" }}
-                  contentStyle={{ background: "#191C1C", color: "#21C768", borderRadius: 8, border: "1px solid #21C768", fontSize: "14px" }}
+                  cursor={{ fill: "rgba(246, 112, 17, 0.14)" }}
+                  contentStyle={{ background: "#16151A", color: "#FFE4D0", borderRadius: 8, border: "1px solid #F67011", fontSize: "14px" }}
                 />
-                <Bar dataKey="amount" fill="#21C768" radius={[8, 8, 0, 0]} />
+                <Bar dataKey="amount" fill="#F67011" radius={[8, 8, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </CardContent>
@@ -393,7 +392,7 @@ export default function Dashboard() {
                 />
                 <RechartsTooltip
                   formatter={v => formatCurrency(Number(v))}
-                  contentStyle={{ background: "#191C1C", color: "#21C768", borderRadius: 8, border: "1px solid #21C768", fontSize: "14px" }}
+                  contentStyle={{ background: "#16151A", color: "#FFE4D0", borderRadius: 8, border: "1px solid #F67011", fontSize: "14px" }}
                 />
               </PieChart>
             </ResponsiveContainer>

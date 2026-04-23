@@ -5,13 +5,13 @@ import { AiChatbot } from "./AiChatbot";
 type UserProfile = {
   name?: string;
   email?: string;
-  [key: string]: any;
-};
+} & Record<string, unknown>;
+
 type AiChatBubbleProps = {
   userId: string;
   chatSessionId: string;
   userProfile?: UserProfile;
-  supabaseContext?: any;
+  supabaseContext?: Record<string, unknown>;
 };
 
 // Enhanced floating chat bubble with more engaging design
@@ -23,7 +23,7 @@ export const AiChatBubble: React.FC<AiChatBubbleProps> = ({
 }) => {
   const [open, setOpen] = useState(false);
   return <>
-      {/* Enhanced BUBBLE with pulsing animation and better styling */}
+      {/* Floating assistant entry point */}
       <div className="fixed z-50 bottom-6 right-6 md:bottom-8 md:right-8">
         {/* Notification badge */}
         
@@ -32,8 +32,8 @@ export const AiChatBubble: React.FC<AiChatBubbleProps> = ({
         <div className="absolute inset-0 bg-primary/30 rounded-full animate-ping scale-110" />
         
         {/* Main button */}
-        <button type="button" aria-label="Chat with your AI Financial Coach" className="relative shadow-2xl rounded-full bg-gradient-to-br from-primary to-accent text-white w-16 h-16 flex items-center justify-center hover:scale-110 transition-all duration-300 outline-none focus:ring-4 focus:ring-primary/50 group" onClick={() => setOpen(true)} style={{
-        boxShadow: '0 8px 32px 4px rgba(33, 199, 104, 0.3), 0 4px 16px 2px rgba(33, 199, 104, 0.2)'
+        <button type="button" aria-label="Chat with your FinWise assistant" className="relative shadow-2xl rounded-full bg-primary text-primary-foreground w-16 h-16 flex items-center justify-center hover:scale-110 transition-all duration-300 outline-none focus:ring-4 focus:ring-primary/50 group" onClick={() => setOpen(true)} style={{
+        boxShadow: '0 8px 32px 4px rgba(246, 112, 17, 0.28), 0 4px 16px 2px rgba(246, 112, 17, 0.16)'
       }}>
           <MessageCircle className="w-8 h-8 transition-transform group-hover:scale-110" />
         </button>
@@ -41,7 +41,7 @@ export const AiChatBubble: React.FC<AiChatBubbleProps> = ({
         {/* Floating message tooltip */}
         <div className="absolute bottom-full right-0 mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
           <div className="bg-background text-foreground px-3 py-2 rounded-lg shadow-lg text-sm whitespace-nowrap border border-primary/20">
-            💬 Ask me anything about money!
+            Ask me anything about money
             <div className="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-background" />
           </div>
         </div>

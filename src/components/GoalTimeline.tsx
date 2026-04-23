@@ -22,7 +22,7 @@ export const GoalTimeline: React.FC<GoalTimelineProps> = ({ goalSteps }) => {
             {/* Circle Step Dots */}
             <span className={`
               absolute -left-6 flex items-center justify-center w-7 h-7 
-              rounded-full ring-4 ${step.progress === 100 ? 'bg-green-500' : 'bg-primary'} ring-background transition-colors
+              rounded-full ring-4 ${step.progress === 100 ? 'bg-success' : 'bg-primary'} ring-background transition-colors
             `}>
               <span className="text-white font-semibold">
                 {idx + 1}
@@ -56,31 +56,3 @@ export const GoalTimeline: React.FC<GoalTimelineProps> = ({ goalSteps }) => {
     </div>
   );
 };
-
-// ----- Example usage (copy this to a parent page/component) ------
-
-// import { GoalTimeline } from "@/components/GoalTimeline";
-
-// const goalSteps = [
-//   {
-//     label: 'Start Emergency Fund',
-//     tip: 'Begin with $500 for unplanned expenses.',
-//     date: '2024-07-01',
-//     progress: 30
-//   },
-//   {
-//     label: 'Reach $2,000',
-//     tip: 'Automate $200 per month from your paycheck.',
-//     date: '2024-12-01',
-//     progress: 60
-//   },
-//   {
-//     label: 'Buy a House',
-//     tip: 'Research loan options at least 6 months beforehand.',
-//     date: '2026-08-15',
-//     progress: 90
-//   }
-// ];
-
-// <GoalTimeline goalSteps={goalSteps} />
-

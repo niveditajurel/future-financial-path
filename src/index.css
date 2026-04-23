@@ -3,59 +3,81 @@
 @tailwind components;
 @tailwind utilities;
 
-/* --- Black, White, Green Theme for This Project --- */
+/* --- FinWise brand theme --- */
 @layer base {
   :root {
-    --background: 0 0% 0%;                 /* pure black */
-    --foreground: 0 0% 100%;               /* pure white */
+    --background: 260 10% 9%;              /* Dark Void */
+    --foreground: 25 100% 91%;             /* Marigold */
 
-    --primary: 141 70% 46%;                /* vibrant green */
-    --primary-foreground: 0 0% 100%;       /* always white on green */
+    --card: 0 0% 15%;
+    --card-foreground: 25 100% 91%;
 
-    --secondary: 0 0% 13%;                 /* almost black for sections */
-    --secondary-foreground: 141 70% 46%;   /* green on dark */
+    --popover: 0 0% 15%;
+    --popover-foreground: 25 100% 91%;
 
-    --accent: 166 60% 55%;                 /* fresh minty green accent */
-    --accent-foreground: 0 0% 100%;
+    --primary: 24 92% 52%;                 /* Liquid Lova */
+    --primary-foreground: 260 10% 9%;
 
-    --cta: 166 72% 43%;                    /* deep green for CTAs/buttons */
-    --cta-foreground: 0 0% 100%;
+    --secondary: 0 0% 15%;                 /* Slate Grey */
+    --secondary-foreground: 25 100% 91%;
 
-    --success: 141 80% 42%;                /* softer green for positive icons */
-    --success-foreground: 0 0% 100%;
+    --accent: 24 100% 91%;                 /* Marigold */
+    --accent-foreground: 260 10% 9%;
 
-    --muted: 0 0% 17%;                     /* off-black muted bg */
-    --muted-foreground: 145 15% 58%;       /* subtle medium green text */
+    --cta: 24 92% 52%;
+    --cta-foreground: 260 10% 9%;
 
-    --border: 141 29% 32%;                 /* dark green border */
-    --highlight: 141 97% 77%;              /* pale green highlight */
+    --success: 43 74% 58%;
+    --success-foreground: 260 10% 9%;
 
-    --radius: 0.6rem;
+    --muted: 0 0% 20%;
+    --muted-foreground: 0 0% 53%;          /* Dusty Grey */
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 25 100% 91%;
+
+    --border: 22 42% 28%;                  /* Gloun Lova */
+    --input: 22 42% 28%;
+    --ring: 24 92% 52%;
+    --highlight: 24 92% 52%;
+
+    --radius: 0.5rem;
   }
   .dark {
-    --background: 0 0% 0%;                /* black */
-    --foreground: 0 0% 100%;              /* white */
+    --background: 260 10% 9%;
+    --foreground: 25 100% 91%;
 
-    --primary: 141 70% 46%;               /* vibrant green stays for brand consistency */
-    --primary-foreground: 0 0% 100%;
+    --card: 0 0% 15%;
+    --card-foreground: 25 100% 91%;
 
-    --secondary: 0 0% 10%;                /* ultra dark for card/section */
-    --secondary-foreground: 166 60% 55%;  /* mint accent on deep bg */
+    --popover: 0 0% 15%;
+    --popover-foreground: 25 100% 91%;
 
-    --accent: 166 60% 55%;                /* minty accent */
-    --accent-foreground: 0 0% 100%;
+    --primary: 24 92% 52%;
+    --primary-foreground: 260 10% 9%;
 
-    --cta: 141 72% 48%;                   /* slightly lighter green in dark */
-    --cta-foreground: 0 0% 0%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 25 100% 91%;
 
-    --success: 141 55% 44%;
-    --success-foreground: 0 0% 100%;
+    --accent: 24 100% 91%;
+    --accent-foreground: 260 10% 9%;
 
-    --muted: 0 0% 17%;                    /* off-black muted */
-    --muted-foreground: 163 9% 54%;       /* gray-green text */
+    --cta: 24 92% 52%;
+    --cta-foreground: 260 10% 9%;
 
-    --border: 141 29% 22%;                /* deep green border */
-    --highlight: 141 97% 37%;             /* accent highlight */
+    --success: 43 74% 58%;
+    --success-foreground: 260 10% 9%;
+
+    --muted: 0 0% 20%;
+    --muted-foreground: 0 0% 53%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 25 100% 91%;
+
+    --border: 22 42% 28%;
+    --input: 22 42% 28%;
+    --ring: 24 92% 52%;
+    --highlight: 24 92% 52%;
   }
 }
 
@@ -111,11 +133,11 @@
 
 @keyframes premium-glow {
   0%, 100% {
-    box-shadow: 0 0 20px rgba(33, 199, 104, 0.2), 0 0 40px rgba(33, 199, 104, 0.1);
+    box-shadow: 0 0 20px rgba(246, 112, 17, 0.2), 0 0 40px rgba(246, 112, 17, 0.1);
     transform: scale(1);
   }
   50% {
-    box-shadow: 0 0 30px rgba(33, 199, 104, 0.4), 0 0 60px rgba(33, 199, 104, 0.2);
+    box-shadow: 0 0 30px rgba(246, 112, 17, 0.35), 0 0 60px rgba(246, 112, 17, 0.18);
     transform: scale(1.02);
   }
 }
@@ -199,7 +221,7 @@
   }
   100% {
     transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 12px 32px rgba(33, 199, 104, 0.15), 0 4px 16px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 12px 32px rgba(246, 112, 17, 0.12), 0 4px 16px rgba(0, 0, 0, 0.1);
   }
 }
 
@@ -253,11 +275,6 @@
 
 .hover-card-lift:hover {
   animation: card-hover-lift 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-}
-
-/* Enhanced transitions with cubic bezier curves */
-* {
-  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 /* Button hover enhancements */

@@ -2,26 +2,36 @@
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
-const openAIApiKey = Deno.env.get("OPENAI_API_KEY");
-
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers":
     "authorization, x-client-info, apikey, content-type",
 };
 
-function validateRequestBody(body: any) {
+type FinancialSummaryRequest = {
+  user_id: string;
+  financial_data: Record<string, unknown>;
+};
+
+function validateRequestBody(body: unknown): body is FinancialSummaryRequest {
+  const data = body as Partial<FinancialSummaryRequest>;
+
   if (
     typeof body !== "object" ||
-    typeof body.user_id !== "string" ||
-    !body.user_id ||
-    typeof body.financial_data !== "object" ||
-    body.financial_data === null
+    body === null ||
+    typeof data.user_id !== "string" ||
+    !data.user_id ||
+    typeof data.financial_data !== "object" ||
+    data.financial_data === null ||
+    Array.isArray(data.financial_data)
   ) {
     return false;
   }
   return true;
 }
+
+const getErrorMessage = (error: unknown) =>
+  error instanceof Error ? error.message : "Unknown error";
 
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -44,50 +54,8 @@ serve(async (req) => {
 
     const { user_id, financial_data } = body;
 
-    // Prepare prompt for GPT-4o: Summarize the user's financial data
-    const prompt = [
-      {
-        role: "system",
-        content:
-          "You are a helpful financial assistant. Given the following user's financial data, provide a short, clear summary for the user.",
-      },
-      {
-        role: "user",
-        content: `Here is my financial data in JSON: \n${JSON.stringify(
-          financial_data,
-          null,
-          2
-        )}`,
-      },
-    ];
-
-    const aiRes = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${openAIApiKey}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "gpt-4o",
-        messages: prompt,
-        max_tokens: 128,
-        temperature: 0.4,
-        stream: false,
-      }),
-    });
-
-    if (!aiRes.ok) {
-      const errorText = await aiRes.text();
-      return new Response(
-        JSON.stringify({ error: "OpenAI request failed", details: errorText }),
-        { status: 502, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
-    }
-
-    const aiData = await aiRes.json();
     const ai_summary =
-      aiData?.choices?.[0]?.message?.content?.trim() ??
-      "Sorry, no summary could be generated.";
+      "Financial summaries are temporarily disabled while we finish the local setup.";
 
     // Insert into Supabase table
     const supabaseServiceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
@@ -108,7 +76,7 @@ serve(async (req) => {
             user_id,
             financial_data,
             ai_summary,
-            model: "gpt-4o",
+            model: "disabled",
             created_at: new Date().toISOString(),
           },
         ]),
@@ -134,7 +102,7 @@ serve(async (req) => {
   } catch (error) {
     console.error("Financial Summary Error:", error);
     return new Response(
-      JSON.stringify({ error: "Internal server error", details: error.message }),
+      JSON.stringify({ error: "Internal server error", details: getErrorMessage(error) }),
       {
         status: 500,
         headers: { ...corsHeaders, "Content-Type": "application/json" },

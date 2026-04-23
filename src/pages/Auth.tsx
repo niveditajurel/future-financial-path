@@ -7,6 +7,9 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "@/hooks/use-toast";
 import Logo from "@/components/Logo";
 
+const getErrorMessage = (error: unknown, fallback: string) =>
+  error instanceof Error ? error.message : fallback;
+
 const Auth = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState("");
@@ -173,12 +176,13 @@ const Auth = () => {
           }
         }
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const message = getErrorMessage(err, "Authentication error");
       console.error("Auth error:", err);
-      setError(err.message || "Authentication error");
+      setError(message);
       toast({
         title: "Authentication Error",
-        description: err.message || "Something went wrong during authentication",
+        description: message,
         variant: "destructive",
       });
     } finally {
@@ -213,12 +217,13 @@ const Auth = () => {
       
       // The redirect will handle the rest - don't set loading to false here
       // as the page will redirect
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const message = getErrorMessage(err, "Google authentication error");
       console.error("Google auth error:", err);
-      setError(err.message || "Google authentication error");
+      setError(message);
       toast({
         title: "Google Sign-in Error",
-        description: err.message || "Something went wrong with Google sign-in. Please try again or use email/password.",
+        description: message,
         variant: "destructive",
       });
       setLoading(false);

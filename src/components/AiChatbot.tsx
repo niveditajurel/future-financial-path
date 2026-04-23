@@ -14,19 +14,18 @@ type Message = {
 type UserProfile = {
   name?: string;
   email?: string;
-  [key: string]: any;
-};
+} & Record<string, unknown>;
 
 type AiChatbotProps = {
   userId: string;
   chatSessionId: string;
   userProfile?: UserProfile;
-  supabaseContext?: any;
+  supabaseContext?: Record<string, unknown>;
 };
 
 const getGreetingContext = (
   userProfile?: UserProfile,
-  supabaseContext?: any
+  supabaseContext?: Record<string, unknown>
 ) => {
   let context =
     "You are a helpful and friendly assistant. Personalize your responses based on userProfile if provided.";
@@ -221,12 +220,3 @@ export const AiChatbot: React.FC<AiChatbotProps> = ({
     </div>
   );
 };
-
-// EXAMPLE USAGE
-// import { AiChatbot } from "./components/AiChatbot";
-// <AiChatbot
-//   userId="user-001"
-//   chatSessionId="session-abc"
-//   userProfile={{ name: "Jane Doe", email: "jane@example.com" }}
-//   supabaseContext={{ lastLogin: "2025-06-14" }}
-// />

@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import tailwindcssAnimate from "tailwindcss-animate";
 
 export default {
 	darkMode: ["class"],
@@ -21,6 +22,14 @@ export default {
 			colors: {
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
+				card: {
+					DEFAULT: 'hsl(var(--card))',
+					foreground: 'hsl(var(--card-foreground))',
+				},
+				popover: {
+					DEFAULT: 'hsl(var(--popover))',
+					foreground: 'hsl(var(--popover-foreground))',
+				},
 
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
@@ -46,17 +55,23 @@ export default {
 					DEFAULT: 'hsl(var(--muted))',
 					foreground: 'hsl(var(--muted-foreground))',
 				},
+				destructive: {
+					DEFAULT: 'hsl(var(--destructive))',
+					foreground: 'hsl(var(--destructive-foreground))',
+				},
 				border: 'hsl(var(--border))',
+				input: 'hsl(var(--input))',
+				ring: 'hsl(var(--ring))',
 				highlight: 'hsl(var(--highlight))',
 
 				// Updated project-branded UI and chart colors
 				chart: {
-					green: '#21C768',     // Green for key chart values or accents
-					dark: '#191C1C',      // Card/section dark backgrounds
-					white: '#FFF',        // True white
-					black: '#000',        // True black
-					blue: '#3F90FC',      // Optional accent blue for illustration
-					gray: '#D7DFE2',      // Muted UI support
+					orange: '#F67011',
+					burnt: '#873800',
+					dark: '#16151A',
+					slate: '#262626',
+					gray: '#878787',
+					marigold: '#FFE4D0',
 				}
 			},
 			borderRadius: {
@@ -80,5 +95,5 @@ export default {
 			}
 		}
 	},
-	plugins: [require("tailwindcss-animate")],
+	plugins: [tailwindcssAnimate],
 } satisfies Config;
