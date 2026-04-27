@@ -1,11 +1,16 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { toast } from "@/hooks/use-toast";
 import Logo from "@/components/Logo";
+import {
+  getPostAuthRedirectPath,
+  hasPendingFinancialProfile,
+  savePendingFinancialProfile,
+} from "@/lib/auth/pendingProfile";
 
 const getErrorMessage = (error: unknown, fallback: string) =>
   error instanceof Error ? error.message : fallback;
@@ -19,96 +24,74 @@ const Auth = () => {
   const [hasPendingProfile, setHasPendingProfile] = useState(false);
 
   const navigate = useNavigate();
+  const lastHandledUserId = useRef<string | null>(null);
+
+  const completePostAuthFlow = useCallback(
+    async (userId: string) => {
+      if (lastHandledUserId.current === userId) return;
+
+      lastHandledUserId.current = userId;
+      setLoading(true);
+      setError(null);
+
+      try {
+        await savePendingFinancialProfile(userId);
+        const destination = await getPostAuthRedirectPath(userId);
+        navigate(destination, { replace: true });
+      } catch (flowError) {
+        console.error("Post-auth flow error:", flowError);
+        const message = getErrorMessage(flowError, "We could not complete your account setup.");
+        setError(message);
+        lastHandledUserId.current = null;
+        toast({
+          title: "Account Setup Error",
+          description: message,
+          variant: "destructive",
+        });
+      } finally {
+        setLoading(false);
+      }
+    },
+    [navigate],
+  );
 
   useEffect(() => {
-    // Check if there's a pending financial profile
-    const pendingProfile = localStorage.getItem('pendingFinancialProfile');
-    if (pendingProfile) {
+    if (hasPendingFinancialProfile()) {
       setHasPendingProfile(true);
-      setIsSignUp(true); // Default to sign up if coming from onboarding
+      setIsSignUp(true);
     }
 
-    // Check if user is already authenticated
-    const checkUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (user) {
-        navigate("/dashboard");
+    let isMounted = true;
+
+    const initializeAuth = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+
+      if (!isMounted) return;
+
+      if (session?.user) {
+        await completePostAuthFlow(session.user.id);
       }
     };
-    checkUser();
 
-    // Handle OAuth callback and auth state changes
+    void initializeAuth();
+
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
       console.log('Auth state change:', event, session?.user?.id);
-      
+
       if (event === 'SIGNED_IN' && session?.user) {
-        // Save pending profile if exists
-        await savePendingProfile(session.user.id);
-        
-        // Check if user has completed their profile
-        const { data: profileData } = await supabase
-          .from("user_financial_profiles")
-          .select("*")
-          .eq("user_id", session.user.id)
-          .maybeSingle();
-          
-        toast({
-          title: "Welcome!",
-          description: "You've been successfully signed in.",
-        });
-        
-        if (!profileData) {
-          navigate("/onboarding");
-        } else {
-          navigate("/dashboard");
-        }
+        await completePostAuthFlow(session.user.id);
+      }
+
+      if (event === "SIGNED_OUT") {
+        lastHandledUserId.current = null;
       }
     });
 
-    return () => subscription.unsubscribe();
-  }, [navigate]);
-
-  const savePendingProfile = async (userId: string) => {
-    const pendingProfileData = localStorage.getItem('pendingFinancialProfile');
-    if (!pendingProfileData) return;
-
-    try {
-      const profileData = JSON.parse(pendingProfileData);
-      
-      const { error } = await supabase
-        .from("user_financial_profiles")
-        .insert({
-          user_id: userId,
-          full_name: profileData.fullName,
-          age: profileData.age,
-          monthly_income: profileData.monthlyIncome,
-          monthly_expenses: profileData.monthlyExpenses,
-          current_savings: profileData.currentSavings,
-          debt_amount: profileData.debtAmount,
-          financial_goals: profileData.financialGoals,
-          risk_tolerance: profileData.riskTolerance,
-          investment_experience: profileData.investmentExperience,
-          emergency_fund_months: profileData.emergencyFundMonths,
-        });
-
-      if (error) throw error;
-
-      // Clear the pending profile data
-      localStorage.removeItem('pendingFinancialProfile');
-      
-      toast({
-        title: "Profile Saved!",
-        description: "Your financial profile has been saved successfully.",
-      });
-    } catch (error) {
-      console.error("Error saving pending profile:", error);
-      toast({
-        title: "Profile Save Error",
-        description: "There was an issue saving your financial profile. You can complete it again from the dashboard.",
-        variant: "destructive",
-      });
-    }
-  };
+    return () => {
+      isMounted = false;
+      subscription.unsubscribe();
+    };
+  }, [completePostAuthFlow]);
 
   const handleEmailAuth = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -117,7 +100,7 @@ const Auth = () => {
 
     try {
       if (isSignUp) {
-        const redirectUrl = `${window.location.origin}/`;
+        const redirectUrl = `${window.location.origin}/auth`;
         const { data, error } = await supabase.auth.signUp({
           email,
           password,
@@ -128,22 +111,18 @@ const Auth = () => {
         
         if (error) throw error;
         
-        if (data.user && !data.user.email_confirmed_at) {
+        if (!data.session) {
           toast({
             title: "Check your email!",
             description: "We've sent you a confirmation link to complete your signup.",
           });
         } else if (data.user) {
-          // If user is immediately confirmed, save pending profile and redirect to dashboard
-          await savePendingProfile(data.user.id);
-          
           toast({
             title: "Account created successfully!",
             description: "Welcome to your financial journey!",
           });
-          
-          // Always redirect to dashboard after successful signup
-          navigate("/dashboard");
+
+          await completePostAuthFlow(data.user.id);
         }
       } else {
         const { data, error } = await supabase.auth.signInWithPassword({
@@ -154,26 +133,12 @@ const Auth = () => {
         if (error) throw error;
         
         if (data.user) {
-          // Save pending profile if exists
-          await savePendingProfile(data.user.id);
-          
-          // Check if user has completed their profile
-          const { data: profileData } = await supabase
-            .from("user_financial_profiles")
-            .select("*")
-            .eq("user_id", data.user.id)
-            .maybeSingle();
-            
           toast({
             title: "Welcome back!",
             description: "You've been successfully signed in.",
           });
-          
-          if (!profileData) {
-            navigate("/onboarding");
-          } else {
-            navigate("/dashboard");
-          }
+
+          await completePostAuthFlow(data.user.id);
         }
       }
     } catch (err: unknown) {
@@ -215,8 +180,7 @@ const Auth = () => {
       
       console.log('Google OAuth initiated successfully');
       
-      // The redirect will handle the rest - don't set loading to false here
-      // as the page will redirect
+      // Redirect handles the rest.
     } catch (err: unknown) {
       const message = getErrorMessage(err, "Google authentication error");
       console.error("Google auth error:", err);

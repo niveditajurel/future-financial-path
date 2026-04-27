@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
+import type { AssistantContext, AssistantUserProfile } from "@/types/finwise";
 
 type Message = {
   id: string;
@@ -11,21 +12,16 @@ type Message = {
   content: string;
 };
 
-type UserProfile = {
-  name?: string;
-  email?: string;
-} & Record<string, unknown>;
-
 type AiChatbotProps = {
   userId: string;
   chatSessionId: string;
-  userProfile?: UserProfile;
-  supabaseContext?: Record<string, unknown>;
+  userProfile?: AssistantUserProfile;
+  supabaseContext?: AssistantContext;
 };
 
 const getGreetingContext = (
-  userProfile?: UserProfile,
-  supabaseContext?: Record<string, unknown>
+  userProfile?: AssistantUserProfile,
+  supabaseContext?: AssistantContext
 ) => {
   let context =
     "You are a helpful and friendly assistant. Personalize your responses based on userProfile if provided.";
@@ -60,6 +56,20 @@ export const AiChatbot: React.FC<AiChatbotProps> = ({
       chatWindowRef.current.scrollTop = chatWindowRef.current.scrollHeight;
     }
   }, [history, aiTyping]);
+
+  const getAssistantErrorMessage = (error: unknown) => {
+    const message = error instanceof Error ? error.message.toLowerCase() : "";
+
+    if (
+      message.includes("unauthorized") ||
+      message.includes("jwt") ||
+      message.includes("auth")
+    ) {
+      return "Your session has expired or chat access is restricted. Please sign in again to continue.";
+    }
+
+    return "Oops, something went wrong.";
+  };
 
   const sendMessage = async () => {
     if (!input.trim()) return;
@@ -118,7 +128,7 @@ export const AiChatbot: React.FC<AiChatbotProps> = ({
         {
           id: `${Date.now()}-error`,
           role: "assistant",
-          content: "Oops, something went wrong.",
+          content: getAssistantErrorMessage(err),
         },
       ]);
     } finally {

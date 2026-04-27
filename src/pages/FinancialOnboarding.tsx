@@ -9,6 +9,10 @@ import { useNavigate, Link } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { Shield, ArrowRight, ArrowLeft } from "lucide-react";
 import { formSchema, FormData } from "@/schemas/financialOnboardingSchema";
+import {
+  clearPendingFinancialProfile,
+  storePendingFinancialProfile,
+} from "@/lib/auth/pendingProfile";
 import { PersonalInfoStep } from "@/components/onboarding/PersonalInfoStep";
 import { FinancialOverviewStep } from "@/components/onboarding/FinancialOverviewStep";
 import { FinancialGoalsStep } from "@/components/onboarding/FinancialGoalsStep";
@@ -54,7 +58,7 @@ export default function FinancialOnboarding() {
       
       if (!user) {
         console.log('No authenticated user found, storing data and redirecting to auth');
-        localStorage.setItem('pendingFinancialProfile', JSON.stringify(values));
+        storePendingFinancialProfile(values);
         
         toast({
           title: "Sign up required",
@@ -90,7 +94,7 @@ export default function FinancialOnboarding() {
         .from("user_financial_profiles")
         .select("id")
         .eq("user_id", user.id)
-        .single();
+        .maybeSingle();
 
       let result;
       
@@ -124,8 +128,7 @@ export default function FinancialOnboarding() {
 
       console.log('Profile saved successfully:', savedProfile);
 
-      // Clear any stored pending profile data
-      localStorage.removeItem('pendingFinancialProfile');
+      clearPendingFinancialProfile();
 
       // Wait a moment to ensure the data is committed
       await new Promise(resolve => setTimeout(resolve, 500));

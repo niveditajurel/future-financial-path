@@ -134,6 +134,17 @@ supabase/
 npm install
 ```
 
+Create a local environment file before starting the app:
+
+```sh
+cp .env.example .env
+```
+
+Then fill in your own Supabase project values:
+
+- `VITE_SUPABASE_URL`
+- `VITE_SUPABASE_PUBLISHABLE_KEY`
+
 ### Start the app
 
 ```sh
@@ -166,17 +177,17 @@ This project uses Supabase for:
 - financial profile storage
 - AI-related server endpoints
 
-Current configured project ID:
-
-```txt
-mwcxiswfwubiljuoctyy
-```
-
 Relevant edge functions:
 
 - `financial-summary`
 - `financial-advisor`
 - `chat-completion`
+
+Security notes:
+
+- the app expects Supabase client config through local environment variables, not hardcoded repo values
+- the publishable key is client-side by design, but should still be managed through env for cleaner public source control
+- AI-related edge functions should require authenticated requests unless a public demo endpoint is intentionally designed and rate-limited
 
 ## Safety and positioning
 

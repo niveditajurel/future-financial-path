@@ -8,4 +8,4 @@ verify_jwt = true
 verify_jwt = true
 
 [functions.chat-completion]
-verify_jwt = false
+verify_jwt = true

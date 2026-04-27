@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -8,19 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import { TrendingUp, TrendingDown, DollarSign, PieChart, AlertCircle, Lightbulb, Target, Users } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-
-type UserProfile = {
-  full_name: string;
-  age: number;
-  monthly_income: number;
-  monthly_expenses: number;
-  current_savings: number;
-  debt_amount: number;
-  financial_goals: string[];
-  risk_tolerance: string;
-  investment_experience: string;
-  emergency_fund_months: number;
-};
+import type { UserFinancialProfile } from "@/types/finwise";
 
 type MarketInsight = {
   category: string;
@@ -41,7 +29,7 @@ type AdvisorResponse = {
 };
 
 interface AiFinancialAdvisorProps {
-  userProfile: UserProfile;
+  userProfile: UserFinancialProfile;
 }
 
 export const AiFinancialAdvisor: React.FC<AiFinancialAdvisorProps> = ({ userProfile }) => {
@@ -52,11 +40,7 @@ export const AiFinancialAdvisor: React.FC<AiFinancialAdvisorProps> = ({ userProf
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
 
-  useEffect(() => {
-    generatePersonalizedAdvice();
-  }, [userProfile]);
-
-  const generatePersonalizedAdvice = async () => {
+  const generatePersonalizedAdvice = useCallback(async () => {
     setLoading(true);
     setError(null);
     
@@ -85,7 +69,7 @@ export const AiFinancialAdvisor: React.FC<AiFinancialAdvisorProps> = ({ userProf
       
     } catch (error) {
       console.error('Error generating advice:', error);
-      setError(error.message || 'Failed to generate financial advice');
+      setError(error instanceof Error ? error.message : 'Failed to generate financial advice');
       toast({
         title: "Error",
         description: "Failed to generate financial advice. Please try again.",
@@ -94,7 +78,11 @@ export const AiFinancialAdvisor: React.FC<AiFinancialAdvisorProps> = ({ userProf
     } finally {
       setLoading(false);
     }
-  };
+  }, [toast, userProfile]);
+
+  useEffect(() => {
+    generatePersonalizedAdvice();
+  }, [generatePersonalizedAdvice]);
 
   const askCustomQuestion = async () => {
     if (!customQuestion.trim()) return;

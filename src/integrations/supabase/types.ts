@@ -42,6 +42,252 @@ export type Database = {
         }
         Relationships: []
       }
+      debt_accounts: {
+        Row: {
+          balance: number
+          created_at: string
+          debt_name: string
+          debt_type: string
+          due_day: number | null
+          id: string
+          interest_rate: number
+          minimum_payment: number
+          notes: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          balance: number
+          created_at?: string
+          debt_name: string
+          debt_type: string
+          due_day?: number | null
+          id?: string
+          interest_rate?: number
+          minimum_payment?: number
+          notes?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          balance?: number
+          created_at?: string
+          debt_name?: string
+          debt_type?: string
+          due_day?: number | null
+          id?: string
+          interest_rate?: number
+          minimum_payment?: number
+          notes?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      expense_entries: {
+        Row: {
+          amount: number
+          category: string
+          created_at: string
+          frequency: string
+          id: string
+          is_recurring: boolean
+          notes: string | null
+          occurred_on: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          category: string
+          created_at?: string
+          frequency: string
+          id?: string
+          is_recurring?: boolean
+          notes?: string | null
+          occurred_on?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          category?: string
+          created_at?: string
+          frequency?: string
+          id?: string
+          is_recurring?: boolean
+          notes?: string | null
+          occurred_on?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      financial_goals: {
+        Row: {
+          ai_plan: string | null
+          created_at: string
+          current_amount: number
+          goal_name: string
+          goal_type: string
+          id: string
+          is_archived: boolean
+          monthly_contribution_target: number | null
+          target_amount: number
+          target_date: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          ai_plan?: string | null
+          created_at?: string
+          current_amount?: number
+          goal_name: string
+          goal_type: string
+          id?: string
+          is_archived?: boolean
+          monthly_contribution_target?: number | null
+          target_amount: number
+          target_date?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          ai_plan?: string | null
+          created_at?: string
+          current_amount?: number
+          goal_name?: string
+          goal_type?: string
+          id?: string
+          is_archived?: boolean
+          monthly_contribution_target?: number | null
+          target_amount?: number
+          target_date?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      income_sources: {
+        Row: {
+          amount: number
+          created_at: string
+          frequency: string
+          id: string
+          is_primary: boolean
+          notes: string | null
+          source_name: string
+          source_type: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          frequency: string
+          id?: string
+          is_primary?: boolean
+          notes?: string | null
+          source_name: string
+          source_type?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          frequency?: string
+          id?: string
+          is_primary?: boolean
+          notes?: string | null
+          source_name?: string
+          source_type?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      investment_holdings: {
+        Row: {
+          account_name: string
+          account_type: string
+          asset_category: string
+          concentration_percent: number | null
+          created_at: string
+          current_value: number
+          id: string
+          notes: string | null
+          risk_level: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          account_name: string
+          account_type: string
+          asset_category: string
+          concentration_percent?: number | null
+          created_at?: string
+          current_value: number
+          id?: string
+          notes?: string | null
+          risk_level: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          account_name?: string
+          account_type?: string
+          asset_category?: string
+          concentration_percent?: number | null
+          created_at?: string
+          current_value?: number
+          id?: string
+          notes?: string | null
+          risk_level?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      nudges: {
+        Row: {
+          created_at: string
+          event_type: string
+          id: string
+          message: string
+          metadata: Json | null
+          priority: string
+          status: string
+          surfaced_at: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          event_type: string
+          id?: string
+          message: string
+          metadata?: Json | null
+          priority: string
+          status?: string
+          surfaced_at?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          event_type?: string
+          id?: string
+          message?: string
+          metadata?: Json | null
+          priority?: string
+          status?: string
+          surfaced_at?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_financial_profiles: {
         Row: {
           age: number | null

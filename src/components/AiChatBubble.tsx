@@ -2,16 +2,13 @@ import React, { useState } from "react";
 import { Dialog, DialogContent, DialogClose } from "@/components/ui/dialog";
 import { Bot, X, MessageCircle } from "lucide-react";
 import { AiChatbot } from "./AiChatbot";
-type UserProfile = {
-  name?: string;
-  email?: string;
-} & Record<string, unknown>;
+import type { AssistantContext, AssistantUserProfile } from "@/types/finwise";
 
 type AiChatBubbleProps = {
   userId: string;
   chatSessionId: string;
-  userProfile?: UserProfile;
-  supabaseContext?: Record<string, unknown>;
+  userProfile?: AssistantUserProfile;
+  supabaseContext?: AssistantContext;
 };
 
 // Enhanced floating chat bubble with more engaging design

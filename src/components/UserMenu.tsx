@@ -12,11 +12,10 @@ import {
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
 import { toast } from "@/hooks/use-toast";
+import type { UserFinancialProfile } from "@/types/finwise";
 
 interface UserMenuProps {
-  userProfile: {
-    full_name: string;
-  } | null;
+  userProfile: UserFinancialProfile | null;
   isDemo?: boolean;
 }
 

@@ -3,29 +3,22 @@ import {
   BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip as RechartsTooltip, PieChart, Pie, Cell, Legend,
 } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { CircleArrowUp, CircleArrowDown, CircleArrowRight, ArrowLeft, User, AlertTriangle } from "lucide-react";
+import { CircleArrowUp, CircleArrowDown, CircleArrowRight, ArrowLeft, User, AlertTriangle, Activity } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { AiFinancialAdvisor } from "@/components/AiFinancialAdvisor";
 import { UserMenu } from "@/components/UserMenu";
 import { AiChatBubble } from "@/components/AiChatBubble";
-
-// Type for user profile data
-type UserProfile = {
-  id: string;
-  full_name: string;
-  email?: string;
-  age: number | null;
-  monthly_income: number | null;
-  monthly_expenses: number | null;
-  current_savings: number | null;
-  debt_amount: number | null;
-  financial_goals: string[] | null;
-  risk_tolerance: string | null;
-  investment_experience: string | null;
-  emergency_fund_months: number | null;
-};
+import {
+  buildFinancialHealthAssessment,
+  buildRuleBasedAdvice,
+  calculateNetIncome,
+  calculateSavingsRate,
+  formatCurrency,
+} from "@/lib/finance/metrics";
+import type { AssistantContext, UserFinancialProfile } from "@/types/finwise";
+import { useAuth } from "@/contexts/AuthContext";
 
 const INVESTMENT_COLORS = [
   "#F67011",
@@ -33,14 +26,12 @@ const INVESTMENT_COLORS = [
   "#873800",
 ];
 
-function formatCurrency(amount: number) {
-  return "$" + amount.toLocaleString();
-}
-
 // Demo data for non-authenticated users
-const DEMO_PROFILE: UserProfile = {
+const DEMO_PROFILE: UserFinancialProfile = {
   id: "demo",
+  user_id: "demo-user",
   full_name: "Demo User",
+  email: "demo@finwise.app",
   age: 28,
   monthly_income: 5000,
   monthly_expenses: 3500,
@@ -50,73 +41,35 @@ const DEMO_PROFILE: UserProfile = {
   risk_tolerance: "moderate",
   investment_experience: "beginner",
   emergency_fund_months: 4,
+  created_at: new Date().toISOString(),
+  updated_at: new Date().toISOString(),
 };
 
-// AI Analysis function based on user data
-function generateAIAdvice(profile: UserProfile): string {
-  if (!profile.monthly_income || !profile.monthly_expenses) {
-    return "Complete your financial profile to get personalized AI advice!";
-  }
-
-  const netIncome = profile.monthly_income - profile.monthly_expenses;
-  const savingsRate = profile.monthly_income ? (netIncome / profile.monthly_income) * 100 : 0;
-  const debtToIncomeRatio = profile.debt_amount && profile.monthly_income ? (profile.debt_amount / (profile.monthly_income * 12)) * 100 : 0;
-
-  let advice = `Hello ${profile.full_name}! `;
-
-  if (savingsRate < 10) {
-    advice += "Your savings rate is low. Try to reduce expenses or find ways to increase income. ";
-  } else if (savingsRate >= 20) {
-    advice += "Excellent savings rate! You're on track for financial success. ";
-  } else {
-    advice += "Good savings rate! Consider pushing it to 20% for optimal wealth building. ";
-  }
-
-  if (debtToIncomeRatio > 30) {
-    advice += "Focus on debt reduction first - consider the debt avalanche method. ";
-  }
-
-  if (profile.current_savings && profile.monthly_expenses) {
-    const emergencyFundMonths = profile.current_savings / profile.monthly_expenses;
-    if (emergencyFundMonths < 3) {
-      advice += "Priority: Build your emergency fund to 3-6 months of expenses. ";
-    }
-  }
-
-  if (profile.risk_tolerance === 'aggressive' && profile.investment_experience === 'beginner') {
-    advice += "Start with index funds before moving to individual stocks. ";
-  }
-
-  advice += "Keep up the great work! 🎯";
-  return advice;
-}
-
 export default function Dashboard() {
-  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
+  const { user, loading: authLoading } = useAuth();
+  const [userProfile, setUserProfile] = useState<UserFinancialProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [isDemo, setIsDemo] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (authLoading) {
+      return;
+    }
+
+    let isMounted = true;
+
     const fetchUserProfile = async () => {
+
       try {
         console.log('Dashboard: Starting to fetch user profile...');
         setLoading(true);
         setError(null);
-        
-        let user = null;
-        try {
-          const { data: { user: authUser }, error: authError } = await supabase.auth.getUser();
-          if (!authError) {
-            user = authUser;
-          }
-        } catch (authError) {
-          console.log('Dashboard: Auth check failed, proceeding with demo mode');
-        }
-        
+
         if (!user) {
           console.log('Dashboard: No authenticated user, showing demo');
+          if (!isMounted) return;
           setUserProfile(DEMO_PROFILE);
           setIsDemo(true);
           setLoading(false);
@@ -124,64 +77,47 @@ export default function Dashboard() {
         }
 
         console.log('Dashboard: Authenticated user found:', user.id);
+        setIsDemo(false);
 
-        // Try to fetch the profile with multiple attempts
-        let profileData = null;
-        let attempts = 0;
-        const maxAttempts = 5;
+        const { data: profileData, error: fetchError } = await supabase
+          .from("user_financial_profiles")
+          .select("*")
+          .eq("user_id", user.id)
+          .maybeSingle();
 
-        while (!profileData && attempts < maxAttempts) {
-          attempts++;
-          console.log(`Dashboard: Attempt ${attempts} to fetch profile for user:`, user.id);
-          
-          const { data, error: fetchError } = await supabase
-            .from("user_financial_profiles")
-            .select("*")
-            .eq("user_id", user.id)
-            .single();
+        if (!isMounted) return;
 
-          if (fetchError) {
-            if (fetchError.code === 'PGRST116') {
-              console.log(`Dashboard: No profile found on attempt ${attempts}`);
-              if (attempts < maxAttempts) {
-                await new Promise(resolve => setTimeout(resolve, 1000 * attempts));
-                continue;
-              }
-            } else {
-              console.error("Dashboard: Database error fetching profile:", fetchError);
-              setError(`Database error: ${fetchError.message}`);
-              break;
-            }
-          } else if (data) {
-            console.log('Dashboard: User profile found:', data);
-            profileData = data;
-            break;
-          }
+        if (fetchError) {
+          console.error("Dashboard: Database error fetching profile:", fetchError);
+          setError(`Database error: ${fetchError.message}`);
+          return;
         }
 
-        if (profileData) {
-          // Ensure the profile has required fields
-          if (!profileData.full_name) {
-            console.log('Dashboard: Profile exists but missing full_name, redirecting to onboarding');
-            setError('Profile incomplete - please complete your profile');
-          } else {
-            console.log('Dashboard: Setting complete profile');
-            setUserProfile(profileData);
-          }
-        } else {
-          console.log('Dashboard: No profile found after all attempts');
-          setError('No financial profile found - please complete your profile');
+        if (!profileData || !profileData.full_name) {
+          console.log('Dashboard: No complete profile found, redirecting to onboarding');
+          navigate("/onboarding", { replace: true });
+          return;
         }
+
+        console.log('Dashboard: Setting complete profile');
+        setUserProfile(profileData);
       } catch (error) {
+        if (!isMounted) return;
         console.error("Dashboard: Unexpected error:", error);
         setError('An unexpected error occurred while loading your profile');
       } finally {
-        setLoading(false);
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     };
 
-    fetchUserProfile();
-  }, [navigate]);
+    void fetchUserProfile();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [authLoading, navigate, user]);
 
   if (loading) {
     return (
@@ -225,9 +161,9 @@ export default function Dashboard() {
     );
   }
 
-  // Calculate dynamic data based on user profile
-  const netIncome = (userProfile.monthly_income || 0) - (userProfile.monthly_expenses || 0);
-  const savingsRate = userProfile.monthly_income ? Math.round((netIncome / userProfile.monthly_income) * 100) : 0;
+  const health = buildFinancialHealthAssessment(userProfile);
+  const netIncome = calculateNetIncome(userProfile);
+  const savingsRate = calculateSavingsRate(userProfile);
   
   // Mock spending data based on user's expenses
   const monthlySpending = [
@@ -247,7 +183,15 @@ export default function Dashboard() {
     { category: "Investments", value: totalSavings * 0.1 }
   ];
 
-  const aiAdvice = generateAIAdvice(userProfile);
+  const aiAdvice = buildRuleBasedAdvice(userProfile);
+  const assistantContext: AssistantContext = {
+    monthlyIncome: userProfile.monthly_income,
+    monthlyExpenses: userProfile.monthly_expenses,
+    savings: userProfile.current_savings,
+    debtAmount: userProfile.debt_amount,
+    goals: userProfile.financial_goals,
+    emergencyFundMonths: userProfile.emergency_fund_months,
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-tr from-background via-secondary to-background py-6 md:py-10 px-3 md:px-6 lg:px-10">
@@ -297,7 +241,22 @@ export default function Dashboard() {
       </div>
       
       {/* Summary Cards with real data */}
-      <div className="grid gap-4 md:gap-6 mb-8 md:mb-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto">
+      <div className="grid gap-4 md:gap-6 mb-8 md:mb-10 grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 max-w-7xl mx-auto">
+        <Card className="shadow hover:scale-105 hover:shadow-lg hover:bg-highlight/40 bg-secondary text-primary-foreground transition-all border-primary">
+          <CardHeader className="flex flex-row items-center gap-2 pb-2 md:pb-1">
+            <Activity className="text-primary w-5 h-5 md:w-6 md:h-6" />
+            <CardTitle className="text-base md:text-lg">Health Score</CardTitle>
+          </CardHeader>
+          <CardContent className="pt-0">
+            <div className="text-xl md:text-2xl font-bold text-primary">{health.score}/100</div>
+            <CardDescription className="mt-2 text-xs md:text-sm">
+              <span className="font-semibold capitalize text-success">{health.band}</span>
+              {" "}
+              financial foundation
+            </CardDescription>
+          </CardContent>
+        </Card>
+
         <Card className="shadow hover:scale-105 hover:shadow-lg hover:bg-highlight/40 bg-secondary text-primary-foreground transition-all border-primary">
           <CardHeader className="flex flex-row items-center gap-2 pb-2 md:pb-1">
             <CircleArrowUp className="text-primary w-5 h-5 md:w-6 md:h-6" />
@@ -324,7 +283,7 @@ export default function Dashboard() {
           </CardContent>
         </Card>
         
-        <Card className="shadow hover:scale-105 hover:shadow-lg hover:bg-highlight/40 bg-secondary text-primary-foreground transition-all border-accent sm:col-span-2 lg:col-span-1">
+        <Card className="shadow hover:scale-105 hover:shadow-lg hover:bg-highlight/40 bg-secondary text-primary-foreground transition-all border-accent sm:col-span-2 xl:col-span-1">
           <CardHeader className="flex flex-row items-center gap-2 pb-2 md:pb-1">
             <CircleArrowRight className="text-success w-5 h-5 md:w-6 md:h-6" />
             <CardTitle className="text-base md:text-lg">Savings Rate</CardTitle>
@@ -334,6 +293,46 @@ export default function Dashboard() {
             <CardDescription className="mt-2 text-xs md:text-sm">
               {savingsRate >= 20 ? "Excellent! 🎯" : savingsRate >= 10 ? "Good progress! 📈" : "Room to improve 💪"}
             </CardDescription>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="grid gap-6 md:gap-8 grid-cols-1 lg:grid-cols-2 max-w-7xl mx-auto mb-8">
+        <Card className="bg-card shadow border border-border">
+          <CardHeader>
+            <CardTitle className="text-base md:text-lg">What is going well</CardTitle>
+            <CardDescription>Signals that support your financial foundation</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {health.strengths.length > 0 ? (
+              health.strengths.map((strength) => (
+                <div key={strength} className="rounded-lg bg-success/10 px-4 py-3 text-sm text-foreground">
+                  {strength}
+                </div>
+              ))
+            ) : (
+              <p className="text-sm text-muted-foreground">
+                Complete more of your profile to unlock stronger financial insights.
+              </p>
+            )}
+          </CardContent>
+        </Card>
+
+        <Card className="bg-card shadow border border-border">
+          <CardHeader>
+            <CardTitle className="text-base md:text-lg">Next best actions</CardTitle>
+            <CardDescription>Priority moves based on your current profile</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {health.nextActions.map((action) => (
+              <div key={action.title} className="rounded-lg border border-primary/20 bg-primary/10 px-4 py-3">
+                <div className="flex items-center justify-between gap-3">
+                  <p className="text-sm font-semibold text-foreground">{action.title}</p>
+                  <span className="text-xs uppercase tracking-wide text-primary">{action.priority}</span>
+                </div>
+                <p className="mt-2 text-sm text-muted-foreground">{action.description}</p>
+              </div>
+            ))}
           </CardContent>
         </Card>
       </div>
@@ -386,7 +385,7 @@ export default function Dashboard() {
                 </Pie>
                 <Legend
                   wrapperStyle={{
-                    color: "#22d3ee",
+                    color: "#FFE4D0",
                     fontSize: "12px",
                   }}
                 />
@@ -463,11 +462,7 @@ export default function Dashboard() {
             name: userProfile.full_name, 
             email: userProfile.email || '' 
           }}
-          supabaseContext={{ 
-            monthlyIncome: userProfile.monthly_income,
-            savings: userProfile.current_savings,
-            goals: userProfile.financial_goals 
-          }}
+          supabaseContext={assistantContext}
         />
       )}
     </div>
